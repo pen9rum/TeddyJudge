@@ -7,18 +7,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerBo {
+public class TeacherBO { //這是跟業務邏輯有關，不是直接連資料庫，用來寫判斷是
 
-    private Long id;
-    private String name;
-    private String address;
+    private String id;
+    private String password;
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("id:" + id + ",");
-        sb.append("name:" + name + ",");
-        sb.append("address:" + address);
+        sb.append("password:" + password );
         return sb.toString();
     }
 }

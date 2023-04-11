@@ -1,6 +1,6 @@
 package com.Teddy.backend.entity;
 
-import lombok.AllArgsConstructor;
+import lombok.AllArgsConstructor;//把GET SET審略
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,10 +10,10 @@ import jakarta.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Customer {
-    @Id
+public class Student {
+    @Id// 放到SQL內
     private Long id;
-    private String name;
-    private String address;
+    private String password;
+
 
 }
