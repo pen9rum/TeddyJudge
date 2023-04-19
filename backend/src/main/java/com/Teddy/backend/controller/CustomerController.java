@@ -20,17 +20,7 @@ public class CustomerController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         System.out.println("apple");
-        teacherService.add(teacherBo);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<TeacherBO> getCustomer(@PathVariable("id") long id) {
-//        TeacherBO teacherBo = teacherService.get(id);
-//        if (TeacherBO.getId() != null) {
-//            return new ResponseEntity<>(teacherBo, HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
 }

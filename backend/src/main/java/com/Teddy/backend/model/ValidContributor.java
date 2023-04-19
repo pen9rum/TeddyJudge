@@ -1,7 +1,9 @@
-package com.Teddy.backend.service;
+package com.Teddy.backend.model;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ValidContributor {
-    public boolean IsStudentValidId (long id) {
+    public boolean isStudentValidId (long id) {
         //Student student =new Student();
         // available for 110~119 students
         int length = 0;
@@ -23,7 +25,7 @@ public class ValidContributor {
         return true;
     }
 
-    public boolean IsTeacherValidId (String id) {
+    public boolean isTeacherValidId (String id) {
         //Student student =new Student();
         // available for 110~119 students
         int length = 0;

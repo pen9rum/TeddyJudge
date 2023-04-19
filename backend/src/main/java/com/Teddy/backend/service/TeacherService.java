@@ -1,5 +1,6 @@
 package com.Teddy.backend.service;
 
+import com.Teddy.backend.model.ValidContributor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,11 @@ public class TeacherService {
 
     @Autowired
     private TeacherDao teacherDao;
+    @Autowired
     private ValidContributor validContributor;
 
     public boolean add(TeacherBO bo) {
-        if (validContributor.IsTeacherValidId(bo.getId()) == false) {
+        if (validContributor.isTeacherValidId(bo.getId()) == false) {
             return false;
         }
         Teacher entity = new Teacher();
