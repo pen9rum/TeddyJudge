@@ -1,0 +1,17 @@
+.homework-page-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.section-container {
+    margin-bottom: 2rem;
+}
+
+.section-content {
+    height: 2rem;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
