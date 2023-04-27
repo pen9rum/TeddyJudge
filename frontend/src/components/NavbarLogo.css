@@ -1,0 +1,10 @@
+.logo-container_dashboard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}

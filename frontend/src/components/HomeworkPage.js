@@ -2,10 +2,15 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import './HomeworkPage.css';
 import Navbar from './Navbar'
+import NavbarLogo from './NavbarLogo';
+
 
 const HomeworkPage = () => {
     return (
         <Container className="homework-page-container">
+            <Row>
+                <NavbarLogo />
+            </Row>
             <Row className="navigation-row">
                 <Col className="navigation-container">
                     <Navbar />

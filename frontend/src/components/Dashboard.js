@@ -1,7 +1,9 @@
 import React from 'react';
-import { Container, Row, Col, Button, Nav } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import Navbar from './Navbar';
+import NavbarLogo from './NavbarLogo';
 import './Dashboard.css';
+
 
 const Dashboard = () => {
     const userName = '泰迪熊';
@@ -10,9 +12,7 @@ const Dashboard = () => {
     return (
         <Container className="dashboard-container">
             <Row>
-                <Col className="logo-container">
-                    <span>Logo</span>
-                </Col>
+                <NavbarLogo />
             </Row>
             <Row className="navigation-row">
                 <Col className="navigation-container">

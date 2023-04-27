@@ -6,21 +6,26 @@
     align-items: center;
 }
 
-.logo-container {
+.logo-container_authpage {
     text-align: center;
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1rem;
 }
 
-.title-container {
+.title-container_authpage {
     text-align: center;
     font-size: 3rem;
     font-weight: bold;
     margin-bottom: 1rem;
 }
 
-.form-group {
+.title-container_authpage h1 {
+    font-size: 70px;
+}
+
+
+.form-group_authpagh {
     margin-bottom: 1rem;
 }
 
