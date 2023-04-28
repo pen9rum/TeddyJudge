@@ -11,12 +11,13 @@ public class TeacherBO { //這是跟業務邏輯有關，不是直接連資料�
 
     private String id;
     private String password;
-
+    private String confirm_password;
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("id:" + id + ",");
         sb.append("password:" + password );
+        sb.append("confirm_password:" + confirm_password );
         return sb.toString();
     }
 }

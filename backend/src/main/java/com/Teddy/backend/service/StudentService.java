@@ -8,6 +8,8 @@ import com.Teddy.backend.dao.StudentDao;
 import com.Teddy.backend.entity.Student;
 import com.Teddy.backend.model.StudentBO;
 
+import java.util.Optional;
+
 @Service
 public class StudentService {
 
@@ -26,6 +28,15 @@ public class StudentService {
         entity.setPassword(bo.getPassword());
         studentDao.save(entity);
         return true;
+    }
+
+    public boolean validateLogin(Long id, String password) {
+        Optional<Student> studentOptional = studentDao.findById(id);
+        if (studentOptional.isPresent()) {
+            Student student = studentOptional.get();
+            return student.getPassword().equals(password);
+        }
+        return false;
     }
 }
 

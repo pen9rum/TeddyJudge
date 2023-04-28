@@ -3,6 +3,22 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ValidContributor {
+    public boolean isTeacherPasswordAvailable(String password,String confirm_password)
+    {
+        if(password.equals(confirm_password))
+        {
+            return true;
+        }
+        return false;
+    }
+    public boolean isStudentPasswordAvailable(String password,String confirm_password)
+    {
+        if(password.equals(confirm_password))
+        {
+            return true;
+        }
+        return false;
+    }
     public boolean isStudentValidId (long id) {
         //Student student =new Student();
         // available for 110~119 students
