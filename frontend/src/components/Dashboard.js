@@ -1,13 +1,12 @@
 import React from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import Navbar from './Navbar';
 import NavbarLogo from './NavbarLogo';
+import HomeworkContainer from './HomeworkContainer';
 import './Dashboard.css';
-
 
 const Dashboard = () => {
     const userName = '泰迪熊';
-
 
     return (
         <Container className="dashboard-container">
@@ -21,21 +20,16 @@ const Dashboard = () => {
             </Row>
             <Row>
                 <Col className="welcome-container">
-                    <h2>Hi, {userName}</h2>
+                    <h2>Hi, {userName} 你回來了</h2>
                 </Col>
             </Row>
             <Row>
-                <Col className="question-container">
-                    <Button variant="outline-secondary" className="question-button">
-                        Question1
-                    </Button>
+                <Col>
+                    <h2>你還沒完成的作業</h2>
                 </Col>
             </Row>
-            <Row>
-                <Col className="due-container">
-                    <span>Due: 2023-05-01</span>
-                </Col>
-            </Row>
+
+            <HomeworkContainer homeworkTitle="HW 2" dueDate="12/31/2023" />
         </Container>
     );
 };

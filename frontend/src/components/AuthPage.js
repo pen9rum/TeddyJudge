@@ -34,9 +34,9 @@ const AuthPage = () => {
             <Form >
                 {!isSignUp && (
                     <>
-                        <Form.Group className="form-group_authpagh" controlId="formBasicEmail">
+                        <Form.Group className="form-group_authpagh" controlId="formBasicId">
                             <Form.Label>Login</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" />
+                            <Form.Control type="id" placeholder="Enter id" />
                         </Form.Group>
 
                         <Form.Group className="form-group_authpagh" controlId="formBasicPassword">
@@ -53,9 +53,9 @@ const AuthPage = () => {
                 )}
                 {isSignUp && (
                     <>
-                        <Form.Group className="form-group_authpagh" controlId="formSignUpEmail">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" />
+                        <Form.Group className="form-group_authpagh" controlId="formSignUpId">
+                            <Form.Label>Id</Form.Label>
+                            <Form.Control type="id" placeholder="Enter id" />
                         </Form.Group>
 
                         <Form.Group className="form-group_authpagh" controlId="formSignUpPassword">

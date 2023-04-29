@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import './HomeworkPage.css';
 import Navbar from './Navbar'
 import NavbarLogo from './NavbarLogo';
-
+import HomeworkContainer from './HomeworkContainer';
 
 const HomeworkPage = () => {
     return (
@@ -19,8 +19,13 @@ const HomeworkPage = () => {
             <Row>
                 <Col className="section-container">
                     <h2>當週作業</h2>
-                    <div className="section-content"></div>
+                    <div className="section-content">
+                        <div className="homework-wrapper">
+                            <HomeworkContainer homeworkTitle="HW 2" dueDate="12/31/2023" />
+                        </div>
+                    </div>
                 </Col>
+
             </Row>
             <Row>
                 <Col className="section-container">

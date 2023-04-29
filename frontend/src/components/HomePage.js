@@ -6,10 +6,13 @@ import { Link } from 'react-router-dom';
 import logoImage from '../images/logo.png';
 import schoolLogoImage from '../images/school_logo.jpg'
 
+
 const HomePage = () => {
     return (
         <Container className="homepage-container">
+
             <Row>
+
                 <Col className="logo-container_home">
                     <Image src={logoImage} alt="Logo 1" fluid />
                 </Col>
