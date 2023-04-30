@@ -8,6 +8,7 @@ import Dashboard from './components/Dashboard';
 import HomeworkPage from './components/HomeworkPage';
 import ProblemPage from './components/ProblemPage';
 import ResultPage from './components/ResultPage';
+import SettingPage from './components/SettingPage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/homework" element={<HomeworkPage />} />
           <Route path="/problem" element={<ProblemPage />} />
           <Route path="/result" element={<ResultPage />} />
+          <Route path="/setting" element={<SettingPage />} />
         </Routes>
       </Router>
     </div>

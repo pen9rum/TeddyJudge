@@ -18,7 +18,7 @@ const Navbar = () => {
                 <Nav.Link href="#">Course</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link href="#">Setting</Nav.Link>
+                <Nav.Link href="/setting">Setting</Nav.Link>
             </Nav.Item>
         </Nav>
     );
