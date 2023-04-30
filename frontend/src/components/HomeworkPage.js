@@ -44,7 +44,7 @@ const HomeworkPage = () => {
 
                     <div className="section-content">
                         <div className='score-wrapper'>
-                            <ScoreContainer homeworkTitle="HW 2" score="81" />
+                            <ScoreContainer homeworkTitle="HW 2" score="90" />
                         </div>
                     </div>
                 </Col>

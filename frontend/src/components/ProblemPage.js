@@ -28,11 +28,11 @@ const ProblemPage = () => {
             <Row className="row-70em">
                 <Col className="d-flex justify-content-start">
                     <a className="a-pdf" href="https://example.com" target="_blank" rel="noopener noreferrer">
-                        HW1 -&gt; PDF
+                        HW1-Math Operation -&gt; PDF
                     </a>
                 </Col>
             </Row>
-            <Row className="row-70em">
+            <Row className="row-70em mt-5">
                 <Col className='col-submit'>
                     <h4>SUBMIT:</h4>
                 </Col>

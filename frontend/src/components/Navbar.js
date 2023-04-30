@@ -1,24 +1,56 @@
 import React from 'react';
-import './Navbar.css'
+import './Navbar.css';
 import { Nav } from 'react-bootstrap';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
+    const location = useLocation();
+
+    const isActive = (path) => {
+        return location.pathname === path ? 'selected' : '';
+    };
+
     return (
         <Nav className="justify-content-center">
-            <Nav.Item>
-                <Nav.Link href="/dashboard">Home</Nav.Link>
+            <Nav.Item className={isActive('/dashboard')}>
+                <NavLink
+                    to="/dashboard"
+                    className="nav-link"
+                >
+                    Home
+                </NavLink>
             </Nav.Item>
-            <Nav.Item>
-                <Nav.Link href="/homework">HW</Nav.Link>
+            <Nav.Item className={isActive('/homework')}>
+                <NavLink
+                    to="/homework"
+                    className="nav-link"
+                >
+                    HW
+                </NavLink>
             </Nav.Item>
-            <Nav.Item>
-                <Nav.Link href="#">Contest</Nav.Link>
+            <Nav.Item className={isActive('/contest')}>
+                <NavLink
+                    to="/contest"
+                    className="nav-link"
+                >
+                    Contest
+                </NavLink>
             </Nav.Item>
-            <Nav.Item>
-                <Nav.Link href="#">Course</Nav.Link>
+            <Nav.Item className={isActive('/course')}>
+                <NavLink
+                    to="/course"
+                    className="nav-link"
+                >
+                    Course
+                </NavLink>
             </Nav.Item>
-            <Nav.Item>
-                <Nav.Link href="/setting">Setting</Nav.Link>
+            <Nav.Item className={isActive('/setting')}>
+                <NavLink
+                    to="/setting"
+                    className="nav-link"
+                >
+                    Setting
+                </NavLink>
             </Nav.Item>
         </Nav>
     );

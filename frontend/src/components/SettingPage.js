@@ -71,7 +71,7 @@ const SettingPage = () => {
             <Row className="row-width-40em">
                 <Col className="d-flex justify-content-end">
                     <Button>
-                        RETURN
+                        SAVE+RETURN
                     </Button>
                 </Col>
             </Row>

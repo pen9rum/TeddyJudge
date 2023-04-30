@@ -20,10 +20,10 @@ const ResultPage = () => {
             </Row>
             <Row className="row-width-70em">
                 <Col className="d-flex justify-content-center">
-                    <h1>HW1</h1>
+                    <h1>HW1-Math Operation</h1>
                 </Col>
                 <Col className="d-flex justify-content-center">
-                    <h1>90/100</h1>
+                    <h1> <span className="red-90">90</span>/100</h1>
                 </Col>
             </Row>
             <Row className="row-width-70em">

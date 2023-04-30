@@ -1,34 +1,37 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import './HomeworkContainer.css';
+import styles from './HomeworkContainer.module.css';
+import PropTypes from 'prop-types';
 
+// A reusable homework container component with a title, due date, and navigation button
 const HomeworkContainer = ({ homeworkTitle, dueDate }) => {
-
-
     return (
-        <Container className="homework-container">
+        <Container className={styles.homeworkContainer}>
             <Row>
                 <Col>
-                    <Row>
-                        <Col className="text-center py-2">
-                            <h4>{homeworkTitle}</h4>
+                    <Row className="mt-3">
+                        <Col className={`text-start ${styles.homeworkTitle}`}>
+                            <header>
+                                <h4 className="mx-3">{homeworkTitle}</h4>
+                            </header>
                         </Col>
                     </Row>
                     <Row>
-                        <Col className="text-center py-2">
-                            <h4>Due</h4>
+                        <Col className="text-start ">
+                            <h4 className="mx-3">Due</h4>
+                        </Col>
+                        <Col className={`text-end  ${styles.dueDate}`}>
+                            <h4 className="mx-3">{dueDate}</h4>
                         </Col>
                     </Row>
                 </Col>
 
-                <Col className="text-center py-2 due-date">
-                    <h4>{dueDate}</h4>
-                </Col>
 
-                <Col className="text-center col-btn-go d-flex justify-content-end ">
-                    <Link to="/problem">
-                        <Button className="btn-go " variant="primary" >
+
+                <Col className={`text-center ${styles.colBtnGo} d-flex justify-content-end p-0`}>
+                    <Link to="/problem" >
+                        <Button className={`btn-go ${styles.btnGo}`} variant="primary">
                             Go
                         </Button>
                     </Link>
@@ -36,6 +39,12 @@ const HomeworkContainer = ({ homeworkTitle, dueDate }) => {
             </Row>
         </Container>
     );
+};
+
+// Define propTypes for better maintainability and error checking
+HomeworkContainer.propTypes = {
+    homeworkTitle: PropTypes.string.isRequired,
+    dueDate: PropTypes.string.isRequired,
 };
 
 export default HomeworkContainer;
