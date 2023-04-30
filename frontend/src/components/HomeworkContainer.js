@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import './HomeworkContainer.css';
 
 const HomeworkContainer = ({ homeworkTitle, dueDate }) => {
@@ -28,9 +29,11 @@ const HomeworkContainer = ({ homeworkTitle, dueDate }) => {
                 </Col>
 
                 <Col className="text-center col-btn-go">
-                    <Button className="btn-go" variant="primary" onClick={handleClick}>
-                        Go
-                    </Button>
+                    <Link to="/problem">
+                        <Button className="btn-go" variant="primary" onClick={handleClick}>
+                            Go
+                        </Button>
+                    </Link>
                 </Col>
             </Row>
         </Container>

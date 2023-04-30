@@ -6,6 +6,7 @@ import AuthPage from './components/AuthPage';
 import HomePage from './components/HomePage';
 import Dashboard from './components/Dashboard';
 import HomeworkPage from './components/HomeworkPage';
+import ProblemPage from './components/ProblemPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/homework" element={<HomeworkPage />} />
+          <Route path="/problem" element={<ProblemPage />} />
         </Routes>
       </Router>
     </div>
