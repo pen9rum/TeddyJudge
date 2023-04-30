@@ -1,15 +1,14 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import './ScoreContainer.css';
+import { Link } from 'react-router-dom';
 
 const ScoreContainer = ({ homeworkTitle, score }) => {
-    const handleClick = () => {
-        alert('Go Button clicked!');
-    };
+
 
     return (
         <Container className="score-container">
-            <Row>
+            <Row className="row-score">
                 <Col>
                     <Row>
                         <Col className="text-center py-2">
@@ -27,16 +26,21 @@ const ScoreContainer = ({ homeworkTitle, score }) => {
                     <h4>{score}/100</h4>
                 </Col>
 
-                <Col className="text-center col-btn-go">
-                    <Button className="btn-detail" variant="primary" onClick={handleClick}>
-                        Detail
-                    </Button>
+                <Col className=" text-center col-btn-detail mt-1 mb-1 d-flex justify-content-end  ">
+                    <Link to="/result">
+                        <Button className="btn-detail" variant="primary" >
+                            Detail
+                        </Button>
+                    </Link>
+
                 </Col>
 
-                <Col className="text-center col-btn-go">
-                    <Button className="btn-submit" variant="primary" onClick={handleClick}>
-                        Submit
-                    </Button>
+                <Col className="text-center col-btn-detail mt-1 mb-1 d-flex justify-content-end">
+                    <Link to="/problem">
+                        <Button className="btn-submit" variant="primary" >
+                            Submit
+                        </Button>
+                    </Link>
                 </Col>
             </Row>
         </Container>

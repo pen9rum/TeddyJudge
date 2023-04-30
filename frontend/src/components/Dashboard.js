@@ -24,12 +24,18 @@ const Dashboard = () => {
                 </Col>
             </Row>
             <Row>
-                <Col>
+
+                <Col className="section-container">
                     <h2>你還沒完成的作業</h2>
                 </Col>
+                <div className="section-content">
+                    <div className="mt-3 mb-3">
+                        <HomeworkContainer homeworkTitle="HW 2" dueDate="12/31/2023" />
+                    </div>
+                </div>
             </Row>
 
-            <HomeworkContainer homeworkTitle="HW 2" dueDate="12/31/2023" />
+
         </Container>
     );
 };

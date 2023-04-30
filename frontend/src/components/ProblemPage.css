@@ -1,4 +1,13 @@
-/* ProblemPage.css */
+.problem-page-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+
 .problem-container {
     margin-top: 2rem;
 }
@@ -29,4 +38,10 @@
 
 .a-pdf {
     font-size: 30px;
+}
+
+
+
+.row-70em {
+    width: 70em;
 }

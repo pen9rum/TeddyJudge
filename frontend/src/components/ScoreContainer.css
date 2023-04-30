@@ -1,26 +1,25 @@
 .score-container {
     border: 2px solid black;
-    max-width: 500px;
+    max-width: 800px;
 }
 
-.due-date {
-    align-self: flex-end;
-}
 
-.col-btn-go {
-    width: 100px;
+
+
+.col-btn-detail {
     height: 100px;
-    align-self: center;
+    flex-basis: calc((100% / 12) * 1.7);
+    max-width: calc((100% / 12) * 1.7);
 }
 
 .btn-detail {
-    width: 100%;
+    width: 100px;
     height: 100%;
     font-size: 1.5rem;
 }
 
 .btn-submit {
-    width: 100%;
+    width: 100px;
     height: 100%;
     font-size: 1.5rem;
 }

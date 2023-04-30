@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom';
 import './HomeworkContainer.css';
 
 const HomeworkContainer = ({ homeworkTitle, dueDate }) => {
-    const handleClick = () => {
-        alert('Go Button clicked!');
-    };
+
 
     return (
         <Container className="homework-container">
@@ -28,9 +26,9 @@ const HomeworkContainer = ({ homeworkTitle, dueDate }) => {
                     <h4>{dueDate}</h4>
                 </Col>
 
-                <Col className="text-center col-btn-go">
+                <Col className="text-center col-btn-go d-flex justify-content-end ">
                     <Link to="/problem">
-                        <Button className="btn-go" variant="primary" onClick={handleClick}>
+                        <Button className="btn-go " variant="primary" >
                             Go
                         </Button>
                     </Link>
