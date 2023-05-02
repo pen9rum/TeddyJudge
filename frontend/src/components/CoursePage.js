@@ -6,8 +6,6 @@ import styles from './CoursePage.module.css';
 import DownloadFileContainer from './DownloadFileContainer';
 
 const CoursePage = () => {
-
-
     return (
         <Container className={styles.courseContainer}>
             <Row >

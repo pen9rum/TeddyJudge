@@ -10,6 +10,7 @@ import ProblemPage from './components/ProblemPage';
 import ResultPage from './components/ResultPage';
 import SettingPage from './components/SettingPage';
 import CoursePage from './components/CoursePage';
+import ContestPage from './components/ContestPage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/result" element={<ResultPage />} />
           <Route path="/setting" element={<SettingPage />} />
           <Route path="/course" element={<CoursePage />} />
+          <Route path="/contest" element={<ContestPage />} />
         </Routes>
       </Router>
     </div>
