@@ -12,6 +12,7 @@ import SettingPage from './components/SettingPage';
 import CoursePage from './components/CoursePage';
 import ContestPage from './components/ContestPage';
 import ContestListPage from './components/ContestListPage';
+import ContestResultPage from './components/ContestResultPage';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/course" element={<CoursePage />} />
           <Route path="/contest" element={<ContestPage />} />
           <Route path="/contestList/:param" element={<ContestListPage />} />
+          <Route path="/contestResult/:param" element={<ContestResultPage />} />
         </Routes>
       </Router>
     </div>

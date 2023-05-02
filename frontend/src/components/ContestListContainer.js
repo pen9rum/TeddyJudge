@@ -31,7 +31,7 @@ const ContestListContainer = ({ contestTitle, result, score, scoreTotal, isAnsOr
                         </Link>
                     </Col>
                 ) : (<Col className={`text-center ${styles.colBtnAns} d-flex justify-content-end p-0`}>
-                    <Link to="/contestReview" >
+                    <Link to={`/contestResult/${contestTitle}`}  >
                         <Button className={`btn-go ${styles.btnReview}`} variant="primary">
                             Review
                         </Button>
