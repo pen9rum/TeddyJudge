@@ -3,9 +3,9 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import './ContestContainer.module.css';
 import { Link } from 'react-router-dom';
 
-const ContestContainer = ({ contestTitle, status, score, dueDate, buttonTitle }) => {
-
-
+const ContestContainer = ({ contestTitle, status, score, dueDate, btnStatus }) => {
+    const GoStr = 'Go';
+    const ReviewStr = 'Review';
     return (
         <Container className="score-container">
             <Row className="row-score">
@@ -30,11 +30,22 @@ const ContestContainer = ({ contestTitle, status, score, dueDate, buttonTitle })
 
 
                 <Col className=" text-center col-btn-detail d-flex justify-content-end  p-0 ">
-                    <Link to="/result">
-                        <Button className="btn-detail" variant="primary" >
-                            {buttonTitle}
-                        </Button>
-                    </Link>
+                    {btnStatus ? (
+
+                        <Link to={`/contestList/${GoStr}`}>
+                            <Button className="btn-detail" variant="primary" >
+                                Go
+                            </Button>
+                        </Link>
+                    ) : (
+                        <Link to={`/contestList/${ReviewStr}`}>
+                            <Button className="btn-detail" variant="primary" >
+                                Review
+                            </Button>
+                        </Link>
+                    )
+
+                    }
 
                 </Col>
 

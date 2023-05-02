@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Form } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import Navbar from './Navbar';
 import NavbarLogo from './NavbarLogo';
 import styles from './ContestPage.module.css';
@@ -24,7 +24,7 @@ const ContestPage = () => {
 
             <Row className={`${styles.rowWidth70em} `}>
                 <Col>
-                    < ContestContainer contestTitle={"Contest 3"} status={false} dueDate={"12/31/2023"} buttonTitle={"Go"} />
+                    < ContestContainer contestTitle={"Contest 3"} status={false} dueDate={"12/31/2023"} btnStatus={true} />
                 </Col>
             </Row>
 
@@ -36,13 +36,13 @@ const ContestPage = () => {
 
             <Row className={`${styles.rowWidth70em}`}>
                 <Col >
-                    < ContestContainer contestTitle={"Contest 2"} status={true} score={"285"} buttonTitle={"Review"} />
+                    < ContestContainer contestTitle={"Contest 2"} status={true} score={"285"} btnStatus={false} />
                 </Col>
             </Row>
 
             <Row className={`${styles.rowWidth70em}`}>
                 <Col className={`mb-5`}>
-                    < ContestContainer contestTitle={"Contest 1"} status={true} score={"315"} buttonTitle={"Review"} />
+                    < ContestContainer contestTitle={"Contest 1"} status={true} score={"315"} btnStatus={false} />
                 </Col>
             </Row>
 

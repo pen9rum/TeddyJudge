@@ -11,6 +11,7 @@ import ResultPage from './components/ResultPage';
 import SettingPage from './components/SettingPage';
 import CoursePage from './components/CoursePage';
 import ContestPage from './components/ContestPage';
+import ContestListPage from './components/ContestListPage';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/setting" element={<SettingPage />} />
           <Route path="/course" element={<CoursePage />} />
           <Route path="/contest" element={<ContestPage />} />
+          <Route path="/contestList/:param" element={<ContestListPage />} />
         </Routes>
       </Router>
     </div>
