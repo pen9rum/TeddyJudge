@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Image } from 'react-bootstrap';
-import logoImage from '../images/logo.png';
+import logoImage from '../../images/logo.png';
 import './NavbarLogo.css';
 
 const NavbarLogo = () => {

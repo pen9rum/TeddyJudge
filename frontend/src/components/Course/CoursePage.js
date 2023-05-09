@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
-import Navbar from './Navbar';
-import NavbarLogo from './NavbarLogo';
+import Navbar from '../Navbar/Navbar';
+import NavbarLogo from '../Navbar/NavbarLogo';
 import styles from './CoursePage.module.css';
-import DownloadFileContainer from './DownloadFileContainer';
+import DownloadFileContainer from '../Download/DownloadFileContainer';
 
 const CoursePage = () => {
     return (

@@ -3,8 +3,8 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import './HomePage.css';
 import { Link } from 'react-router-dom';
-import logoImage from '../images/logo.png';
-import schoolLogoImage from '../images/school_logo.jpg'
+import logoImage from '../../images/logo.png';
+import schoolLogoImage from '../../images/school_logo.jpg'
 
 
 const HomePage = () => {

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import Navbar from './Navbar';
-import NavbarLogo from './NavbarLogo';
-import HomeworkContainer from './HomeworkContainer';
+import Navbar from '../Navbar/Navbar';
+import NavbarLogo from '../Navbar/NavbarLogo';
+import HomeworkContainer from '../Homework/HomeworkContainer';
 import './Dashboard.css';
 
 const Dashboard = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import Navbar from './Navbar';
-import NavbarLogo from './NavbarLogo';
+import Navbar from '../Navbar/Navbar';
+import NavbarLogo from '../Navbar/NavbarLogo';
 import styles from './ContestResultPage.module.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import ContestResultContainer from './ContestResultContainer'

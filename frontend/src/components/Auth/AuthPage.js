@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, NavLink } from 'react-bootstrap';
 import './AuthPage.css';
 import { Link } from 'react-router-dom';
-import logoImage from '../images/logo.png';
-import schoolLogoImage from '../images/school_logo.jpg'
+import logoImage from '../../images/logo.png';
+import schoolLogoImage from '../../images/school_logo.jpg'
 import Image from 'react-bootstrap/Image';
 
 const AuthPage = () => {

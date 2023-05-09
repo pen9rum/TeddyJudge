@@ -2,8 +2,8 @@
 import React from 'react';
 import { Container, Row, Col, Button, FormControl } from 'react-bootstrap';
 import './ProblemPage.css'
-import Navbar from './Navbar'
-import NavbarLogo from './NavbarLogo';
+import Navbar from '../Navbar/Navbar';
+import NavbarLogo from '../Navbar/NavbarLogo';
 import { Link } from 'react-router-dom';
 
 const ProblemPage = () => {

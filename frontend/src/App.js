@@ -2,17 +2,17 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import AuthPage from './components/AuthPage';
-import HomePage from './components/HomePage';
-import Dashboard from './components/Dashboard';
-import HomeworkPage from './components/HomeworkPage';
-import ProblemPage from './components/ProblemPage';
-import ResultPage from './components/ResultPage';
-import SettingPage from './components/SettingPage';
-import CoursePage from './components/CoursePage';
-import ContestPage from './components/ContestPage';
-import ContestListPage from './components/ContestListPage';
-import ContestResultPage from './components/ContestResultPage';
+import AuthPage from './components/Auth/AuthPage';
+import HomePage from './components/Home/HomePage';
+import Dashboard from './components/Dashboard/Dashboard';
+import HomeworkPage from './components/Homework/HomeworkPage';
+import ProblemPage from './components/Problem/ProblemPage';
+import ResultPage from './components/Result/ResultPage';
+import SettingPage from './components/Setting/SettingPage';
+import CoursePage from './components/Course/CoursePage';
+import ContestPage from './components/Contest/ContestPage';
+import ContestListPage from './components/Contest/ContestListPage';
+import ContestResultPage from './components/Contest/ContestResultPage';
 
 function App() {
   return (

@@ -1,10 +1,8 @@
 import React from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import './SettingPage.css'
-import Navbar from './Navbar'
-import NavbarLogo from './NavbarLogo';
-
-
+import Navbar from '../Navbar/Navbar';
+import NavbarLogo from '../Navbar/NavbarLogo';
 
 const SettingPage = () => {
     return (

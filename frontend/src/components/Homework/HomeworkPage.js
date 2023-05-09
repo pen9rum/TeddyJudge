@@ -1,10 +1,10 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import './HomeworkPage.css';
-import Navbar from './Navbar'
-import NavbarLogo from './NavbarLogo';
-import HomeworkContainer from './HomeworkContainer';
-import ScoreContainer from './ScoreContainer';
+import Navbar from '../Navbar/Navbar';
+import NavbarLogo from '../Navbar/NavbarLogo';
+import HomeworkContainer from '../Homework/HomeworkContainer';
+import ScoreContainer from '../Score/ScoreContainer';
 
 const HomeworkPage = () => {
     return (
