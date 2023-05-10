@@ -1,17 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Container, Row, Col, Form, Button, NavLink } from 'react-bootstrap';
 import './AuthPage.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logoImage from '../../images/logo.png';
 import schoolLogoImage from '../../images/school_logo.jpg'
 import Image from 'react-bootstrap/Image';
+import { AuthContext } from './AuthContext';
 
 const AuthPage = () => {
+    const navigate = useNavigate();
     const [isSignUp, setIsSignUp] = useState(false);
+    const { setIsAuthenticated } = useContext(AuthContext);
 
     const switchAuthModeHandler = () => {
         setIsSignUp(!isSignUp);
     };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // Add your authentication logic here, for example
+        // const id = e.target.elements.formBasicId.value;
+        // const password = e.target.elements.formBasicPassword.value;
+
+        // const isAuthenticated = await authenticateUser(id, password); // You need to implement this function
+        const isAuthenticated = true;
+        if (isAuthenticated) {
+            setIsAuthenticated(true);
+            navigate('/dashboard');
+        } else {
+            // Handle failed authentication
+        }
+    }
 
     return (
         <Container className="auth-container">
@@ -31,7 +51,7 @@ const AuthPage = () => {
                     <h1>TeddyJudge</h1>
                 </Col>
             </Row>
-            <Form >
+            <Form onSubmit={handleSubmit}>
                 {!isSignUp && (
                     <>
                         <Form.Group className="form-group_authpagh" controlId="formBasicId">
@@ -44,11 +64,9 @@ const AuthPage = () => {
                             <Form.Control type="password" placeholder="Password" />
                         </Form.Group>
 
-                        <Link to="/dashboard">
-                            <Button variant="primary" type="submit">
-                                Login
-                            </Button>
-                        </Link>
+                        <Button variant="primary" type="submit">
+                            Login
+                        </Button>
                     </>
                 )}
                 {isSignUp && (
