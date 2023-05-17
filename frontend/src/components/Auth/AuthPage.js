@@ -6,8 +6,10 @@ import logoImage from '../../images/logo.png';
 import schoolLogoImage from '../../images/school_logo.jpg'
 import Image from 'react-bootstrap/Image';
 import { AuthContext } from './AuthContext';
+import { RoleContext } from './RoleContext';
 
 const AuthPage = () => {
+    const { role } = useContext(RoleContext);
     const navigate = useNavigate();
     const [isSignUp, setIsSignUp] = useState(false);
     const { setIsAuthenticated } = useContext(AuthContext);
@@ -19,9 +21,16 @@ const AuthPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Add your authentication logic here, for example
-        // const id = e.target.elements.formBasicId.value;
-        // const password = e.target.elements.formBasicPassword.value;
+        // let id, password;
+        // if (role === 'student') {
+        //     id = e.target.elements.formBasicId.value;
+        //     password = e.target.elements.formBasicPassword.value;
+        //     // ... 學生身份驗證邏輯 ...
+        // } else if (role === 'teacher') {
+        //     id = e.target.elements.formTeacherId.value;
+        //     password = e.target.elements.formTeacherPassword.value;
+        //     // ... 老師身份驗證邏輯 ...
+        // }
 
         // const isAuthenticated = await authenticateUser(id, password); // You need to implement this function
         const isAuthenticated = true;
@@ -52,7 +61,7 @@ const AuthPage = () => {
                 </Col>
             </Row>
             <Form onSubmit={handleSubmit}>
-                {!isSignUp && (
+                {role === 'student' && !isSignUp && (
                     <>
                         <Form.Group className="form-group_authpagh" controlId="formBasicId">
                             <Form.Label>Login</Form.Label>
@@ -69,7 +78,7 @@ const AuthPage = () => {
                         </Button>
                     </>
                 )}
-                {isSignUp && (
+                {role === 'student' && isSignUp && (
                     <>
                         <Form.Group className="form-group_authpagh" controlId="formSignUpId">
                             <Form.Label>Id</Form.Label>
@@ -91,20 +100,42 @@ const AuthPage = () => {
                         </Button>
                     </>
                 )}
-                <Row className="auth-switch">
-                    <Col>
-                        {isSignUp ? (
-                            <NavLink onClick={switchAuthModeHandler}>
-                                Already have an account? Log in here
-                            </NavLink>
-                        ) : (
-                            <NavLink onClick={switchAuthModeHandler}>
-                                Don't have an account? Sign up here
-                            </NavLink>
-                        )}
-                    </Col>
+                {role === 'teacher' && (
+                    <>
+                        <Form.Group className="form-group_authpagh" controlId="formTeacherId">
+                            <Form.Label>Id</Form.Label>
+                            <Form.Control type="id" placeholder="Enter id" />
+                        </Form.Group>
 
-                </Row>
+                        <Form.Group className="form-group_authpagh" controlId="formTeacherPassword">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" placeholder="Password" />
+                        </Form.Group>
+
+                        <Button variant="primary" type="submit">
+                            Login
+                        </Button>
+                    </>
+                )}
+                {role === 'student' && (
+                    <Row className="auth-switch">
+                        <Col>
+                            {isSignUp ? (
+                                <NavLink onClick={switchAuthModeHandler}>
+                                    Already have an account? Log in here
+                                </NavLink>
+                            ) : (
+                                <NavLink onClick={switchAuthModeHandler}>
+                                    Don't have an account? Sign up here
+                                </NavLink>
+                            )}
+                        </Col>
+
+                    </Row>
+                )}
+
+
+
             </Form>
         </Container>
     );
