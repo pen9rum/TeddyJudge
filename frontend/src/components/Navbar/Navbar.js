@@ -1,52 +1,57 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Navbar.css';
 import { Nav } from 'react-bootstrap';
 import { NavLink, useLocation } from 'react-router-dom';
+import { RoleContext } from '../Auth/RoleContext';
 
 const Navbar = () => {
     const location = useLocation();
+    const { role } = useContext(RoleContext);
 
     const isActive = (path) => {
         return location.pathname === path ? 'selected' : '';
     };
 
+    // 依照 role 給定不同的路由前綴
+    const prefix = role === 'teacher' ? '/t' : '/';
+
     return (
         <Nav className="justify-content-center">
-            <Nav.Item className={isActive('/dashboard')}>
+            <Nav.Item className={isActive(prefix + 'dashboard')}>
                 <NavLink
-                    to="/dashboard"
+                    to={prefix + "dashboard"}
                     className="nav-link"
                 >
                     Home
                 </NavLink>
             </Nav.Item>
-            <Nav.Item className={isActive('/homework')}>
+            <Nav.Item className={isActive(prefix + 'homework')}>
                 <NavLink
-                    to="/homework"
+                    to={prefix + "homework"}
                     className="nav-link"
                 >
                     HW
                 </NavLink>
             </Nav.Item>
-            <Nav.Item className={isActive('/contest')}>
+            <Nav.Item className={isActive(prefix + 'contest')}>
                 <NavLink
-                    to="/contest"
+                    to={prefix + "contest"}
                     className="nav-link"
                 >
                     Contest
                 </NavLink>
             </Nav.Item>
-            <Nav.Item className={isActive('/course')}>
+            <Nav.Item className={isActive(prefix + 'course')}>
                 <NavLink
-                    to="/course"
+                    to={prefix + "course"}
                     className="nav-link"
                 >
                     Course
                 </NavLink>
             </Nav.Item>
-            <Nav.Item className={isActive('/setting')}>
+            <Nav.Item className={isActive(prefix + 'setting')}>
                 <NavLink
-                    to="/setting"
+                    to={prefix + "setting"}
                     className="nav-link"
                 >
                     Setting

@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthPage from './components/Auth/AuthPage';
 import HomePage from './components/Home/HomePage';
 import Dashboard from './components/Dashboard/Dashboard';
+import TDashboard from './components/Dashboard/TDashboard';
 import HomeworkPage from './components/Homework/HomeworkPage';
 import ProblemPage from './components/Problem/ProblemPage';
 import ResultPage from './components/Result/ResultPage';
@@ -28,6 +29,9 @@ function App() {
               <Route path="/auth" element={<AuthPage />} />
               <Route path="/dashboard" element={<ProtectedRoute />}>
                 <Route index element={<Dashboard />} />
+              </Route>
+              <Route path="/tdashboard" element={<ProtectedRoute />}>
+                <Route index element={<TDashboard />} />
               </Route>
               <Route path="/homework" element={<ProtectedRoute />}>
                 <Route index element={<HomeworkPage />} />

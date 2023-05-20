@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Container, Row, Col, Form, Button, NavLink } from 'react-bootstrap';
 import './AuthPage.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import logoImage from '../../images/logo.png';
 import schoolLogoImage from '../../images/school_logo.jpg'
 import Image from 'react-bootstrap/Image';
@@ -36,7 +36,12 @@ const AuthPage = () => {
         const isAuthenticated = true;
         if (isAuthenticated) {
             setIsAuthenticated(true);
-            navigate('/dashboard');
+            if (role === "student") {
+                navigate('/dashboard');
+            } else {
+                navigate('/tdashboard');
+            }
+
         } else {
             // Handle failed authentication
         }
