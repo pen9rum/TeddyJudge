@@ -48,7 +48,7 @@ const TCoursePage = () => {
                     <Button
                         className={`${styles.btnDetail}`}
                         variant="primary"
-                        onClick={() => navigate('input')}
+                        onClick={() => navigate('list')}
                     >
                         Go
                     </Button>

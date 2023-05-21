@@ -14,6 +14,7 @@ import SettingPage from './components/Setting/SettingPage';
 import CoursePage from './components/Course/CoursePage';
 import TCoursePage from './components/Course/TCoursePage';
 import TCourseInput from './components/Course/TCourseInput';
+import TCourseList from './components/Course/TCourseList';
 import ContestPage from './components/Contest/ContestPage';
 import ContestListPage from './components/Contest/ContestListPage';
 import ContestResultPage from './components/Contest/ContestResultPage';
@@ -52,6 +53,7 @@ export const routes = (
         <Route path="/tcourse" element={<ProtectedRoute />}>
             <Route index element={<TCoursePage />} />
             <Route path="input" element={<TCourseInput />} />
+            <Route path="list" element={<TCourseList />} />
         </Route>
         <Route path="/contest" element={<ProtectedRoute />}>
             <Route index element={<ContestPage />} />
