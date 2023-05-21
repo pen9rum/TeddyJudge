@@ -28,8 +28,8 @@ const THomeworkDetail = () => {
             <Row>
                 <NavbarLogo />
             </Row>
-            <Row className={styles.navigationRow}>
-                <Col className={styles.navigationContainer}>
+            <Row className="navigation-row">
+                <Col className="navigation-container">
                     <Navbar />
                 </Col>
             </Row>

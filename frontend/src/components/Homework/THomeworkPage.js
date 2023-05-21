@@ -1,6 +1,7 @@
 // THomeworkPage.js
 
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import styles from './THomeworkPage.module.css';
 import Navbar from '../Navbar/Navbar';
@@ -9,7 +10,7 @@ import THomeworkContainer from '../Homework/THomeworkContainer';
 import axios from 'axios';
 
 const THomeworkPage = () => {
-
+    const navigate = useNavigate();
     const [homeworkData, setHomeworkData] = useState([]);
 
     useEffect(() => {
@@ -27,8 +28,8 @@ const THomeworkPage = () => {
             <Row>
                 <NavbarLogo />
             </Row>
-            <Row className={styles.navigationRow}>
-                <Col className={styles.navigationContainer}>
+            <Row className="navigation-row">
+                <Col className="navigation-container">
                     <Navbar />
                 </Col>
             </Row>
@@ -39,7 +40,15 @@ const THomeworkPage = () => {
             </Row>
             <Row>
                 <Col className={`${styles.sectionContainer} text-center  d-flex justify-content-center align-items-center p-0`}>
-                    <Button className={styles.btnDetail} variant="primary">Go</Button>
+                    <Button
+                        className={`${styles.btnDetail}`}
+                        variant="primary"
+                        onClick={() => navigate('input')}
+                    >
+                        Go
+                    </Button>
+
+
                 </Col>
             </Row>
             <Row>
