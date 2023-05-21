@@ -40,7 +40,7 @@ const TDashboard = () => {
                     <Button onClick={() => navigate("/thomework")}>HW</Button>
                 </Col>
                 <Col>
-                    <Button>Contest</Button>
+                    <Button onClick={() => navigate("/tcontest")}>Contest</Button>
                 </Col>
                 <Col>
                     <Button onClick={() => navigate("/tcourse")}>Course</Button>

@@ -17,9 +17,13 @@ import TCourseInput from './components/Course/TCourseInput';
 import TCourseList from './components/Course/TCourseList';
 import TCourseModify from './components/Course/TCourseModify';
 import TCourseContestList from './components/Course/TCourseContestList';
+
 import ContestPage from './components/Contest/ContestPage';
 import ContestListPage from './components/Contest/ContestListPage';
 import ContestResultPage from './components/Contest/ContestResultPage';
+import TContestPage from './components/TContest/TContestPage';
+import TContestInput from './components/TContest/TContestInput';
+import TContestParentComponent from './components/TContest/TContestParentComponent';
 
 import SettingPage from './components/Setting/SettingPage';
 import TSettingPage from './components/Setting/TSettingPage';
@@ -69,6 +73,13 @@ export const routes = (
         <Route path="/contest" element={<ProtectedRoute />}>
             <Route index element={<ContestPage />} />
         </Route>
+        <Route path="/tcontest" element={<ProtectedRoute />} >
+            <Route index element={<TContestParentComponent />} />
+            <Route path="input" element={<TContestInput />} />
+        </Route>
+
+
+
         <Route path="/contestList/:param" element={<ProtectedRoute />}>
             <Route index element={<ContestListPage />} />
         </Route>
