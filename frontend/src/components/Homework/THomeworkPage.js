@@ -47,8 +47,6 @@ const THomeworkPage = () => {
                     >
                         Go
                     </Button>
-
-
                 </Col>
             </Row>
             <Row>

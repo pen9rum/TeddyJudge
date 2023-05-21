@@ -39,14 +39,11 @@ const TDashboard = () => {
                 <Col>
                     <Button onClick={() => navigate("/thomework")}>HW</Button>
                 </Col>
-
-
-
-                <Col>
-                    <Button>Course</Button>
-                </Col>
                 <Col>
                     <Button>Contest</Button>
+                </Col>
+                <Col>
+                    <Button onClick={() => navigate("/tcourse")}>Course</Button>
                 </Col>
             </Row>
 
