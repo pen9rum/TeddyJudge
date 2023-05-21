@@ -9,8 +9,9 @@ const Navbar = () => {
     const { role } = useContext(RoleContext);
 
     const isActive = (path) => {
-        return location.pathname === path ? 'selected' : '';
+        return location.pathname.startsWith(path) ? 'selected' : '';
     };
+
 
     // 依照 role 給定不同的路由前綴
     const prefix = role === 'teacher' ? '/t' : '/';

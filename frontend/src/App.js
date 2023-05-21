@@ -8,6 +8,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import TDashboard from './components/Dashboard/TDashboard';
 import HomeworkPage from './components/Homework/HomeworkPage';
 import THomeworkPage from './components/Homework/THomeworkPage';
+import THomeworkDetail from './components/Homework/THomeworkDetail';
 import ProblemPage from './components/Problem/ProblemPage';
 import ResultPage from './components/Result/ResultPage';
 import SettingPage from './components/Setting/SettingPage';
@@ -39,6 +40,7 @@ function App() {
               </Route>
               <Route path="/thomework" element={<ProtectedRoute />}>
                 <Route index element={<THomeworkPage />} />
+                <Route path="detail" element={<THomeworkDetail />} />
               </Route>
               <Route path="/problem" element={<ProtectedRoute />}>
                 <Route index element={<ProblemPage />} />

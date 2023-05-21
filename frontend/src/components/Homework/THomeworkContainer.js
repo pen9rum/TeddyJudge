@@ -1,11 +1,12 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import styles from './HomeworkContainer.module.css';
+import { useNavigate } from 'react-router-dom';
+import styles from './THomeworkContainer.module.css';
 import PropTypes from 'prop-types';
 
 // A reusable homework container component with a title, due date, and navigation button
-const HomeworkContainer = ({ homeworkTitle, dueDate }) => {
+const THomeworkContainer = ({ homeworkTitle, dueDate }) => {
+    const navigate = useNavigate();
     return (
         <Container className={styles.homeworkContainer}>
             <Row>
@@ -30,11 +31,13 @@ const HomeworkContainer = ({ homeworkTitle, dueDate }) => {
 
 
                 <Col className={`text-center ${styles.colBtnGo} d-flex justify-content-end p-0`}>
-                    <Link to="/problem" >
-                        <Button className={`btn-go ${styles.btnGo}`} variant="primary">
-                            Go
-                        </Button>
-                    </Link>
+                    <Button
+                        className={`btn-go ${styles.btnGo}`}
+                        variant="primary"
+                        onClick={() => navigate('detail', { state: { homeworkTitle } })}
+                    >
+                        Go
+                    </Button>
                 </Col>
             </Row>
         </Container>
@@ -42,9 +45,9 @@ const HomeworkContainer = ({ homeworkTitle, dueDate }) => {
 };
 
 // Define propTypes for better maintainability and error checking
-HomeworkContainer.propTypes = {
+THomeworkContainer.propTypes = {
     homeworkTitle: PropTypes.string.isRequired,
     dueDate: PropTypes.string.isRequired,
 };
 
-export default HomeworkContainer;
+export default THomeworkContainer;

@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import './THomeworkPage.css';
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
-import HomeworkContainer from '../Homework/HomeworkContainer';
-import ScoreContainer from '../Score/ScoreContainer';
+import THomeworkContainer from '../Homework/THomeworkContainer';
+import axios from 'axios';
 
 const THomeworkPage = () => {
+
+    const [homeworkData, setHomeworkData] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/api/homework')
+            .then(response => {
+                setHomeworkData(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching data: ', error);
+            });
+    }, []);
+
     return (
         <Container className="thomework-page-container">
             <Row>
@@ -32,10 +45,13 @@ const THomeworkPage = () => {
                 <Col className="section-container">
                     <h2>查看作業狀態</h2>
                     <div className="section-content">
-                        <div className="homework-wrapper">
-                            <HomeworkContainer homeworkTitle="HW 2" dueDate="12/31/2023" />
-                        </div>
+                        {homeworkData.map((hw) => (
+                            <div key={hw.id} className="homework-wrapper">
+                                <THomeworkContainer homeworkTitle={hw.title} dueDate={hw.dueDate} />
+                            </div>
+                        ))}
                     </div>
+
                 </Col>
             </Row>
 
