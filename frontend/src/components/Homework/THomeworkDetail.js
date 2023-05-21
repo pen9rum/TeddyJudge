@@ -1,11 +1,12 @@
+// THomeworkDetail.js
+
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import './THomeworkPage.css';
+import styles from './THomeworkDetail.module.css';
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-
 
 const THomeworkDetail = () => {
     const [score, setScore] = useState(null);
@@ -22,53 +23,47 @@ const THomeworkDetail = () => {
             });
     }, [homeworkTitle]); // Only re-run the effect if homeworkTitle changes
 
-
     return (
-        <Container className="thomework-page-container">
+        <Container className={styles.thomeworkPageContainer}>
             <Row>
                 <NavbarLogo />
             </Row>
-            <Row className="navigation-row">
-                <Col className="navigation-container">
+            <Row className={styles.navigationRow}>
+                <Col className={styles.navigationContainer}>
                     <Navbar />
                 </Col>
             </Row>
             <Row>
-                <Col className="section-container">
+                <Col className={styles.sectionContainer}>
                     <h2>{homeworkTitle}</h2>
                 </Col>
-                <Col className="section-container">
+                <Col className={styles.sectionContainer}>
                     <h2>PDF1</h2>
                 </Col>
             </Row>
             <Row>
-                <Col className="section-container">
+                <Col className={styles.sectionContainer}>
                     <h2>AVG:</h2>
                 </Col>
-                <Col className="section-container">
+                <Col className={styles.sectionContainer}>
                     <h2>{score}</h2>
                 </Col>
             </Row>
-
-
             <Row>
-                <Col className="section-container">
+                <Col className={styles.sectionContainer}>
                     <h2>可能太難了!(60↓)</h2>
                 </Col>
             </Row>
-
             <Row>
-                <Col className="section-container">
+                <Col className={styles.sectionContainer}>
                     <h2>可能稍難喔(60~80)</h2>
                 </Col>
             </Row>
             <Row>
-                <Col className="section-container">
+                <Col className={styles.sectionContainer}>
                     <h2>難度剛剛好(80~100)</h2>
                 </Col>
             </Row>
-
-
         </Container>
     );
 };

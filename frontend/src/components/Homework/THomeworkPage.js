@@ -1,6 +1,8 @@
+// THomeworkPage.js
+
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import './THomeworkPage.css';
+import styles from './THomeworkPage.module.css';
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
 import THomeworkContainer from '../Homework/THomeworkContainer';
@@ -21,40 +23,37 @@ const THomeworkPage = () => {
     }, []);
 
     return (
-        <Container className="thomework-page-container">
+        <Container className={styles.thomeworkPageContainer}>
             <Row>
                 <NavbarLogo />
             </Row>
-            <Row className="navigation-row">
-                <Col className="navigation-container">
+            <Row className={styles.navigationRow}>
+                <Col className={styles.navigationContainer}>
                     <Navbar />
                 </Col>
             </Row>
             <Row>
-                <Col className="section-container">
+                <Col className={styles.sectionContainer}>
                     <h2>上傳新作業</h2>
-
-                </Col>
-            </Row>
-            <Row >
-                <Col className="section-container text-center  d-flex justify-content-center align-items-center p-0">
-                    <Button className="btn-detail" variant="primary">Go</Button>
                 </Col>
             </Row>
             <Row>
-                <Col className="section-container">
+                <Col className={`${styles.sectionContainer} text-center  d-flex justify-content-center align-items-center p-0`}>
+                    <Button className={styles.btnDetail} variant="primary">Go</Button>
+                </Col>
+            </Row>
+            <Row>
+                <Col className={styles.sectionContainer}>
                     <h2>查看作業狀態</h2>
-                    <div className="section-content">
+                    <div className={styles.sectionContent}>
                         {homeworkData.map((hw) => (
-                            <div key={hw.id} className="homework-wrapper">
+                            <div key={hw.id} className={styles.homeworkWrapper}>
                                 <THomeworkContainer homeworkTitle={hw.title} dueDate={hw.dueDate} />
                             </div>
                         ))}
                     </div>
-
                 </Col>
             </Row>
-
         </Container>
     );
 };
