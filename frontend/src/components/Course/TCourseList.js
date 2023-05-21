@@ -40,7 +40,7 @@ const TCourseList = () => {
 
             <Row>
                 <Col className={styles.sectionContainer}>
-                    < TCourseListContainer fileTitle={"Contest 1"} />
+                    < TCourseListContainer fileTitle={"Contest 1"} nextRouter={"/tcourse/contestlist"} />
                 </Col>
             </Row>
 

@@ -149,6 +149,13 @@ const TCourseModify = () => {
                     </Form.Group>
                 </Form>
             </Row>
+
+            <Row>
+                <Col className={`${styles.sectionContainer} d-flex justify-content-end align-items-end`}>
+                    <Button onClick={() => navigate(-1)}>Return</Button>
+                </Col>
+            </Row>
+
         </Container>
     );
 };
