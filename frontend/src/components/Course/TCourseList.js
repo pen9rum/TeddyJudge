@@ -28,7 +28,7 @@ const TCourseList = () => {
 
             <Row>
                 <Col className={styles.sectionContainer}>
-                    < TCourseListContainer fileTitle={"HW1"} />
+                    < TCourseListContainer fileTitle={"HW1"} nextRouter={"/tcourse/modify"} />
                 </Col>
             </Row>
 
