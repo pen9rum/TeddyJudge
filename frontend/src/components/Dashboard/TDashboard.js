@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
 import './TDashboard.css';
@@ -7,8 +8,8 @@ import './TDashboard.css';
 
 
 const TDashboard = () => {
+    const navigate = useNavigate();
     const teacherName = '泰迪熊';
-
 
     return (
         <Container className="tdashboard-container">
@@ -36,8 +37,11 @@ const TDashboard = () => {
 
             <Row>
                 <Col>
-                    <Button>HW</Button>
+                    <Button onClick={() => navigate("/thomework")}>HW</Button>
                 </Col>
+
+
+
                 <Col>
                     <Button>Course</Button>
                 </Col>
