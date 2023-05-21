@@ -4,7 +4,6 @@ import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
 import styles from './TContestInput.module.css';
 import { useNavigate } from 'react-router-dom';
-import { QuestionCountContext } from './QuestionCountContext';  // Make sure the path is correct
 
 
 const TContestInput = () => {

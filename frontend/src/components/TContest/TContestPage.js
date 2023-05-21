@@ -36,10 +36,10 @@ const TContestPage = ({ setQuestionCount }) => {
                 </Col>
             </Row>
             <Row className={styles.sectionContainer}>
-                <Col lg={4} className="text-center">
+                <Col lg={7} className="text-center">
                     <h2>輸入題數</h2>
                 </Col>
-                <Col>
+                <Col lg={3}>
                     <Form.Control type="number" placeholder="輸入題數" onChange={handleInputChange} />
                 </Col>
             </Row>
