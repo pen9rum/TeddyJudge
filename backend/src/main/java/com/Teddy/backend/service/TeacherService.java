@@ -16,14 +16,14 @@ public class TeacherService {
 
     @Autowired
     private TeacherDao teacherDao;
-   
 
 
-    public boolean validateLogin(String id, String password) {
-        Optional<Teacher> teacherOptional = teacherDao.findById(id);
+
+    public boolean validateLogin(TeacherBO teacherbo) {
+        Optional<Teacher> teacherOptional = teacherDao.findById(teacherbo.getId());
         if (teacherOptional.isPresent()) {
             Teacher teacher = teacherOptional.get();
-            return teacher.getPassword().equals(password);
+            return teacher.getPassword().equals(teacherbo.getPassword());
         }
         return false;
     }

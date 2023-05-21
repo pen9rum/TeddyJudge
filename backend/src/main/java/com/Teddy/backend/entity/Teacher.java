@@ -14,6 +14,6 @@ public class Teacher {
     @Id// 放到SQL內
     private String id;
     private String password;
-
+    private String color;
 
 }
