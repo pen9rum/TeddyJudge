@@ -1,4 +1,4 @@
-.setting-page-container {
+.settingPageContainer {
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -7,16 +7,21 @@
     align-items: center;
 }
 
-.navigation-container {
+.navigationContainer {
     margin-bottom: 2rem;
     width: 100%;
 }
 
-.row-width-40em {
+
+.navigationRow {
+    width: 100%;
+}
+
+.rowWidth40em {
     width: 40em;
 }
 
-.select-customer {
+.selectCustomer {
     width: 180px;
     height: 80%;
 }

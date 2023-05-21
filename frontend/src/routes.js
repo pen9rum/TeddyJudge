@@ -10,7 +10,7 @@ import THomeworkDetail from './components/Homework/THomeworkDetail';
 import THomeworkInput from './components/Homework/THomeworkInput';
 import ProblemPage from './components/Problem/ProblemPage';
 import ResultPage from './components/Result/ResultPage';
-import SettingPage from './components/Setting/SettingPage';
+
 import CoursePage from './components/Course/CoursePage';
 import TCoursePage from './components/Course/TCoursePage';
 import TCourseInput from './components/Course/TCourseInput';
@@ -20,6 +20,10 @@ import TCourseContestList from './components/Course/TCourseContestList';
 import ContestPage from './components/Contest/ContestPage';
 import ContestListPage from './components/Contest/ContestListPage';
 import ContestResultPage from './components/Contest/ContestResultPage';
+
+import SettingPage from './components/Setting/SettingPage';
+import TSettingPage from './components/Setting/TSettingPage';
+
 import ProtectedRoute from './components/Auth/ProtectedRoute';
 
 export const routes = (
@@ -48,6 +52,9 @@ export const routes = (
         </Route>
         <Route path="/setting" element={<ProtectedRoute />}>
             <Route index element={<SettingPage />} />
+        </Route>
+        <Route path="/tsetting" element={<ProtectedRoute />}>
+            <Route index element={<TSettingPage />} />
         </Route>
         <Route path="/course" element={<ProtectedRoute />}>
             <Route index element={<CoursePage />} />

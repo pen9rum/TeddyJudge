@@ -2,10 +2,10 @@ import React from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
-import styles from './SettingPage.module.css';
+import styles from './TSettingPage.module.css';
 import { useNavigate } from 'react-router-dom';
 
-const SettingPage = () => {
+const TSettingPage = () => {
     const navigate = useNavigate();
     return (
         <Container className={styles.settingPageContainer}>
@@ -79,4 +79,4 @@ const SettingPage = () => {
     );
 };
 
-export default SettingPage;
+export default TSettingPage;
