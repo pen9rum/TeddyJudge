@@ -2,7 +2,7 @@ package com.Teddy.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+import com.Teddy.backend.model.TimeCalculator;
 //import com.Teddy.backend.controller.Customer
 
 import org.springframework.context.ConfigurableApplicationContext;
@@ -16,5 +16,6 @@ public class BackendApplication {
 
 
 	}
+
 
 }

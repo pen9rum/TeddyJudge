@@ -12,15 +12,6 @@ public class TeacherController {
     @Autowired
     private TeacherService teacherService;
 
-    @PostMapping("/addteacher")
-    public ResponseEntity<Void> addTeacher(@RequestBody TeacherBO teacherBo) {
-        System.out.println("app");
-        if(teacherService.add(teacherBo)==false)
-        {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
-        System.out.println("apple");
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+
 
 }
