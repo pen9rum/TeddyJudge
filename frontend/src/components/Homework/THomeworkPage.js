@@ -11,7 +11,10 @@ import axios from 'axios';
 
 const THomeworkPage = () => {
     const navigate = useNavigate();
-    const [homeworkData, setHomeworkData] = useState([]);
+    const [homeworkData, setHomeworkData] = useState([
+        { id: "123", title: "HW 1", dueDate: "123" }
+
+    ]);
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/homework')

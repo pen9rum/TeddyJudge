@@ -26,4 +26,11 @@ public class TeacherController {
     }
 
 
+    @PostMapping("/register")
+    public ResponseEntity<Void> teacher_register(@RequestBody TeacherBO teacherBo) {
+        System.out.println("Hi");
+        teacherService.registerTeacher(teacherBo);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 }
