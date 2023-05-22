@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface HomeworkDao extends CrudRepository<Homework, Long>{
-    Optional<Homework> findByHomeworkname(String homeworkname);
+    Optional<Homework> findByHomeworkName(String homeworkname);
 }

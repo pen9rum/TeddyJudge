@@ -11,12 +11,13 @@ import jakarta.persistence.*;
 @AllArgsConstructor
 public class Homework {
     @Id// table id place
-    private String homeworkname;
-    private String PDF;
-    private String TESTCASE;
-    private String TESTCASEANSWER;
-    private Date start_time;
-    private Date end_time;
+    private String homeworkName;
+    @Lob
+    private byte[] PDF;
+    private String testCase;
+    private String testCaseAnswer;
+    private Date startTime;
+    private Date endTime;
     private float average;
 
 

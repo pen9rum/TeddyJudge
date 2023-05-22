@@ -21,13 +21,14 @@ public class HomeworkService {
     public boolean add(HomeworkBO bo) {
 
         Homework entity = new Homework();
-        entity.setHomeworkname(bo.getHomeworkname());
-        entity.setPDF(bo.getPDF());
-        entity.setTESTCASE(bo.getTESTCASE());
-        entity.setTESTCASEANSWER(bo.getTESTCASEANSWER());
-        entity.setStart_time(bo.getStart_time());
-        entity.setEnd_time(bo.getEnd_time());
+        entity.setHomeworkName(bo.getHomeworkName());
+        entity.setPDF(bo.getPDF()); // PDF is now a byte[]
+        entity.setTestCase(bo.getTestCase());
+        entity.setTestCaseAnswer(bo.getTestCaseAnswer());
+        entity.setStartTime(bo.getStartTime());
+        entity.setEndTime(bo.getEndTime());
         entity.setAverage(bo.getAverage());
+        System.out.println("hi");
         homeworkDao.save(entity);
         return true;
     }

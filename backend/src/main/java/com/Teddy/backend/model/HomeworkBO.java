@@ -9,15 +9,12 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
-
 public class HomeworkBO {
-    private String homeworkname;
-    private String PDF;
-    private String TESTCASE;
-    private String TESTCASEANSWER;
-    private Date start_time;
-    private Date end_time;
+    private String homeworkName;
+    private byte[] PDF;
+    private String testCase;
+    private String testCaseAnswer;
+    private Date startTime;
+    private Date endTime;
     private float average;
-
 }
