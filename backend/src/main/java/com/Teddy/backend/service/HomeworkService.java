@@ -12,6 +12,8 @@ import com.Teddy.backend.model.HomeworkBO;
 
 import java.util.Date;
 import java.util.Optional;
+import java.util.List;
+import java.util.ArrayList;
 
 @Service
 public class HomeworkService {
@@ -32,6 +34,37 @@ public class HomeworkService {
         homeworkDao.save(entity);
         return true;
     }
+
+    public List<HomeworkBO> getAll() {
+        List<Homework> homeworks = homeworkDao.findAll();
+        List<HomeworkBO> homeworkBOs = new ArrayList<>();
+
+        for (Homework homework : homeworks) {
+            HomeworkBO bo = new HomeworkBO();
+            // 将所有的 Homework 属性复制到 HomeworkBO
+            bo.setHomeworkName(homework.getHomeworkName());
+            bo.setTestCase(homework.getTestCase());
+            bo.setTestCaseAnswer(homework.getTestCaseAnswer());
+            bo.setStartTime(homework.getStartTime());
+            bo.setEndTime(homework.getEndTime());
+            bo.setAverage(homework.getAverage());
+            // Add the URL for the PDF file
+            bo.setPdfUrl("/homework/" + homework.getHomeworkName() + "/pdf");
+            homeworkBOs.add(bo);
+        }
+        return homeworkBOs;
+    }
+
+
+    public byte[] getPdf(String homeworkName) {
+        Optional<Homework> homework = homeworkDao.findByHomeworkName(homeworkName);
+        if (homework.isPresent()) {
+            return homework.get().getPDF();
+        } else {
+            return null;
+        }
+    }
+
 
 
 

@@ -17,4 +17,6 @@ public class HomeworkBO {
     private Date startTime;
     private Date endTime;
     private float average;
+
+    private String pdfUrl;
 }

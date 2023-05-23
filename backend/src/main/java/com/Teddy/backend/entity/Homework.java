@@ -13,6 +13,7 @@ public class Homework {
     @Id// table id place
     private String homeworkName;
     @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] PDF;
     private String testCase;
     private String testCaseAnswer;
