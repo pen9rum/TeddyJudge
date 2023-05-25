@@ -7,6 +7,7 @@ import schoolLogoImage from '../../images/school_logo.jpg'
 import Image from 'react-bootstrap/Image';
 import { AuthContext } from './AuthContext';
 import { RoleContext } from './RoleContext';
+import api from '../../api/api';
 
 const AuthPage = () => {
     const { role } = useContext(RoleContext);
@@ -21,19 +22,23 @@ const AuthPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // let id, password;
-        // if (role === 'student') {
-        //     id = e.target.elements.formBasicId.value;
-        //     password = e.target.elements.formBasicPassword.value;
-        //     // ... 學生身份驗證邏輯 ...
-        // } else if (role === 'teacher') {
-        //     id = e.target.elements.formTeacherId.value;
-        //     password = e.target.elements.formTeacherPassword.value;
-        //     // ... 老師身份驗證邏輯 ...
-        // }
+        var isAuthenticated = true;
 
-        // const isAuthenticated = await authenticateUser(id, password); // You need to implement this function
-        const isAuthenticated = true;
+        let id, password;
+        if (role === 'student') {
+            id = e.target.elements.formBasicId.value;
+            password = e.target.elements.formBasicPassword.value;
+            // ... 學生身份驗證邏輯 ...
+        } else if (role === 'teacher') {
+            id = e.target.elements.formTeacherId.value;
+            password = e.target.elements.formTeacherPassword.value;
+            console.log(id);
+            console.log(password);
+            isAuthenticated = await api.authenticateTeacher(id, password); // You need to implement this function
+            // ... 老師身份驗證邏輯 ...
+        }
+
+
         if (isAuthenticated) {
             setIsAuthenticated(true);
             if (role === "student") {
