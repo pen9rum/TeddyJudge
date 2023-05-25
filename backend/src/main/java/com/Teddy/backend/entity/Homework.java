@@ -21,6 +21,7 @@ public class Homework {
     private Date endTime;
     private float average;
 
-
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "contest_id", nullable = true)
+    private Contest contest;
 }

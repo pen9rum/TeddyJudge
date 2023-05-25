@@ -30,7 +30,7 @@ public class HomeworkService {
         entity.setStartTime(bo.getStartTime());
         entity.setEndTime(bo.getEndTime());
         entity.setAverage(bo.getAverage());
-        System.out.println("hi");
+        entity.setContest(null);
         homeworkDao.save(entity);
         return true;
     }

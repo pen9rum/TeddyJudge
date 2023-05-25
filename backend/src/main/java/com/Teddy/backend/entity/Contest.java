@@ -14,6 +14,8 @@ public class Contest {
     private long id;
     private String contestname;
     private int totalscore;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "contest")
     private List<Homework> homeworks;
 
 }
