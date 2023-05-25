@@ -1,10 +1,10 @@
 package com.Teddy.backend.dao;
 
-import com.Teddy.backend.entity.Student;
+import com.Teddy.backend.entity.Teacher;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.Teddy.backend.entity.Teacher;
+
 
 import java.util.Optional;
 
