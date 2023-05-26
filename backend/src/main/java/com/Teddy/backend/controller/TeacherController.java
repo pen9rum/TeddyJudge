@@ -16,6 +16,7 @@ public class TeacherController {
     private TeacherService teacherService;
     @PostMapping("/login")
     public ResponseEntity<Void> teacher_login (@RequestBody TeacherBO teacherBo) {
+        System.out.println("Hi");
         if(teacherService.validateLogin(teacherBo))
 
         return new ResponseEntity<>(HttpStatus.ACCEPTED);

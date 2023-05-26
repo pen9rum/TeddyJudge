@@ -35,6 +35,7 @@ const AuthPage = () => {
             console.log(id);
             console.log(password);
             isAuthenticated = await api.authenticateTeacher(id, password); // You need to implement this function
+            console.log(isAuthenticated);
             // ... 老師身份驗證邏輯 ...
         }
 
