@@ -7,10 +7,6 @@ import java.text.SimpleDateFormat;
 public class TimeCalculator {
 
 
-//    public void Date_To_string()
-//    {
-//        System.out.println(start_time.toString());
-//    }
 
 
 

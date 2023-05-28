@@ -56,12 +56,50 @@ public class HomeworkService {
     }
 
 
+    public boolean updateStartTime(Date StartTime,String homeworkName) {
+        Optional<Homework> homework = homeworkDao.findByHomeworkName(homeworkName);
+        if (homework.isPresent()) {
+             homework.get().setStartTime(StartTime);
+             homeworkDao.save(homework.get());
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public byte[] getPdf(String homeworkName) {
         Optional<Homework> homework = homeworkDao.findByHomeworkName(homeworkName);
         if (homework.isPresent()) {
             return homework.get().getPDF();
         } else {
             return null;
+        }
+    }
+
+
+    public boolean deletePdf(String homeworkName) {
+        Optional<Homework> homework = homeworkDao.findByHomeworkName(homeworkName);
+        if (homework.isPresent()) {
+            Homework homeworkEntity = homework.get();
+            byte[] pdfData = homeworkEntity.getPDF();
+            homeworkEntity.setPDF(null);
+            homeworkDao.save(homeworkEntity);
+            return true;
+        }
+        else
+        return false;
+    }
+
+    public boolean updatePdf(String homeworkName, byte[] newPdfData) {
+        Optional<Homework> homework = homeworkDao.findByHomeworkName(homeworkName);
+        if (homework.isPresent()) {
+            Homework homeworkEntity = homework.get();
+            homeworkEntity.setPDF(newPdfData);
+            homeworkDao.save(homeworkEntity);
+            return true;
+        } else {
+            return false;
         }
     }
 
