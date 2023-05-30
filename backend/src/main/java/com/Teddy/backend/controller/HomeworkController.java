@@ -22,7 +22,7 @@ import java.util.Date;
 
 
 
-
+@CrossOrigin(origins = "http://localhost:3000")  // Replace with your frontend origin
 @RestController
 @RequestMapping("/homework")
 public class HomeworkController {
@@ -64,6 +64,7 @@ public class HomeworkController {
 
     @GetMapping("/{homeworkName}/pdf")
     public ResponseEntity<byte[]> getHomeworkPdf(@PathVariable String homeworkName) {
+
         byte[] pdfBytes = homeworkService.getPdf(homeworkName);
         if (pdfBytes == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

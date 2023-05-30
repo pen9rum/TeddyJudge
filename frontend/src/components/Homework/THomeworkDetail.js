@@ -1,12 +1,13 @@
 // THomeworkDetail.js
 
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import styles from './THomeworkDetail.module.css';
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import api from '../../api/api';
 
 const THomeworkDetail = () => {
     const [score, setScore] = useState(null);
@@ -23,6 +24,24 @@ const THomeworkDetail = () => {
             });
     }, [homeworkTitle]); // Only re-run the effect if homeworkTitle changes
 
+    async function downloadPDF(hwTitle) {
+        try {
+            const response = await api.get(`/homework/${hwTitle}/pdf`, { responseType: 'blob' });
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `${hwTitle}.pdf`);
+            document.body.appendChild(link);
+            link.click();
+        } catch (error) {
+            console.error("Download failed:", error);
+        }
+    }
+
+
+
+
+
     return (
         <Container className={styles.thomeworkPageContainer}>
             <Row>
@@ -38,7 +57,7 @@ const THomeworkDetail = () => {
                     <h2>{homeworkTitle}</h2>
                 </Col>
                 <Col className={styles.sectionContainer}>
-                    <h2>PDF1</h2>
+                    <h2><Button onClick={() => downloadPDF(homeworkTitle)}>PDF Download</Button></h2>
                 </Col>
             </Row>
             <Row>

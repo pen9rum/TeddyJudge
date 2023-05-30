@@ -27,6 +27,7 @@ public class SecurityConfig {
                 .cors().configurationSource(corsConfigurationSource())
                 .and()
                 .authorizeRequests()
+                .requestMatchers("/homework/*/pdf").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()

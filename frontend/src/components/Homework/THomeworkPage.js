@@ -7,23 +7,30 @@ import styles from './THomeworkPage.module.css';
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
 import THomeworkContainer from '../Homework/THomeworkContainer';
-import axios from 'axios';
+import api from '../../api/api';
 
 const THomeworkPage = () => {
     const navigate = useNavigate();
     const [homeworkData, setHomeworkData] = useState([
-        { id: "123", title: "HW 1", dueDate: "123" }
+        { title: "HW 1", dueDate: "123" }
 
     ]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/homework')
-            .then(response => {
-                setHomeworkData(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching data: ', error);
-            });
+        const fetchData = async () => {
+            const data = await api.getHomeworkData();
+            if (data) {
+                const mappedData = data.map(hw => ({
+                    title: hw.homeworkName,
+                    dueDate: new Date(hw.endTime).toLocaleDateString(),
+
+                }));
+                console.log(mappedData);
+                setHomeworkData(mappedData);
+            }
+        }
+
+        fetchData();
     }, []);
 
     return (
@@ -57,7 +64,7 @@ const THomeworkPage = () => {
                     <h2>查看作業狀態</h2>
                     <div className={styles.sectionContent}>
                         {homeworkData.map((hw) => (
-                            <div key={hw.id} className={styles.homeworkWrapper}>
+                            <div className={styles.homeworkWrapper}>
                                 <THomeworkContainer homeworkTitle={hw.title} dueDate={hw.dueDate} />
                             </div>
                         ))}

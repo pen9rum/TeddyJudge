@@ -20,5 +20,21 @@ api.authenticateTeacher = async function (id, password, color = '') {
     }
 };
 
+api.getHomeworkData = async function () {
+    try {
+        const response = await this.get('/homework/all');
+
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            console.error('Error fetching data: ', response);
+            return null;
+        }
+    } catch (error) {
+        console.error('Error fetching data: ', error);
+        return null;
+    }
+};
+
 
 export default api;
