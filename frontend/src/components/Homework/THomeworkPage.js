@@ -63,7 +63,7 @@ const THomeworkPage = () => {
                 <Col className={styles.sectionContainer}>
                     <h2>查看作業狀態</h2>
                     <div className={styles.sectionContent}>
-                        {homeworkData.map((hw) => (
+                        {homeworkData.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate)).map((hw) => (
                             <div className={styles.homeworkWrapper}>
                                 <THomeworkContainer homeworkTitle={hw.title} dueDate={hw.dueDate} />
                             </div>
