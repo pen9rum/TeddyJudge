@@ -22,6 +22,6 @@ public class Homework {
     private float average;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "contest_id", nullable = true)
+    @JoinColumn(name = "id", nullable = true)
     private Contest contest;
 }
