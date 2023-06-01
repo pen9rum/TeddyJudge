@@ -56,4 +56,43 @@ public class ContestService {
         return true;
     }
 
+    public List<ContestBO> getAll() {
+        List<Contest> contests = contestDao.findAll();
+        List<ContestBO> contestBOs = new ArrayList<>();
+
+        for(Contest contest: contests){
+            List<Homework> homeworks = contest.getHomeworks();
+            List<HomeworkBO> homeworkBOs = new ArrayList<>();
+
+            for (Homework homework : homeworks) {
+                if(homework.getContest()== null){
+                    continue;
+                }
+                HomeworkBO bo = new HomeworkBO();
+                // 将所有的 Homework 属性复制到 HomeworkBO
+                bo.setHomeworkName(homework.getHomeworkName());
+                bo.setTestCase(homework.getTestCase());
+                bo.setTestCaseAnswer(homework.getTestCaseAnswer());
+                bo.setStartTime(homework.getStartTime());
+                bo.setEndTime(homework.getEndTime());
+                bo.setAverage(homework.getAverage());
+                // Add the URL for the PDF file
+                bo.setPdfUrl("/homework/" + homework.getHomeworkName() + "/pdf");
+                homeworkBOs.add(bo);
+            }
+
+            ContestBO contestBo = new ContestBO();
+            contestBo.setStartTime(contest.getStartTime());
+            contestBo.setEndTime(contest.getEndTime());
+            contestBo.setId(contest.getId());
+            contestBo.setContestname(contest.getContestname());
+            contestBo.setTotalscore(contest.getTotalscore());
+            contestBo.setHomeworks(homeworkBOs);
+
+            contestBOs.add(contestBo);
+        }
+
+        return contestBOs;
+    }
+
 }

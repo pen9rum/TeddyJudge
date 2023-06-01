@@ -29,7 +29,7 @@ public class ContestController {
             @RequestPart("pdfFiles") MultipartFile[] pdfFiles,
             @RequestPart("contest") String contestJSON) {
 
-        System.out.println("Hi");
+
         ObjectMapper objectMapper = new ObjectMapper();
         ContestBO contestBo;
         try {
@@ -58,6 +58,12 @@ public class ContestController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<ContestBO>> getAllContest() {
+        return new ResponseEntity<>(contestService.getAll(), HttpStatus.OK);
+    }
+
 
 
 

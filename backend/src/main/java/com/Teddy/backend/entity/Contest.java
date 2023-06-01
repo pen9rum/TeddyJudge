@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Contest {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String contestname;
     private int totalscore;

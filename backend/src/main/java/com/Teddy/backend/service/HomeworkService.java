@@ -40,6 +40,9 @@ public class HomeworkService {
         List<HomeworkBO> homeworkBOs = new ArrayList<>();
 
         for (Homework homework : homeworks) {
+            if(homework.getContest()!= null){
+                continue;
+            }
             HomeworkBO bo = new HomeworkBO();
             // 将所有的 Homework 属性复制到 HomeworkBO
             bo.setHomeworkName(homework.getHomeworkName());
