@@ -6,6 +6,7 @@ import com.Teddy.backend.service.CourseService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/course")
@@ -50,7 +52,24 @@ public class CourseController {
         }
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<CourseBO>> getAllCourse() {
+        return new ResponseEntity<>(courseService.getAll(), HttpStatus.OK);
+    }
 
+    @GetMapping("/{homeworkName}/pdf")
+    public ResponseEntity<byte[]> getCoursePdf(@PathVariable String homeworkName) {
+
+        byte[] pdfBytes = courseService.getPdf(homeworkName);
+        if (pdfBytes == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDispositionFormData("attachment", "homework.pdf");
+            return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+        }
+    }
 
 
 }
