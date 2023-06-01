@@ -16,7 +16,6 @@ public class CourseService {
     private CourseDao courseDao;
 
     public boolean add(CourseBO bo) {
-
         Course entity = new Course();
         entity.setCoursename(bo.getCoursename());
         entity.setPDF(bo.getPDF()); // PDF is now a byte[]

@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class CourseBO {
     private String coursename;
     private byte[] PDF;
+
+    private String pdfUrl;
 }
