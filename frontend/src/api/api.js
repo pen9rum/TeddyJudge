@@ -108,6 +108,92 @@ api.getContestData = async function () {
     }
 };
 
+api.updateHomeworkStartTime = async function (homeworkName, dateParam) {
+    try {
+        const response = await this.put(`/homework/${homeworkName}/update/starttime`, null, {
+            params: {
+                dateParam: dateParam
+            }
+        });
+
+        return response.status === 200;
+    } catch (error) {
+        console.error("Error updating start time:", error);
+        return false;
+    }
+};
+
+api.updateHomeworkEndTime = async function (homeworkName, dateParam) {
+    try {
+        const response = await this.put(`/homework/${homeworkName}/update/endtime`, null, {
+            params: {
+                dateParam: dateParam
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        return response.status === 200;
+    } catch (error) {
+        console.error("Error updating end time:", error);
+        return false;
+    }
+};
+
+api.updateTestCase = async function (homeworkName, testCase) {
+    try {
+        const response = await this.put(`/homework/${homeworkName}/update/testcase`, testCase, {
+            headers: {
+                'Content-Type': 'text/plain'
+            }
+        });
+
+        return response.status === 200;
+    } catch (error) {
+        console.error("Error updating test case:", error);
+        return false;
+    }
+};
+
+api.updateTestCaseAnswer = async function (homeworkName, testCaseAnswer) {
+    try {
+        const response = await this.put(`/homework/${homeworkName}/update/testcaseanswer`, testCaseAnswer, {
+            headers: {
+                'Content-Type': 'text/plain'
+            }
+        });
+
+        return response.status === 200;
+    } catch (error) {
+        console.error("Error updating test case answer:", error);
+        return false;
+    }
+};
+
+api.updateHomeworkPDF = async function (homeworkName, pdfFile) {
+    let formData = new FormData();
+
+    formData.append('pdfFile', pdfFile);
+
+    try {
+        const response = await this.put(`/homework/${homeworkName}/update/pdf`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+
+        if (response.status === 200) {
+            return true;
+        } else {
+            console.error('Error updating PDF: ', response);
+            return false;
+        }
+    } catch (error) {
+        console.error('Error updating PDF: ', error);
+        return false;
+    }
+};
 
 
 export default api;
