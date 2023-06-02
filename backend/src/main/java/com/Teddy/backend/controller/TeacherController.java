@@ -16,7 +16,7 @@ public class TeacherController {
     private TeacherService teacherService;
     @PostMapping("/login")
     public ResponseEntity<Void> teacher_login (@RequestBody TeacherBO teacherBo) {
-        System.out.println("Hi");
+
         if(teacherService.validateLogin(teacherBo))
 
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
@@ -27,9 +27,15 @@ public class TeacherController {
 
     @PostMapping("/register")
     public ResponseEntity<Void> teacher_register(@RequestBody TeacherBO teacherBo) {
-        System.out.println("Hi");
+
         teacherService.registerTeacher(teacherBo);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Void> updateTeacher(@RequestBody TeacherBO teacherBo) {
+        teacherService.updateTeacher(teacherBo);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
