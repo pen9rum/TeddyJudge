@@ -6,6 +6,7 @@ import styles from './TCourseContestList.module.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import TCourseListContainer from './TCourseListContainer';
 import axios from 'axios';
+import api from '../../api/api';
 
 const TCourseContestList = () => {
     const navigate = useNavigate();
@@ -18,13 +19,16 @@ const TCourseContestList = () => {
     ]);
 
     useEffect(() => {
-        axios.get(`YOUR_API_URL/${contestTitle}`)
-            .then(response => {
-                setData(response.data);
-            })
-            .catch(error => {
-                console.error('There was an error!', error);
-            });
+        const fetchData = async () => {
+            let contestData = await api.getContestByName(contestTitle);
+            if (contestData && contestData.homeworks) {
+                const homeworkNames = contestData.homeworks.map(homework => homework.homeworkName);
+                contestData = { ...contestData, homeworkNames };
+            }
+            setData(contestData);
+        };
+
+        fetchData();
     }, [contestTitle]);
 
     return (
@@ -46,11 +50,12 @@ const TCourseContestList = () => {
 
             <Row>
                 <Col className={styles.sectionContainer}>
-                    {data.map(item => (
-                        <TCourseListContainer key={item.id} fileTitle={item.title} nextRouter={"/tcourse/modify"} />
+                    {data.homeworkNames && data.homeworkNames.map((homeworkName, index) => (
+                        <TCourseListContainer key={index} fileTitle={homeworkName} nextRouter={"/tcourse/modify"} />
                     ))}
                 </Col>
             </Row>
+
         </Container >
     );
 };

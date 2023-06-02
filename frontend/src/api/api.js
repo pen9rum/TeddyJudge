@@ -113,6 +113,9 @@ api.updateHomeworkStartTime = async function (homeworkName, dateParam) {
         const response = await this.put(`/homework/${homeworkName}/update/starttime`, null, {
             params: {
                 dateParam: dateParam
+            },
+            headers: {
+                'Content-Type': 'application/json'
             }
         });
 
@@ -192,6 +195,27 @@ api.updateHomeworkPDF = async function (homeworkName, pdfFile) {
     } catch (error) {
         console.error('Error updating PDF: ', error);
         return false;
+    }
+};
+
+
+api.getContestByName = async function (name) {
+    try {
+        const response = await this.get(`/contest/getByName/${name}`, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            console.error('Error fetching data: ', response);
+            return null;
+        }
+    } catch (error) {
+        console.error('Error fetching data: ', error);
+        return null;
     }
 };
 
