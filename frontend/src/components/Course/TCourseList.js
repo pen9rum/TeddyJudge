@@ -60,14 +60,10 @@ const TCourseList = () => {
             <Row>
                 <Col className={styles.sectionContainer}>
                     {contestData.map((contest, i) => (
-                        contest.homeworks.map((hw, j) => (
-                            <TCourseListContainer key={`${i}-${j}`} fileTitle={hw.homeworkName} nextRouter={`/tcourse/contestlist`} />
-                        ))
+                        <TCourseListContainer key={i} fileTitle={contest.contestname} nextRouter={`/tcourse/contestlist`} />
                     ))}
                 </Col>
             </Row>
-
-
         </Container>
     );
 };
