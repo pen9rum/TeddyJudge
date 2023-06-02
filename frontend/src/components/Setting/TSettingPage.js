@@ -10,12 +10,12 @@ import api from '../../api/api';
 const TSettingPage = () => {
     const navigate = useNavigate();
     const [name, setName] = useState('');
-    const [color, setColor] = useState('option1');
+    const [color, setColor] = useState('White');
     const [password, setPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
 
     const handleSubmit = async () => {
-        const success = await api.updateTeacher(name, newPassword || password, color);
+        const success = await api.updateTeacher("QQ", newPassword, color, name);
         if (success) {
             window.alert('Teacher update successful!');
             navigate(-1);
@@ -51,12 +51,13 @@ const TSettingPage = () => {
                 <Col className="d-flex justify-content-center">
                     <Form.Group controlId="exampleComboBox">
                         <Form.Select value={color} onChange={(e) => setColor(e.target.value)} className={styles.selectCustomer}>
-                            <option value="option1">White</option>
-                            <option value="option2">Dark</option>
+                            <option value="White">White</option>
+                            <option value="Dark">Dark</option>
                         </Form.Select>
                     </Form.Group>
                 </Col>
             </Row>
+
 
             <Row className={styles.rowWidth40em}>
                 <Col className="text-start">

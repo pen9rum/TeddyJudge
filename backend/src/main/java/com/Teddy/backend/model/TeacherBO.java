@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 public class TeacherBO { //這是跟業務邏輯有關，不是直接連資料庫，用來寫判斷是
 
     private String id;
+
+    private String name;
     private String password;
     private String color;
     @Override

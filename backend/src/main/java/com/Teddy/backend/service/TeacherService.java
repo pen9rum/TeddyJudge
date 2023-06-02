@@ -35,6 +35,7 @@ public class TeacherService {
         teacher.setId(teacherbo.getId());
         teacher.setPassword(teacherbo.getPassword());
         teacher.setColor(teacherbo.getColor());
+        teacher.setName("尊敬的");
         teacherDao.save(teacher);
     }
 
@@ -45,6 +46,7 @@ public class TeacherService {
             Teacher teacher = teacherOptional.get();
             teacher.setPassword(teacherbo.getPassword());
             teacher.setColor(teacherbo.getColor());
+            teacher.setName(teacherbo.getName());
             teacherDao.save(teacher);
         } else {
             // Throw an exception or handle the situation where the teacher with the given ID does not exist

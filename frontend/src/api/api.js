@@ -219,9 +219,9 @@ api.getContestByName = async function (name) {
     }
 };
 
-api.updateTeacher = async function (id, password, color) {
+api.updateTeacher = async function (id, password, color, name) {
     try {
-        const response = await this.put('/teacher/update', { id, password, color }, {
+        const response = await this.put('/teacher/update', { id, password, color, name }, {
             headers: {
                 'Content-Type': 'application/json'
             }
