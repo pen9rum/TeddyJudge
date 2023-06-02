@@ -75,8 +75,9 @@ public class HomeworkController {
             return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
         }
     }
-    @GetMapping("/{homeworkName}/update/StartTime")
+    @PutMapping("/{homeworkName}/update/starttime")
     public ResponseEntity<Void> updateStartTime( @RequestParam("dateParam") @DateTimeFormat(pattern="yyyy-MM-dd") Date StartTime,@PathVariable String homeworkName) {
+
         Boolean date = homeworkService.updateStartTime(StartTime,homeworkName);
         if (date == false) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -87,6 +88,7 @@ public class HomeworkController {
         }
     }
 
+    @PutMapping("/{homeworkName}/update/endtime")
     public ResponseEntity<Void> updateEndTime( @RequestParam("dateParam") @DateTimeFormat(pattern="yyyy-MM-dd") Date EndTime,@PathVariable String homeworkName) {
         Boolean date = homeworkService.updateEndTime(EndTime,homeworkName);
         if (date == false) {
@@ -98,18 +100,10 @@ public class HomeworkController {
         }
     }
 
-    public ResponseEntity<Void> updateAverage( float average,@PathVariable String homeworkName) {
-        Boolean average1 = homeworkService.updateAverage(average,homeworkName);
-        if (average1 == false) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        else
-        {
-            return new ResponseEntity<>( HttpStatus.OK);
-        }
-    }
+    @PutMapping("/{homeworkName}/update/testcaseanswer")
+    public ResponseEntity<Void> updateTestCaseAnswer(@RequestBody String testCaseAnswer, @PathVariable String homeworkName) {
 
-    public ResponseEntity<Void> updateTestCaseAnswer(String testCaseAnswer, @PathVariable String homeworkName) {
+
         Boolean testCaseAnswer1 = homeworkService.updateTestCaseAnswer(testCaseAnswer, homeworkName);
         if (testCaseAnswer1  == false) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -118,14 +112,29 @@ public class HomeworkController {
         }
     }
 
-
-
-    public ResponseEntity<Void> updateTestCase(String testCase, @PathVariable String homeworkName) {
+    @PutMapping("/{homeworkName}/update/testcase")
+    public ResponseEntity<Void> updateTestCase(@RequestBody String testCase, @PathVariable String homeworkName) {
         Boolean testCase1= homeworkService.updateTestCase(testCase, homeworkName);
         if (testCase1 == false) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         } else {
             return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+
+    @PutMapping(value = "/{homeworkName}/update/pdf", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Void> updateHomeworkPdf(@RequestPart("pdfFile") MultipartFile newPdfFile, @PathVariable String homeworkName) {
+        try {
+            byte[] newPdfBytes = newPdfFile.getBytes();
+
+            if (homeworkService.updatePdf( homeworkName,newPdfBytes)) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

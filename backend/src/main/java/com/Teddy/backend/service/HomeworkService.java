@@ -126,6 +126,7 @@ public class HomeworkService {
     public boolean updateTestCaseAnswer(String testcaseanswer,String homeworkName) {
         Optional<Homework> homework = homeworkDao.findByHomeworkName(homeworkName);
         if (homework.isPresent()) {
+            System.out.println(testcaseanswer);
             homework.get().setTestCaseAnswer(testcaseanswer);
             homeworkDao.save(homework.get());
             return true;

@@ -1,14 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
 import styles from './TCourseList.module.css';
 import { useNavigate } from 'react-router-dom';
 import TCourseListContainer from './TCourseListContainer';
-
+import api from '../../api/api';
 
 const TCourseList = () => {
     const navigate = useNavigate();
+
+    const [homeworkData, setHomeworkData] = useState([]);
+    const [contestData, setContestData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const homeworkData = await api.getHomeworkData();
+            const contestData = await api.getContestData();
+
+            console.log(contestData);
+            setHomeworkData(homeworkData || []);
+            setContestData(contestData || []);
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <Container className={styles.courseContainer}>
             <Row >
@@ -28,7 +45,9 @@ const TCourseList = () => {
 
             <Row>
                 <Col className={styles.sectionContainer}>
-                    < TCourseListContainer fileTitle={"HW1"} nextRouter={"/tcourse/modify"} />
+                    {homeworkData.map((hw, i) => (
+                        <TCourseListContainer key={i} fileTitle={hw.homeworkName} nextRouter={`/tcourse/modify`} />
+                    ))}
                 </Col>
             </Row>
 
@@ -40,7 +59,11 @@ const TCourseList = () => {
 
             <Row>
                 <Col className={styles.sectionContainer}>
-                    < TCourseListContainer fileTitle={"Contest 1"} nextRouter={"/tcourse/contestlist"} />
+                    {contestData.map((contest, i) => (
+                        contest.homeworks.map((hw, j) => (
+                            <TCourseListContainer key={`${i}-${j}`} fileTitle={hw.homeworkName} nextRouter={`/tcourse/contestlist`} />
+                        ))
+                    ))}
                 </Col>
             </Row>
 
