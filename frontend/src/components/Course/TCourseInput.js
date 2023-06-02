@@ -1,24 +1,34 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
 import styles from './TCourseInput.module.css';
 import { useNavigate } from 'react-router-dom';
-
+import api from '../../api/api';
 
 const TCourseInput = () => {
     const navigate = useNavigate();
-    const inputFileRef = useRef(null);
+    const [pdfFile, setPdfFile] = useState(null);
+    const [courseName, setCourseName] = useState("");
 
-    const handleFileUpload = (event) => {
-        const file = event.target.files[0];
-        console.log(file);
-        // You can now use this file object for further processing, e.g., upload it to a server.
+
+    const handlePdfFileChange = async (e) => {
+        const file = e.target.files[0];
+        setPdfFile(file);
     };
 
-    const handleClick = () => {
-        inputFileRef.current.click();
-    }
+
+    const submitCourse = async () => {
+        const result = await api.addCourse(courseName, pdfFile);
+        if (result) {
+            alert('Course submitted successfully');
+            navigate('/tcourse');
+        } else {
+            alert('Failed to submit course');
+        }
+    };
+
+
 
     return (
         <Container className={styles.courseContainer}>
@@ -38,7 +48,7 @@ const TCourseInput = () => {
                             講義名稱
                         </Form.Label>
                         <Col sm={3}>
-                            <Form.Control type="text" placeholder="輸入講義名稱" />
+                            <Form.Control type="text" onChange={(e) => setCourseName(e.target.value)} />
                         </Col>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formPDFUpload" as={Row}>
@@ -46,10 +56,7 @@ const TCourseInput = () => {
                             PDF匯入處
                         </Form.Label>
                         <Col sm={3}>
-                            <input type="file" ref={inputFileRef} accept=".pdf" onChange={handleFileUpload} hidden />
-                            <Button variant="primary" type="button" onClick={handleClick}>
-                                Upload
-                            </Button>
+                            <Form.Control type="file" accept=".pdf" onChange={handlePdfFileChange} />
                         </Col>
                     </Form.Group>
                 </Form>
@@ -57,7 +64,7 @@ const TCourseInput = () => {
 
             <Row  >
                 <Col className={`${styles.sectionContainer} d-flex justify-content-end align-items-end`}>
-                    <Button variant="primary" onClick={() => navigate('/tcourse')}>
+                    <Button variant="primary" onClick={submitCourse}>
                         完成
                     </Button>
                 </Col>

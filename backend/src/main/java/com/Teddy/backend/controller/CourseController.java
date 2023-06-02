@@ -57,10 +57,10 @@ public class CourseController {
         return new ResponseEntity<>(courseService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{homeworkName}/pdf")
-    public ResponseEntity<byte[]> getCoursePdf(@PathVariable String homeworkName) {
+    @GetMapping("/{courseName}/pdf")
+    public ResponseEntity<byte[]> getCoursePdf(@PathVariable String courseName) {
 
-        byte[] pdfBytes = courseService.getPdf(homeworkName);
+        byte[] pdfBytes = courseService.getPdf(courseName);
         if (pdfBytes == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
