@@ -95,4 +95,39 @@ public class ContestService {
         return contestBOs;
     }
 
+    public ContestBO findByContestName(String contestName) {
+
+        Optional<Contest> contestOption = contestDao.findByContestname(contestName);
+        Contest contest = contestOption.get();
+        if(contest == null){
+            return null;
+        }
+
+        // convert Contest entity to ContestBO model
+        ContestBO contestBo = new ContestBO();
+        contestBo.setStartTime(contest.getStartTime());
+        contestBo.setEndTime(contest.getEndTime());
+        contestBo.setId(contest.getId());
+        contestBo.setContestname(contest.getContestname());
+        contestBo.setTotalscore(contest.getTotalscore());
+
+        // similar conversion for homeworks
+        List<HomeworkBO> homeworkBOs = new ArrayList<>();
+        for(Homework homework: contest.getHomeworks()){
+            HomeworkBO bo = new HomeworkBO();
+            bo.setHomeworkName(homework.getHomeworkName());
+            bo.setTestCase(homework.getTestCase());
+            bo.setTestCaseAnswer(homework.getTestCaseAnswer());
+            bo.setStartTime(homework.getStartTime());
+            bo.setEndTime(homework.getEndTime());
+            bo.setAverage(homework.getAverage());
+            bo.setPdfUrl("/homework/" + homework.getHomeworkName() + "/pdf");
+            homeworkBOs.add(bo);
+        }
+        contestBo.setHomeworks(homeworkBOs);
+
+        return contestBo;
+    }
+
+
 }

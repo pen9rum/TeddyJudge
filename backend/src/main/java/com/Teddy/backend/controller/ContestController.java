@@ -64,6 +64,16 @@ public class ContestController {
         return new ResponseEntity<>(contestService.getAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/getByName/{name}")
+    public ResponseEntity<ContestBO> getContestByName(@PathVariable("name") String name) {
+        ContestBO contestBo = contestService.findByContestName(name);
+        if(contestBo == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(contestBo, HttpStatus.OK);
+    }
+
+
 
 
 
