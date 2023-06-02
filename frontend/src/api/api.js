@@ -219,5 +219,25 @@ api.getContestByName = async function (name) {
     }
 };
 
+api.updateTeacher = async function (id, password, color) {
+    try {
+        const response = await this.put('/teacher/update', { id, password, color }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.status === 200) {
+            return true;
+        } else {
+            console.error('Error updating teacher: ', response);
+            return false;
+        }
+    } catch (error) {
+        console.error('Error updating teacher: ', error);
+        return false;
+    }
+};
+
 
 export default api;
