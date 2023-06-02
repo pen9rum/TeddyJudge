@@ -29,6 +29,7 @@ public class ContestController {
             @RequestPart("pdfFiles") MultipartFile[] pdfFiles,
             @RequestPart("contest") String contestJSON) {
 
+        System.out.println("Hello, add contest");
 
         ObjectMapper objectMapper = new ObjectMapper();
         ContestBO contestBo;

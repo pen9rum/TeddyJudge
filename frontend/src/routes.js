@@ -23,7 +23,7 @@ import ContestListPage from './components/Contest/ContestListPage';
 import ContestResultPage from './components/Contest/ContestResultPage';
 import TContestPage from './components/TContest/TContestPage';
 import TContestInput from './components/TContest/TContestInput';
-import TContestParentComponent from './components/TContest/TContestParentComponent';
+
 
 import SettingPage from './components/Setting/SettingPage';
 import TSettingPage from './components/Setting/TSettingPage';
@@ -74,7 +74,7 @@ export const routes = (
             <Route index element={<ContestPage />} />
         </Route>
         <Route path="/tcontest" element={<ProtectedRoute />} >
-            <Route index element={<TContestParentComponent />} />
+            <Route index element={<TContestPage />} />
             <Route path="input" element={<TContestInput />} />
         </Route>
 

@@ -63,31 +63,6 @@ api.uploadHomework = async function (formData) {
 };
 
 
-api.addContest = async function (contestData, pdfFiles) {
-    let formData = new FormData();
-
-    formData.append('contest', JSON.stringify(contestData));
-    pdfFiles.forEach(file => formData.append('pdfFiles', file));
-
-    try {
-        const response = await this.post('/contest/add', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-
-        if (response.status === 201) {
-            return true;
-        } else {
-            console.error('Error submitting contest: ', response);
-            return false;
-        }
-    } catch (error) {
-        console.error('Error submitting contest: ', error);
-        return false;
-    }
-};
-
 api.addCourse = async function (courseName, pdfFile) {
     let formData = new FormData();
 
@@ -132,7 +107,6 @@ api.getContestData = async function () {
         return null;
     }
 };
-
 
 
 

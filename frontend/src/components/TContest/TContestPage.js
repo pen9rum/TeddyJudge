@@ -6,14 +6,17 @@ import styles from './TContestPage.module.css';
 import { useNavigate } from 'react-router-dom';
 
 
-const TContestPage = ({ setQuestionCount }) => {
+const TContestPage = () => {
     const navigate = useNavigate();
     const [questionCount, setLocalQuestionCount] = useState(0);  // <-- add this
+    const [contestName, setContestName] = useState("");
+    const [startTime, setStartTime] = useState("");
+    const [endTime, setEndTime] = useState("");
 
 
     const handleInputChange = (event) => {
         setLocalQuestionCount(event.target.value);  // <-- modify this
-        setQuestionCount(event.target.value);
+
     };
 
     const handleSetQuestionCount = () => {
@@ -22,7 +25,7 @@ const TContestPage = ({ setQuestionCount }) => {
 
     const handleNextClick = () => {
         handleSetQuestionCount();
-        navigate("input");
+        navigate("input", { state: { contestName, startTime, endTime } });
     };
 
     return (
@@ -35,6 +38,17 @@ const TContestPage = ({ setQuestionCount }) => {
                     <Navbar />
                 </Col>
             </Row>
+            <Row className={styles.sectionContainer}>
+                <Col lg={7} className="text-center">
+                    <h2>競賽名稱</h2>
+                </Col>
+                <Col lg={3}>
+                    <Form.Control type="text" placeholder="輸入競賽名稱" onChange={(e) => setContestName(e.target.value)} />
+                </Col>
+            </Row>
+
+
+
             <Row className={styles.sectionContainer}>
                 <Col lg={7} className="text-center">
                     <h2>輸入題數</h2>
@@ -52,7 +66,7 @@ const TContestPage = ({ setQuestionCount }) => {
                             <h2>開始時間</h2>
                         </Form.Label>
                         <Col sm={3}>
-                            <Form.Control type="datetime-local" />
+                            <Form.Control type="datetime-local" onChange={(e) => setStartTime(e.target.value)} />
                         </Col>
                     </Form.Group>
 
@@ -61,7 +75,7 @@ const TContestPage = ({ setQuestionCount }) => {
                             <h2>結束時間</h2>
                         </Form.Label>
                         <Col sm={3}>
-                            <Form.Control type="datetime-local" />
+                            <Form.Control type="datetime-local" onChange={(e) => setEndTime(e.target.value)} />
                         </Col>
                     </Form.Group>
                 </Form>
