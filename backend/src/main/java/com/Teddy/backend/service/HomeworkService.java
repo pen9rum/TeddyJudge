@@ -71,6 +71,71 @@ public class HomeworkService {
             return false;
         }
     }
+
+    public boolean updateEndTime(Date EndTime,String homeworkName) {
+        Optional<Homework> homework = homeworkDao.findByHomeworkName(homeworkName);
+        if (homework.isPresent()) {
+            homework.get().setEndTime(EndTime);
+            homeworkDao.save(homework.get());
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public boolean updateAverage(float average,String homeworkName) {
+        Optional<Homework> homework = homeworkDao.findByHomeworkName(homeworkName);
+        if (homework.isPresent()) {
+            homework.get().setAverage(average);
+            homeworkDao.save(homework.get());
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public boolean updateHomeworkName(String HomeworkName,String homeworkName) {
+        Optional<Homework> homework = homeworkDao.findByHomeworkName(homeworkName);
+        if (homework.isPresent()) {
+            homework.get().setHomeworkName(HomeworkName);
+            homeworkDao.save(homework.get());
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public boolean updateTestCase(String testcase,String homeworkName) {
+        Optional<Homework> homework = homeworkDao.findByHomeworkName(homeworkName);
+        if (homework.isPresent()) {
+            homework.get().setTestCase(testcase);
+            homeworkDao.save(homework.get());
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public boolean updateTestCaseAnswer(String testcaseanswer,String homeworkName) {
+        Optional<Homework> homework = homeworkDao.findByHomeworkName(homeworkName);
+        if (homework.isPresent()) {
+            homework.get().setTestCaseAnswer(testcaseanswer);
+            homeworkDao.save(homework.get());
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public byte[] getPdf(String homeworkName) {
         Optional<Homework> homework = homeworkDao.findByHomeworkName(homeworkName);
         if (homework.isPresent()) {

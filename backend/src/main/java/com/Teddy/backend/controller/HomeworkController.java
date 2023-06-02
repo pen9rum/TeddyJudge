@@ -76,7 +76,7 @@ public class HomeworkController {
         }
     }
     @GetMapping("/{homeworkName}/update/StartTime")
-    public ResponseEntity<Void> getStartTime( @RequestParam("dateParam") @DateTimeFormat(pattern="yyyy-MM-dd") Date StartTime,@PathVariable String homeworkName) {
+    public ResponseEntity<Void> updateStartTime( @RequestParam("dateParam") @DateTimeFormat(pattern="yyyy-MM-dd") Date StartTime,@PathVariable String homeworkName) {
         Boolean date = homeworkService.updateStartTime(StartTime,homeworkName);
         if (date == false) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -86,6 +86,51 @@ public class HomeworkController {
             return new ResponseEntity<>( HttpStatus.OK);
         }
     }
+
+    public ResponseEntity<Void> updateEndTime( @RequestParam("dateParam") @DateTimeFormat(pattern="yyyy-MM-dd") Date EndTime,@PathVariable String homeworkName) {
+        Boolean date = homeworkService.updateEndTime(EndTime,homeworkName);
+        if (date == false) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        else
+        {
+            return new ResponseEntity<>( HttpStatus.OK);
+        }
+    }
+
+    public ResponseEntity<Void> updateAverage( float average,@PathVariable String homeworkName) {
+        Boolean average1 = homeworkService.updateAverage(average,homeworkName);
+        if (average1 == false) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        else
+        {
+            return new ResponseEntity<>( HttpStatus.OK);
+        }
+    }
+
+    public ResponseEntity<Void> updateTestCaseAnswer(String testCaseAnswer, @PathVariable String homeworkName) {
+        Boolean testCaseAnswer1 = homeworkService.updateTestCaseAnswer(testCaseAnswer, homeworkName);
+        if (testCaseAnswer1  == false) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } else {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+
+
+
+    public ResponseEntity<Void> updateTestCase(String testCase, @PathVariable String homeworkName) {
+        Boolean testCase1= homeworkService.updateTestCase(testCase, homeworkName);
+        if (testCase1 == false) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } else {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+
+
+
 
 
 }
