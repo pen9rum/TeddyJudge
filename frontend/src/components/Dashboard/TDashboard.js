@@ -1,15 +1,30 @@
-import React from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../Auth/AuthContext';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
 import './TDashboard.css';
-
+import api from '../../api/api';
 
 
 const TDashboard = () => {
     const navigate = useNavigate();
-    const teacherName = '泰迪熊';
+    const { id } = useContext(AuthContext);
+    const [teacherName, setTeacherName] = useState('');
+
+
+
+    useEffect(() => {
+        const fetchTeacherName = async () => {
+            const name = await api.getTeacherNameById(id);
+            setTeacherName(name);
+            console.log(name);
+            console.log(id);
+
+        };
+        fetchTeacherName();
+    }, [id]);
 
     return (
         <Container className="tdashboard-container">

@@ -266,4 +266,23 @@ api.updateTeacher = async function (id, password, color, name) {
 };
 
 
+
+api.getTeacherNameById = async function (id) {
+    try {
+        const response = await this.get(`/teacher/getNameById/${id}`);
+
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            console.error('Error fetching teacher name: ', response);
+            return null;
+        }
+    } catch (error) {
+        console.error('Error fetching teacher name: ', error);
+        return null;
+    }
+};
+
+
+
 export default api;

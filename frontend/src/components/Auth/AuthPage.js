@@ -14,6 +14,7 @@ const AuthPage = () => {
     const navigate = useNavigate();
     const [isSignUp, setIsSignUp] = useState(false);
     const { setIsAuthenticated } = useContext(AuthContext);
+    const { setId } = useContext(AuthContext);
 
     const switchAuthModeHandler = () => {
         setIsSignUp(!isSignUp);
@@ -22,21 +23,21 @@ const AuthPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        var isAuthenticated = true;
-
+        let isAuthenticated = true;
         let id, password;
+
+
         if (role === 'student') {
             id = e.target.elements.formBasicId.value;
             password = e.target.elements.formBasicPassword.value;
+            setId(id);
             // ... 學生身份驗證邏輯 ...
         } else if (role === 'teacher') {
             id = e.target.elements.formTeacherId.value;
             password = e.target.elements.formTeacherPassword.value;
-            console.log(id);
-            console.log(password);
+
             isAuthenticated = await api.authenticateTeacher(id, password); // You need to implement this function
-            console.log(isAuthenticated);
-            // ... 老師身份驗證邏輯 ...
+            setId(id);
         }
 
 
@@ -46,6 +47,7 @@ const AuthPage = () => {
                 navigate('/dashboard');
             } else {
                 navigate('/tdashboard');
+                // navigate('/tdashboard', { state: { id } })
             }
 
         } else {
