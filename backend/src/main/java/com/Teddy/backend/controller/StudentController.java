@@ -34,4 +34,17 @@ public class StudentController {
         }
     }
 
+    @GetMapping("/getNameById/{studentId}")
+    public ResponseEntity<String> getStudentNameById(@PathVariable("studentId") Long id) {
+        return ResponseEntity.ok(studentService.getStudentNameById(id));
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Void> updateStudent(@RequestBody StudentBO studentBo) {
+        studentService.updateStudent(studentBo);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+
 }

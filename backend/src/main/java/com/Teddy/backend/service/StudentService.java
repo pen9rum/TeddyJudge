@@ -29,6 +29,7 @@ public class StudentService {
         }
         Student entity = new Student();
         entity.setId(bo.getId());
+        entity.setName("同學");
         // Encrypt password before saving to database
         String encodedPassword = bCryptPasswordEncoder.encode(bo.getPassword());
         entity.setPassword(encodedPassword);
@@ -45,4 +46,28 @@ public class StudentService {
         }
         return false;
     }
+
+    public String getStudentNameById(Long id) {
+        Optional<Student> studentOptional = studentDao.findById(id);
+        if (studentOptional.isPresent()) {
+            Student student = studentOptional.get();
+            return student.getName();
+        }
+        return "";
+    }
+
+    public void updateStudent(StudentBO studentbo) {
+        studentbo.setPassword(bCryptPasswordEncoder.encode(studentbo.getPassword()));
+        Optional<Student> studentOptional = studentDao.findById(studentbo.getId());
+        if (studentOptional.isPresent()) {
+            Student student = studentOptional.get();
+            student.setPassword(studentbo.getPassword());
+            student.setName(studentbo.getName());
+            studentDao.save(student);
+        } else {
+            // Handle the case where the student with the given ID does not exist
+        }
+    }
+
+
 }

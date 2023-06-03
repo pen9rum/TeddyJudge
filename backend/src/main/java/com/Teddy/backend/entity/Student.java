@@ -15,5 +15,6 @@ public class Student {
     private Long id;
     private String password;
 
+    private String name;
 
 }
