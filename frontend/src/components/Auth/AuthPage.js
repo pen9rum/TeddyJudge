@@ -73,7 +73,7 @@ const AuthPage = () => {
                     <h1>TeddyJudge</h1>
                 </Col>
             </Row>
-            <Form onSubmit={handleSubmit}>
+            <Form className="rowWidth20em" onSubmit={handleSubmit}>
                 {role === 'student' && !isSignUp && (
                     <>
                         <Form.Group className="form-group_authpagh" controlId="formBasicId">
@@ -115,7 +115,7 @@ const AuthPage = () => {
                 )}
                 {role === 'teacher' && (
                     <>
-                        <Form.Group className="form-group_authpagh" controlId="formTeacherId">
+                        <Form.Group className="form-group_authpagh " controlId="formTeacherId">
                             <Form.Label>Id</Form.Label>
                             <Form.Control type="id" placeholder="Enter id" />
                         </Form.Group>

@@ -34,3 +34,7 @@
     display: flex;
     justify-content: space-between;
 }
+
+.rowWidth20em {
+    width: 20em;
+}
