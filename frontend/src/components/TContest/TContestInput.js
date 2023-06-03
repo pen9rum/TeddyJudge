@@ -136,6 +136,7 @@ const TContestInput = () => {
 
                     } else {
                         // Handle error
+                        alert("File uploaded failed."); // Show a success message
                     }
                 });
         }
