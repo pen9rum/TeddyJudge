@@ -38,4 +38,11 @@ public class TeacherController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/getNameById/{TeacherId}")
+    public ResponseEntity<String> getNameById(@PathVariable("TeacherId") String id){
+
+        return ResponseEntity.ok(teacherService.getTeacherNameById(id));
+    }
+
+
 }

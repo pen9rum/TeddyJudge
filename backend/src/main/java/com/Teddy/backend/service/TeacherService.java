@@ -39,7 +39,7 @@ public class TeacherService {
         teacherDao.save(teacher);
     }
 
-        public void updateTeacher(TeacherBO teacherbo) {
+    public void updateTeacher(TeacherBO teacherbo) {
         teacherbo.setPassword(bCryptPasswordEncoder.encode(teacherbo.getPassword()));
         Optional<Teacher> teacherOptional = teacherDao.findById(teacherbo.getId());
         if (teacherOptional.isPresent()) {
@@ -51,6 +51,15 @@ public class TeacherService {
         } else {
             // Throw an exception or handle the situation where the teacher with the given ID does not exist
         }
+    }
+
+    public String getTeacherNameById(String id){
+        Optional<Teacher> teacherOptional = teacherDao.findById(id);
+        if (teacherOptional.isPresent()) {
+            Teacher teacher = teacherOptional.get();
+            return teacher.getName();
+        }
+        return "";
     }
 
 
