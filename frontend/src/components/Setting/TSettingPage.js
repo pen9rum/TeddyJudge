@@ -11,7 +11,6 @@ const TSettingPage = () => {
     const navigate = useNavigate();
     const [name, setName] = useState('');
     const [color, setColor] = useState('White');
-    const [password, setPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
 
     const handleSubmit = async () => {
@@ -58,15 +57,6 @@ const TSettingPage = () => {
                 </Col>
             </Row>
 
-
-            <Row className={styles.rowWidth40em}>
-                <Col className="text-start">
-                    <h3>密碼 : </h3>
-                </Col>
-                <Col>
-                    <input value={password} onChange={(e) => setPassword(e.target.value)} />
-                </Col>
-            </Row>
 
             <Row className={styles.rowWidth40em}>
                 <Col className="text-start">
