@@ -283,6 +283,41 @@ api.getTeacherNameById = async function (id) {
     }
 };
 
+api.authenticateStudent = async function (id, password, authorization, cookie) {
+    try {
+        const response = await this.post(`/student/login?id=${id}&password=${password}`, null, {
+
+        });
+
+        return response.status === 202;
+    } catch (error) {
+        console.error("Authentication failed:", error);
+        return false;
+    }
+};
+
+
+api.addStudent = async function (id, password, confirm_password) {
+    let studentBO = {
+        id: id,
+        password: password,
+        confirm_password: confirm_password
+    };
+
+    try {
+        const response = await this.post('/student/add', studentBO, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        return response.status === 201;
+    } catch (error) {
+        console.error("Adding student failed:", error);
+        return false;
+    }
+};
+
 
 
 export default api;

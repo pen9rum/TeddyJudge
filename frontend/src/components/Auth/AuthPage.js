@@ -23,37 +23,52 @@ const AuthPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        let isAuthenticated = true;
-        let id, password;
-
+        let isAuthenticated = false;
+        let id, password, confirmPassword;
 
         if (role === 'student') {
-            id = e.target.elements.formBasicId.value;
-            password = e.target.elements.formBasicPassword.value;
+            id = e.target.elements.formBasicId?.value || e.target.elements.formSignUpId?.value;
+            password = e.target.elements.formBasicPassword?.value || e.target.elements.formSignUpPassword?.value;
+            confirmPassword = e.target.elements.formSignUpConfirmPassword?.value;
             setId(id);
-            // ... 學生身份驗證邏輯 ...
+            if (isSignUp) {
+                // Student Sign Up
+                isAuthenticated = await api.addStudent(id, password, confirmPassword);
+                if (isAuthenticated) {
+                    // Sign up successful, switch to sign in form
+                    setIsSignUp(false);
+                    alert('Sign up successful! You can now log in.');
+                } else {
+                    // Handle failed sign up
+                    alert('Failed to sign up');
+                }
+            } else {
+                // Student Sign In
+                isAuthenticated = await api.authenticateStudent(id, password);
+                if (isAuthenticated) {
+                    setIsAuthenticated(true);
+                    navigate('/dashboard');
+                } else {
+                    // Handle failed authentication
+                    alert('Failed to authenticate');
+                }
+            }
         } else if (role === 'teacher') {
             id = e.target.elements.formTeacherId.value;
             password = e.target.elements.formTeacherPassword.value;
-
-            isAuthenticated = await api.authenticateTeacher(id, password); // You need to implement this function
+            isAuthenticated = await api.authenticateTeacher(id, password);
             setId(id);
-        }
-
-
-        if (isAuthenticated) {
-            setIsAuthenticated(true);
-            if (role === "student") {
-                navigate('/dashboard');
-            } else {
+            if (isAuthenticated) {
+                setIsAuthenticated(true);
                 navigate('/tdashboard');
                 // navigate('/tdashboard', { state: { id } })
+            } else {
+                // Handle failed authentication
+                alert('Failed to authenticate');
             }
-
-        } else {
-            // Handle failed authentication
         }
-    }
+    };
+
 
     return (
         <Container className="auth-container">
