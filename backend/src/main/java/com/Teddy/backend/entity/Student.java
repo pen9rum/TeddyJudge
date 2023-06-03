@@ -16,5 +16,6 @@ public class Student {
     private String password;
 
     private String name;
+    private String color;
 
 }

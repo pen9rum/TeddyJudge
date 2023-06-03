@@ -1,12 +1,26 @@
-import React from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../Auth/AuthContext';
 import { Container, Row, Col } from 'react-bootstrap';
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
 import HomeworkContainer from '../Homework/HomeworkContainer';
 import './Dashboard.css';
+import api from '../../api/api';
+
 
 const Dashboard = () => {
-    const userName = '泰迪熊';
+    const { id } = useContext(AuthContext);
+    const [studentName, setStudentName] = useState('');
+
+    useEffect(() => {
+        const fetchStudentName = async () => {
+            const name = await api.getStudentNameById(id);
+            setStudentName(name);
+            console.log(name);
+            console.log(id);
+        };
+        fetchStudentName();
+    }, [id]);
 
     return (
         <Container className="dashboard-container">
@@ -20,7 +34,7 @@ const Dashboard = () => {
             </Row>
             <Row>
                 <Col className="welcome-container">
-                    <h2>Hi, {userName} 你回來了</h2>
+                    <h2>Hi, {studentName} 你回來了</h2>
                 </Col>
             </Row>
             <Row>
@@ -34,8 +48,6 @@ const Dashboard = () => {
                     </div>
                 </div>
             </Row>
-
-
         </Container>
     );
 };

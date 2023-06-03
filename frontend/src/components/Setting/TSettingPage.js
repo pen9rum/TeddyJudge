@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AuthContext } from '../Auth/AuthContext';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
@@ -12,9 +13,10 @@ const TSettingPage = () => {
     const [name, setName] = useState('');
     const [color, setColor] = useState('White');
     const [newPassword, setNewPassword] = useState('');
+    const { id } = useContext(AuthContext);
 
     const handleSubmit = async () => {
-        const success = await api.updateTeacher("QQ", newPassword, color, name);
+        const success = await api.updateTeacher(id, newPassword, color, name);
         if (success) {
             window.alert('Teacher update successful!');
             navigate(-1);

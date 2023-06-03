@@ -318,6 +318,40 @@ api.addStudent = async function (id, password, confirm_password) {
     }
 };
 
+api.getStudentNameById = async function (id) {
+    try {
+        const response = await this.get(`/student/getNameById/${id}`);
 
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            console.error('Error fetching student name: ', response);
+            return null;
+        }
+    } catch (error) {
+        console.error('Error fetching student name: ', error);
+        return null;
+    }
+};
+
+api.updateStudent = async function (id, password, color, name) {
+    try {
+        const response = await this.put('/student/update', { id, password, color, name }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.status === 200) {
+            return true;
+        } else {
+            console.error('Error updating student: ', response);
+            return false;
+        }
+    } catch (error) {
+        console.error('Error updating student: ', error);
+        return false;
+    }
+};
 
 export default api;

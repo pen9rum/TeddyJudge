@@ -14,6 +14,7 @@ public class StudentBO { //這是跟業務邏輯有關，不是直接連資料�
     private String confirm_password;
 
     private String name;
+    private String color;
 
     @Override
     public String toString() {
