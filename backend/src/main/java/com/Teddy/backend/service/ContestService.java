@@ -29,7 +29,7 @@ public class ContestService {
         Contest entity = new Contest();
         entity.setContestname(bo.getContestname());
         entity.setTotalscore(bo.getTotalscore());
-        entity.setId(bo.getId());
+//        entity.setId(bo.getId());
         entity.setStartTime(bo.getStartTime());
         entity.setEndTime(bo.getEndTime());
         contestDao.save(entity);

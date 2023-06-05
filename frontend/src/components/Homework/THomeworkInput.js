@@ -14,8 +14,7 @@ const THomeworkInput = () => {
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
     const [pdfFile, setPdfFile] = useState(null);
-    const [testCase, setTestCase] = useState("");
-    const [testCaseAnswer, setTestCaseAnswer] = useState("");
+    const [testCases, setTestCases] = useState([{ testCase: "", testCaseAnswer: "" }]);
 
     const navigate = useNavigate();
 
@@ -34,18 +33,23 @@ const THomeworkInput = () => {
         setPdfFile(file);
     };
 
-    const handleTestCaseFileChange = async (e) => {
+    const handleTestCaseFileChange = async (e, index) => {
         const file = e.target.files[0];
         const content = await readFileContent(file);
-        setTestCase(content);
+
+        const newTestCases = [...testCases];
+        newTestCases[index].testCase = content;
+        setTestCases(newTestCases);
     };
 
-    const handleTestCaseAnsFileChange = async (e) => {
+    const handleTestCaseAnsFileChange = async (e, index) => {
         const file = e.target.files[0];
         const content = await readFileContent(file);
-        setTestCaseAnswer(content);
-    };
 
+        const newTestCases = [...testCases];
+        newTestCases[index].testCaseAnswer = content;
+        setTestCases(newTestCases);
+    };
 
     const handleFileChange = (e) => {
         setPdfFile(e.target.files[0]);
@@ -55,14 +59,17 @@ const THomeworkInput = () => {
 
         e.preventDefault();
 
+        const allTestCases = testCases.map(tc => tc.testCase);
+        const allTestCaseAnswers = testCases.map(tc => tc.testCaseAnswer);
+
         let formData = new FormData();
         formData.append("pdfFile", pdfFile);
         formData.append("homework", JSON.stringify({
             homeworkName,
             startTime,
             endTime,
-            testCase,
-            testCaseAnswer,
+            testCase: allTestCases,
+            testCaseAnswer: allTestCaseAnswers,
             average: 0.0, // assuming this is a static value
             pdfUrl: "", // assuming this is a static value
             pdf: null
@@ -143,26 +150,38 @@ const THomeworkInput = () => {
                             <Form.Control type="file" accept=".pdf" onChange={handlePdfFileChange} />
                         </Col>
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formTestDataUpload" as={Row}>
-                        <Form.Label column sm={7}>
-                            隱藏測資
-                        </Form.Label>
-                        <Col sm={3}>
-                            <Form.Control type="file" accept=".txt" onChange={handleTestCaseFileChange} />
-                        </Col>
-                    </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formTestAnswerUpload" as={Row}>
-                        <Form.Label column sm={7}>
-                            隱藏測資答案
-                        </Form.Label>
-                        <Col sm={3}>
-                            <Form.Control type="file" accept=".txt" onChange={handleTestCaseAnsFileChange} />
+
+                    {testCases.map((item, index) => (
+                        <>
+                            <Form.Group className="mb-3" controlId={`formTestDataUpload${index}`} as={Row}>
+                                <Form.Label column sm={7}>
+                                    隱藏測資 {index + 1}
+                                </Form.Label>
+                                <Col sm={3}>
+                                    <Form.Control type="file" accept=".txt" onChange={(e) => handleTestCaseFileChange(e, index)} />
+                                </Col>
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId={`formTestAnswerUpload${index}`} as={Row}>
+                                <Form.Label column sm={7}>
+                                    隱藏測資答案 {index + 1}
+                                </Form.Label>
+                                <Col sm={3}>
+                                    <Form.Control type="file" accept=".txt" onChange={(e) => handleTestCaseAnsFileChange(e, index)} />
+                                </Col>
+                            </Form.Group>
+                        </>
+                    ))}
+                    <Button onClick={() => setTestCases([...testCases, { testCase: "", testCaseAnswer: "" }])}>+</Button>
+
+                    <Row>
+                        <Col className="d-flex justify-content-end align-items-end ">
+                            <Button className="mt-5 mb-5" variant="primary" type="submit">
+                                提交
+                            </Button>
                         </Col>
-                    </Form.Group>
-                    <Button className="mb-5" variant="primary" type="submit">
-                        提交
-                    </Button>
+                    </Row>
+
                 </Form>
             </Row>
 

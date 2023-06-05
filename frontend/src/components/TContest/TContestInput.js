@@ -13,11 +13,21 @@ const TContestInput = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [homeworkName, setHomeworkName] = useState("");
     const [pdfFile, setPdfFile] = useState(null);
+    // const [testCase, setTestCase] = useState("");
+    // const [testCaseAnswer, setTestCaseAnswer] = useState("");
 
-    const [homeworks, setHomeworks] = useState([]);
+    const [testCases, setTestCases] = useState([{ testCase: "", testCaseAnswer: "" }]);
+
+    const [homeworks, setHomeworks] = useState(
+        new Array(questionCount).fill({
+            homeworkName: "",
+            pdfFile: null,
+            testCases: [{ testCase: "", testCaseAnswer: "" }],
+        })
+    );
+
     const [pdfFiles, setPdfFiles] = useState([]);
-    const [testCase, setTestCase] = useState("");
-    const [testCaseAnswer, setTestCaseAnswer] = useState("");
+
 
     const location = useLocation();
     const contestName = location.state?.contestName;
@@ -26,11 +36,11 @@ const TContestInput = () => {
     const navigate = useNavigate();
 
 
+
     useEffect(() => {
         const initialHomeworks = new Array(questionCount).fill({
             homeworkName: "",
-            testCase: "",
-            testCaseAnswer: "",
+            testCases: [{ testCase: "", testCaseAnswer: "" }],
             startTime: "",
             endTime: "",
             average: 0,
@@ -60,30 +70,87 @@ const TContestInput = () => {
         });
     };
 
-    const handleTestCaseFileChange = async (e) => {
+    const handleTestCaseFileChange = async (e, index) => {
         const file = e.target.files[0];
         const content = await readFileContent(file);
-        setTestCase(content);
+        console.log(index);
+        setHomeworks(prevHomeworks => {
+            const updatedHomeworks = [...prevHomeworks];
+            if (!updatedHomeworks[currentPage - 1]) {
+                updatedHomeworks.push({
+                    homeworkName: "",
+                    pdfFile: null,
+                    testCases: [{ testCase: "", testCaseAnswer: "" }]
+                })
+            }
+
+            var newTestCases = [...updatedHomeworks[currentPage - 1].testCases];
+            console.log(newTestCases);
+            // 如果在這個索引位置沒有測試用例，則新增一個
+            if (!newTestCases[index]) {
+                newTestCases.push({ testCase: content, testCaseAnswer: "" });
+            } else {
+                // 如果測試用例已存在，則更新它
+                newTestCases[index].testCase = content;
+            }
+
+            setTestCases(newTestCases);
+            updatedHomeworks[currentPage - 1].testCases = newTestCases;
+            return updatedHomeworks;
+        });
+
+
+
+
     };
 
-    const handleTestCaseAnsFileChange = async (e) => {
+    const handleTestCaseAnsFileChange = async (e, index) => {
         const file = e.target.files[0];
         const content = await readFileContent(file);
-        setTestCaseAnswer(content);
+
+        setHomeworks(prevHomeworks => {
+            const updatedHomeworks = [...prevHomeworks];
+            if (!updatedHomeworks[currentPage - 1]) {
+                updatedHomeworks.push({
+                    homeworkName: "",
+                    pdfFile: null,
+                    testCases: [{ testCase: "", testCaseAnswer: "" }]
+                })
+            }
+
+            const newTestCases = [...updatedHomeworks[currentPage - 1].testCases];
+
+            if (!newTestCases[index]) {
+                newTestCases.push({ testCase: "", testCaseAnswer: content });
+            } else {
+                // 如果測試用例已存在，則更新它
+                newTestCases[index].testCaseAnswer = content;
+            }
+
+
+            setTestCases(newTestCases);
+            updatedHomeworks[currentPage - 1].testCases = newTestCases;
+            return updatedHomeworks;
+        });
     };
 
 
     const handleNextPage = () => {
+        const testCasesArray = testCases.map(item => item.testCase);
+        const testCasesAnswerArray = testCases.map(item => item.testCaseAnswer);
+
         const newHomework = {
             homeworkName: homeworkName,
-            testCase: testCase,  // Replace with actual data
-            testCaseAnswer: testCaseAnswer,  // Replace with actual data
+            testCase: testCasesArray,  // Using the array of testCases
+            testCaseAnswer: testCasesAnswerArray,  // Using the array of testCaseAnswers
             startTime: startTime,
             endTime: endTime,
-            average: 0,  // Replace with actual data
-            pdfUrl: null,  // Replace with actual data
-            pdf: null  // Replace with actual data
+            average: 0,
+            pdfUrl: null,
+            pdf: null
         };
+
+
         setHomeworks(prevHomeworks => {
             const updatedHomeworks = [...prevHomeworks];
             updatedHomeworks[currentPage - 1] = newHomework;
@@ -108,10 +175,8 @@ const TContestInput = () => {
             const updatedHomeworks = [...homeworks];
             updatedHomeworks[currentPage - 1] = newHomework;
 
-
             const updatedPdfFiles = [...pdfFiles];
             updatedPdfFiles[currentPage - 1] = pdfFile;
-
 
             console.log(updatedHomeworks)
             console.log(updatedPdfFiles)
@@ -126,6 +191,7 @@ const TContestInput = () => {
                 homeworks: updatedHomeworks
             };
 
+            console.log(contestData);
             // Call the API to add the new contest
             api.addContest(contestData, updatedPdfFiles)
                 .then(result => {
@@ -144,8 +210,8 @@ const TContestInput = () => {
         // Reset UI-related states after the page number is changed
         setHomeworkName("");
         setPdfFile(null);
-        setTestCase("");
-        setTestCaseAnswer("");
+        setTestCases([{ testCase: "", testCaseAnswer: "" }]);
+
     };
 
 
@@ -155,8 +221,7 @@ const TContestInput = () => {
                 // Reset UI-related states after the page number is changed
                 setHomeworkName("");
                 setPdfFile(null);
-                setTestCase("");
-                setTestCaseAnswer("");
+                setTestCases([{ testCase: "", testCaseAnswer: "" }]);
                 return prevPage - 1;
             });
         }
@@ -207,32 +272,38 @@ const TContestInput = () => {
                         </Col>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formTestDataUpload" as={Row}>
-                        <Form.Label column sm={7}>
-                            隱藏測資
-                        </Form.Label>
-                        <Col sm={3}>
-                            <Form.Control type="file" accept=".txt" value={pdfFile ? undefined : ""} onChange={handleTestCaseFileChange} />
-                        </Col>
-                    </Form.Group>
+                    {testCases.map((item, index) => (
+                        <>
+                            <Form.Group className="mb-3" controlId={`formTestDataUpload${index}`} as={Row}>
+                                <Form.Label column sm={7}>
+                                    隱藏測資{index + 1}
+                                </Form.Label>
+                                <Col sm={3}>
+                                    <Form.Control type="file" accept=".txt" value={pdfFile ? undefined : ""} onChange={(e) => handleTestCaseFileChange(e, index)} />
+                                </Col>
+                            </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formTestAnswerUpload" as={Row}>
-                        <Form.Label column sm={7}>
-                            隱藏測資答案
-                        </Form.Label>
-                        <Col sm={3}>
-                            <Form.Control type="file" accept=".txt" value={pdfFile ? undefined : ""} onChange={handleTestCaseAnsFileChange} />
-                        </Col>
-                    </Form.Group>
+                            <Form.Group className="mb-3" controlId={`formTestAnswerUpload${index}`} as={Row}>
+                                <Form.Label column sm={7}>
+                                    隱藏測資答案{index + 1}
+                                </Form.Label>
+                                <Col sm={3}>
+                                    <Form.Control type="file" accept=".txt" value={pdfFile ? undefined : ""} onChange={(e) => handleTestCaseAnsFileChange(e, index)} />
+                                </Col>
+                            </Form.Group>
+                        </>
+                    ))}
+                    <Button onClick={() => setTestCases([...testCases, { testCase: "", testCaseAnswer: "" }])}>+</Button>
+
                 </Form>
             </Row>
 
             <Row >
                 <Col className={styles.sectionContainer}>
-                    <Button onClick={handlePreviousPage}>Previous</Button>
+                    <Button className="mx-5" onClick={handlePreviousPage}>Previous</Button>
                     {currentPage === questionCount ?
                         <Button onClick={() => navigate("")}>End</Button> :
-                        <Button onClick={handleNextPage}>Next</Button>
+                        <Button className="mx-5" onClick={handleNextPage}>Next</Button>
                     }
                 </Col>
             </Row>
