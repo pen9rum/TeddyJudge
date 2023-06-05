@@ -100,11 +100,9 @@ public class HomeworkController {
         }
     }
 
-    @PutMapping("/{homeworkName}/update/testcaseanswer")
-    public ResponseEntity<Void> updateTestCaseAnswer(@RequestBody String testCaseAnswer, @PathVariable String homeworkName) {
-
-
-        Boolean testCaseAnswer1 = homeworkService.updateTestCaseAnswer(testCaseAnswer, homeworkName);
+    @PutMapping("/{homeworkName}/update/testcaseanswer/{testCaseIndex}")
+    public ResponseEntity<Void> updateTestCaseAnswer(@PathVariable String homeworkName, @PathVariable int testCaseIndex, @RequestBody String testCaseAnswer) {
+        Boolean testCaseAnswer1 = homeworkService.updateTestCaseAnswer(homeworkName, testCaseIndex, testCaseAnswer);
         if (testCaseAnswer1  == false) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         } else {
@@ -112,16 +110,16 @@ public class HomeworkController {
         }
     }
 
-    @PutMapping("/{homeworkName}/update/testcase")
-    public ResponseEntity<Void> updateTestCase(@RequestBody String testCase, @PathVariable String homeworkName) {
-        Boolean testCase1= homeworkService.updateTestCase(testCase, homeworkName);
+
+    @PutMapping("/{homeworkName}/update/testcase/{testCaseIndex}")
+    public ResponseEntity<Void> updateTestCase(@PathVariable String homeworkName, @PathVariable int testCaseIndex, @RequestBody String testCase) {
+        Boolean testCase1= homeworkService.updateTestCase(homeworkName, testCaseIndex, testCase);
         if (testCase1 == false) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         } else {
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
-
     @PutMapping(value = "/{homeworkName}/update/pdf", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> updateHomeworkPdf(@RequestPart("pdfFile") MultipartFile newPdfFile, @PathVariable String homeworkName) {
         try {

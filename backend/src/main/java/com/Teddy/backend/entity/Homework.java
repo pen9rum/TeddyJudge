@@ -1,8 +1,10 @@
 package com.Teddy.backend.entity;
-import lombok.AllArgsConstructor;//把GET SET審略
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Date;
+import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,16 +12,18 @@ import jakarta.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Homework {
-    @Id// table id place
+    @Id
     private String homeworkName;
+
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] PDF;
-    private String testCase;
-    private String testCaseAnswer;
     private Date startTime;
     private Date endTime;
     private float average;
+
+    @OneToMany(mappedBy = "homework", cascade = CascadeType.ALL)
+    private List<TestCase> testCases;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id", nullable = true)

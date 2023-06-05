@@ -1,6 +1,8 @@
 package com.Teddy.backend.service;
 import com.Teddy.backend.dao.StudentDao;
+import com.Teddy.backend.dao.TestCaseDao;
 import com.Teddy.backend.entity.Student;
+import com.Teddy.backend.entity.TestCase;
 import com.Teddy.backend.model.StudentBO;
 import com.Teddy.backend.model.ValidContributor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +22,36 @@ public class HomeworkService {
     @Autowired
     private HomeworkDao homeworkDao;
 
-    public boolean add(HomeworkBO bo) {
+    @Autowired
+    private TestCaseDao testCaseDao;
 
+    public boolean add(HomeworkBO bo) {
         Homework entity = new Homework();
         entity.setHomeworkName(bo.getHomeworkName());
         entity.setPDF(bo.getPDF()); // PDF is now a byte[]
-        entity.setTestCase(bo.getTestCase());
-        entity.setTestCaseAnswer(bo.getTestCaseAnswer());
         entity.setStartTime(bo.getStartTime());
         entity.setEndTime(bo.getEndTime());
         entity.setAverage(bo.getAverage());
         entity.setContest(null);
+
+        if (!testCaseDao.existsByHomework(entity)) {
+            List<TestCase> testCases = new ArrayList<>();
+            for (int i = 0; i < bo.getTestCase().size(); i++) {
+                TestCase testCase = new TestCase();
+                testCase.setTestCase(bo.getTestCase().get(i));
+                testCase.setTestCaseAnswer(bo.getTestCaseAnswer().get(i));
+                testCase.setHomework(entity);
+                testCase.setTestCaseIndex(i);
+                testCases.add(testCase);
+            }
+            entity.setTestCases(testCases);
+        }
         homeworkDao.save(entity);
+
+
         return true;
     }
+
 
     public List<HomeworkBO> getAll() {
         List<Homework> homeworks = homeworkDao.findAll();
@@ -46,17 +64,31 @@ public class HomeworkService {
             HomeworkBO bo = new HomeworkBO();
             // 将所有的 Homework 属性复制到 HomeworkBO
             bo.setHomeworkName(homework.getHomeworkName());
-            bo.setTestCase(homework.getTestCase());
-            bo.setTestCaseAnswer(homework.getTestCaseAnswer());
+
+            // Get test cases from homework entity
+            List<TestCase> testCases = homework.getTestCases();
+
+            // Transform the test cases and their answers to lists
+            List<String> testCaseList = new ArrayList<>();
+            List<String> testCaseAnswerList = new ArrayList<>();
+            for (TestCase testCase : testCases) {
+                testCaseList.add(testCase.getTestCase());
+                testCaseAnswerList.add(testCase.getTestCaseAnswer());
+            }
+            bo.setTestCase(testCaseList);
+            bo.setTestCaseAnswer(testCaseAnswerList);
+
             bo.setStartTime(homework.getStartTime());
             bo.setEndTime(homework.getEndTime());
             bo.setAverage(homework.getAverage());
+
             // Add the URL for the PDF file
             bo.setPdfUrl("/homework/" + homework.getHomeworkName() + "/pdf");
             homeworkBOs.add(bo);
         }
         return homeworkBOs;
     }
+
 
 
     public boolean updateStartTime(Date StartTime,String homeworkName) {
@@ -110,29 +142,27 @@ public class HomeworkService {
         }
     }
 
-    public boolean updateTestCase(String testcase,String homeworkName) {
-        Optional<Homework> homework = homeworkDao.findByHomeworkName(homeworkName);
-        if (homework.isPresent()) {
-            homework.get().setTestCase(testcase);
-            homeworkDao.save(homework.get());
+    public boolean updateTestCase(String homeworkName, int testCaseIndex, String testcase) {
+        Optional<TestCase> testCaseOption = testCaseDao.findByHomeworkHomeworkNameAndTestCaseIndex(homeworkName, testCaseIndex);
+        if (testCaseOption.isPresent()) {
+            var testCase = testCaseOption.get();
+            testCase.setTestCase(testcase);
+            testCaseDao.save(testCase);
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
 
-    public boolean updateTestCaseAnswer(String testcaseanswer,String homeworkName) {
-        Optional<Homework> homework = homeworkDao.findByHomeworkName(homeworkName);
-        if (homework.isPresent()) {
-            System.out.println(testcaseanswer);
-            homework.get().setTestCaseAnswer(testcaseanswer);
-            homeworkDao.save(homework.get());
+
+    public boolean updateTestCaseAnswer(String homeworkName, int testCaseIndex, String testCaseAnswer) {
+        Optional<TestCase> testCaseOption = testCaseDao.findByHomeworkHomeworkNameAndTestCaseIndex(homeworkName, testCaseIndex);
+        if (testCaseOption.isPresent()) {
+            var testCase = testCaseOption.get();
+            testCase.setTestCaseAnswer(testCaseAnswer);
+            testCaseDao.save(testCase);
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }

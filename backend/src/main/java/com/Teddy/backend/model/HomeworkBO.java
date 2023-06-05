@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -12,8 +13,8 @@ import java.util.Date;
 public class HomeworkBO {
     private String homeworkName;
     private byte[] PDF;
-    private String testCase;
-    private String testCaseAnswer;
+    private List<String> testCase;
+    private List<String> testCaseAnswer;
     private Date startTime;
     private Date endTime;
     private float average;

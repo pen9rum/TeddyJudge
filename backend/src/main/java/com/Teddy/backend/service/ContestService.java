@@ -3,6 +3,7 @@ import com.Teddy.backend.dao.ContestDao;
 import com.Teddy.backend.dao.HomeworkDao;
 import com.Teddy.backend.entity.Contest;
 import com.Teddy.backend.entity.Homework;
+import com.Teddy.backend.entity.TestCase;
 import com.Teddy.backend.model.ContestBO;
 import com.Teddy.backend.model.HomeworkBO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +39,22 @@ public class ContestService {
             Homework homework = new Homework();
             homework.setHomeworkName(homeworkBO.getHomeworkName());
             homework.setPDF(homeworkBO.getPDF()); // PDF is now a byte[]
-            homework.setTestCase(homeworkBO.getTestCase());
-            homework.setTestCaseAnswer(homeworkBO.getTestCaseAnswer());
             homework.setStartTime(homeworkBO.getStartTime());
             homework.setEndTime(homeworkBO.getEndTime());
             homework.setAverage(homeworkBO.getAverage());
             homework.setContest(entity);
+
+            List<TestCase> testCases = new ArrayList<>();
+            for (int i = 0; i < homeworkBO.getTestCase().size(); i++) {
+                TestCase testCase = new TestCase();
+                testCase.setTestCase(homeworkBO.getTestCase().get(i));
+                testCase.setTestCaseAnswer(homeworkBO.getTestCaseAnswer().get(i));
+                testCase.setHomework(homework);
+                testCases.add(testCase);
+            }
+
+            homework.setTestCases(testCases);
+
             homeworks.add(homework);
 
             // save the homework
@@ -55,6 +66,7 @@ public class ContestService {
         contestDao.save(entity);
         return true;
     }
+
 
     public List<ContestBO> getAll() {
         List<Contest> contests = contestDao.findAll();
@@ -71,8 +83,16 @@ public class ContestService {
                 HomeworkBO bo = new HomeworkBO();
                 // 将所有的 Homework 属性复制到 HomeworkBO
                 bo.setHomeworkName(homework.getHomeworkName());
-                bo.setTestCase(homework.getTestCase());
-                bo.setTestCaseAnswer(homework.getTestCaseAnswer());
+
+                List<String> testCases = new ArrayList<>();
+                List<String> testCaseAnswers = new ArrayList<>();
+                for(TestCase testCase : homework.getTestCases()){
+                    testCases.add(testCase.getTestCase());
+                    testCaseAnswers.add(testCase.getTestCaseAnswer());
+                }
+                bo.setTestCase(testCases);
+                bo.setTestCaseAnswer(testCaseAnswers);
+
                 bo.setStartTime(homework.getStartTime());
                 bo.setEndTime(homework.getEndTime());
                 bo.setAverage(homework.getAverage());
@@ -116,8 +136,14 @@ public class ContestService {
         for(Homework homework: contest.getHomeworks()){
             HomeworkBO bo = new HomeworkBO();
             bo.setHomeworkName(homework.getHomeworkName());
-            bo.setTestCase(homework.getTestCase());
-            bo.setTestCaseAnswer(homework.getTestCaseAnswer());
+            List<String> testCases = new ArrayList<>();
+            List<String> testCaseAnswers = new ArrayList<>();
+            for(TestCase testCase : homework.getTestCases()){
+                testCases.add(testCase.getTestCase());
+                testCaseAnswers.add(testCase.getTestCaseAnswer());
+            }
+            bo.setTestCase(testCases);
+            bo.setTestCaseAnswer(testCaseAnswers);
             bo.setStartTime(homework.getStartTime());
             bo.setEndTime(homework.getEndTime());
             bo.setAverage(homework.getAverage());
