@@ -123,7 +123,6 @@ const TContestInput = () => {
             if (!newTestCases[index]) {
                 newTestCases.push({ testCase: "", testCaseAnswer: content });
             } else {
-                // 如果測試用例已存在，則更新它
                 newTestCases[index].testCaseAnswer = content;
             }
 

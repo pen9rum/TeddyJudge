@@ -1,16 +1,19 @@
 package com.Teddy.backend.model;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentHomeworkBoxBO {
+public class ExecuteCodeRequest {
+    private Long id;
     private String homeworkName;
-    private long id;
-    private List<Double> score;
+    private String sourceCode;
+
 
 }

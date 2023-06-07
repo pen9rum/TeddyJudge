@@ -13,6 +13,8 @@ import com.Teddy.backend.entity.StudentHomeworkBox;
 import com.Teddy.backend.model.StudentHomeworkBoxBO;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,19 +26,43 @@ public class StudentHomeworkBoxService {
 
     public boolean add(StudentHomeworkBoxBO bo) {
         StudentHomeworkBox entity = new StudentHomeworkBox();
-        entity.setHomeworkname(bo.getHomeworkname());
+        entity.setHomeworkName(bo.getHomeworkName());
         entity.setId(bo.getId()); // PDF is now a byte[]
         studenthomeworkboxDao.save(entity);
         return true;
     }
 
-    public double getHomeworkScoreByID(StudentHomeworkBoxBO bo) {
-        Optional<StudentHomeworkBox> studenthomeworkbox = studenthomeworkboxDao. findByHomeworknameAndId(bo.getHomeworkname(),bo.getId());
+    public List<Double> getHomeworkScoreByID(StudentHomeworkBoxBO bo) {
+        Optional<StudentHomeworkBox> studenthomeworkbox = studenthomeworkboxDao.findByHomeworkNameAndId(bo.getHomeworkName(),bo.getId());
+
         if(studenthomeworkbox.isPresent()) {
-            return studenthomeworkbox.get().getScore();
+            System.out.println(studenthomeworkbox.get().getScores());
+            return studenthomeworkbox.get().getScores();
         }
         else
-            return 0.00;
+            return new ArrayList<>();
     }
+
+    public Double getAverageScoreByHomeworkName(StudentHomeworkBoxBO bo) {
+        List<StudentHomeworkBox> studentHomeworkBoxes = studenthomeworkboxDao.findByHomeworkName(bo.getHomeworkName());
+
+        double totalScore = 0.0;
+        int totalEntries = 0;
+
+        for (StudentHomeworkBox studentHomeworkBox : studentHomeworkBoxes) {
+            List<Double> scoresList = studentHomeworkBox.getScores();
+            for (Double score : scoresList) {
+                totalScore += score;
+            }
+            totalEntries++;
+        }
+
+        if (totalEntries == 0) {
+            return null; // or return some indicator of no scores exist
+        }
+
+        return totalScore / totalEntries;
+    }
+
 
 }
