@@ -3,14 +3,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudentHomeworkBoxBO {
-    private int semester;
-    private int year;
-    private String homeworkname;
+    private String homeworkName;
     private long id;
-    private boolean pass;
-    private double score;
+    private List<Double> score;
+
 }

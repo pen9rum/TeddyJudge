@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/student_homework")
@@ -27,9 +30,13 @@ public class StudentHomeworkBoxController {
     }
 
     @GetMapping("/get_score_by_Id")
-    public ResponseEntity<Double> getScoreById(@RequestBody StudentHomeworkBoxBO studentBo) {
-        return  ResponseEntity.ok(studentHomeworkBoxService.getHomeworkScoreByID(studentBo));
+    public ResponseEntity<List<Double>> getScoreById(@RequestBody StudentHomeworkBoxBO studentBo) {
+        return ResponseEntity.ok(studentHomeworkBoxService.getHomeworkScoreByID(studentBo));
+    }
 
+    @GetMapping("/average")
+    public ResponseEntity<Double> getAverageScoreByHomeworkName(@RequestBody StudentHomeworkBoxBO studentBo) {
+        return ResponseEntity.ok(studentHomeworkBoxService.getAverageScoreByHomeworkName(studentBo));
     }
 
 

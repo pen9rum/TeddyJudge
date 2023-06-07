@@ -1,24 +1,40 @@
 package com.Teddy.backend.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.io.Serializable;
+import java.util.Objects;
 
-@Entity
-@IdClass(ScoreId.class)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Score {
+public class StudentHomeworkId implements Serializable {
 
-    @Id
     private Long id;
+    private String homeworkName;
 
-    private double score;
+    public StudentHomeworkId() {
+    }
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "homework_id")
-    private Homework homework;
+    public StudentHomeworkId(Long id, String homeworkName) {
+        this.id = id;
+        this.homeworkName = homeworkName;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getHomeworkName() {
+        return homeworkName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof StudentHomeworkId)) return false;
+        StudentHomeworkId that = (StudentHomeworkId) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(homeworkName, that.homeworkName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, homeworkName);
+    }
 }

@@ -1,21 +1,24 @@
 package com.Teddy.backend.entity;
-import lombok.AllArgsConstructor;//把GET SET審略
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
+@IdClass(StudentHomeworkId.class)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudentHomeworkBox {
-    private int semester;
-    private int year;
-    private String homeworkname;
     @Id
-    private long id;
-    private boolean pass;
-    private double score;
+    private Long id;
 
+    @Id
+    private String homeworkName;
 
+    @ElementCollection
+    private List<Double> scores;
 }
