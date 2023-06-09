@@ -1,11 +1,13 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import './ContestContainer.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ContestContainer = ({ contestTitle, status, score, dueDate, btnStatus }) => {
     const GoStr = 'Go';
     const ReviewStr = 'Review';
+    const navigate = useNavigate();
+
     return (
         <Container className="score-container">
             <Row className="row-score">
@@ -31,22 +33,14 @@ const ContestContainer = ({ contestTitle, status, score, dueDate, btnStatus }) =
 
                 <Col className=" text-center col-btn-detail d-flex justify-content-end  p-0 ">
                     {btnStatus ? (
-
-                        <Link to={`/contestList/${GoStr}`}>
-                            <Button className="btn-detail" variant="primary" >
-                                Go
-                            </Button>
-                        </Link>
+                        <Button className="btn-detail" variant="primary" onClick={() => navigate(`/contestList/${GoStr}`, { state: { contestTitle } })}>
+                            Go
+                        </Button>
                     ) : (
-                        <Link to={`/contestList/${ReviewStr}`}>
-                            <Button className="btn-detail" variant="primary" >
-                                Review
-                            </Button>
-                        </Link>
-                    )
-
-                    }
-
+                        <Button className="btn-detail" variant="primary" onClick={() => navigate(`/contestList/${ReviewStr}`, { state: { contestTitle } })}>
+                            Review
+                        </Button>
+                    )}
                 </Col>
 
 
