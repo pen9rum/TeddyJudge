@@ -17,6 +17,7 @@ import TCourseInput from './components/Course/TCourseInput';
 import TCourseList from './components/Course/TCourseList';
 import TCourseModify from './components/Course/TCourseModify';
 import TCourseContestList from './components/Course/TCourseContestList';
+import TCourseCourseList from './components/Course/TCourseCourseList';
 
 import ContestPage from './components/Contest/ContestPage';
 import ContestListPage from './components/Contest/ContestListPage';
@@ -67,6 +68,7 @@ export const routes = (
             <Route index element={<TCoursePage />} />
             <Route path="input" element={<TCourseInput />} />
             <Route path="list" element={<TCourseList />} />
+            <Route path="courselist" element={<TCourseCourseList />} />
             <Route path="modify" element={<TCourseModify />} />
             <Route path="contestlist" element={<TCourseContestList />} />
         </Route>

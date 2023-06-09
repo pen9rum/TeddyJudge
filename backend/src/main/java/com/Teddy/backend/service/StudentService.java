@@ -57,11 +57,15 @@ public class StudentService {
     }
 
     public void updateStudent(StudentBO studentbo) {
-        studentbo.setPassword(bCryptPasswordEncoder.encode(studentbo.getPassword()));
+        if(studentbo.getPassword()!="") {
+            studentbo.setPassword(bCryptPasswordEncoder.encode(studentbo.getPassword()));
+        }
         Optional<Student> studentOptional = studentDao.findById(studentbo.getId());
         if (studentOptional.isPresent()) {
             Student student = studentOptional.get();
-            student.setPassword(studentbo.getPassword());
+            if(studentbo.getPassword()!="") {
+                student.setPassword(studentbo.getPassword());
+            }
             student.setName(studentbo.getName());
             studentDao.save(student);
         } else {

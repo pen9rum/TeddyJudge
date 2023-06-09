@@ -135,6 +135,9 @@ const TContestInput = () => {
 
 
     const handleNextPage = () => {
+
+
+
         const testCasesArray = testCases.map(item => item.testCase);
         const testCasesAnswerArray = testCases.map(item => item.testCaseAnswer);
 

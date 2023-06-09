@@ -59,6 +59,12 @@ const THomeworkInput = () => {
 
         e.preventDefault();
 
+        // Check if the start time is later than the end time
+        if (new Date(startTime) > new Date(endTime)) {
+            alert("開始時間不能晚於結束時間！");
+            return; // Stop execution
+        }
+
         const allTestCases = testCases.map(tc => tc.testCase);
         const allTestCaseAnswers = testCases.map(tc => tc.testCaseAnswer);
 

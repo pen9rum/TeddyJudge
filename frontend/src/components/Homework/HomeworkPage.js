@@ -40,17 +40,21 @@ const HomeworkPage = () => {
                 const endTime = new Date(homework.endTime);
                 const result = await api.getStudentResultById(homework.homeworkName, id);
 
-                if (result && result.length > 0) {
+                if (startTime <= now && now <= endTime) {
+                    // This homework is ongoing
+                    ongoingHomeworks.push(homework);
+                } else if (now > endTime) {
+                    // This homework is overdue
+
                     // This homework has result content, so it is in the "scoredHomeworks" category
                     const score = await api.getStudentScoreById(homework.homeworkName, id);
                     homework.totalScore = score.reduce((a, b) => a + b, 0);
                     scoredHomeworks.push(homework);
-                } else if (startTime <= now && now <= endTime) {
-                    // This homework is ongoing, and it has no result content
-                    ongoingHomeworks.push(homework);
-                } else if (now > endTime) {
-                    // This homework is overdue, and it has no result content
-                    overdueHomeworks.push(homework);
+
+                    if (homework.totalScore !== 100) {
+                        // This homework has no result content, so it is in the "overdueHomeworks" category
+                        overdueHomeworks.push(homework);
+                    }
                 }
             }
 
@@ -61,6 +65,7 @@ const HomeworkPage = () => {
         fetchData();
 
     }, []);
+
 
 
 

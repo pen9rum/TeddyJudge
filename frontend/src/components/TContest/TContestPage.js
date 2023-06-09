@@ -24,6 +24,11 @@ const TContestPage = () => {
     };
 
     const handleNextClick = () => {
+        // Check if the start time is later than the end time
+        if (new Date(startTime) > new Date(endTime)) {
+            alert("開始時間不能晚於結束時間！");
+            return; // Stop execution
+        }
         handleSetQuestionCount();
         navigate("input", { state: { contestName, startTime, endTime } });
     };

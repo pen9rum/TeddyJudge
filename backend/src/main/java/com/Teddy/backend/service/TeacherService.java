@@ -40,11 +40,16 @@ public class TeacherService {
     }
 
     public void updateTeacher(TeacherBO teacherbo) {
-        teacherbo.setPassword(bCryptPasswordEncoder.encode(teacherbo.getPassword()));
+        if(teacherbo.getPassword()!="") {
+            teacherbo.setPassword(bCryptPasswordEncoder.encode(teacherbo.getPassword()));
+        }
         Optional<Teacher> teacherOptional = teacherDao.findById(teacherbo.getId());
         if (teacherOptional.isPresent()) {
             Teacher teacher = teacherOptional.get();
-            teacher.setPassword(teacherbo.getPassword());
+            if(teacherbo.getPassword()!="") {
+                System.out.println("This"+teacherbo.getPassword());
+                teacher.setPassword(teacherbo.getPassword());
+            }
             teacher.setColor(teacherbo.getColor());
             teacher.setName(teacherbo.getName());
             teacherDao.save(teacher);

@@ -19,25 +19,46 @@ const TCoursePage = () => {
                 </Col>
             </Row>
 
-
-
             <Row>
-                <Col className={styles.sectionContainer}>
-                    <h2>上傳講義</h2>
+                <Col>
+                    <Row>
+                        <Col className={styles.sectionContainer}>
+                            <h2>上傳講義</h2>
+                        </Col>
+
+                    </Row>
+                    <Row>
+                        <Col className={`${styles.sectionContainer} text-center  d-flex justify-content-center align-items-center p-0`}>
+                            <Button
+                                className={`${styles.btnDetail}`}
+                                variant="primary"
+                                onClick={() => navigate('input')}
+                            >
+                                Go
+                            </Button>
+                        </Col>
+                    </Row>
+                </Col>
+
+                <Col>
+                    <Row>
+                        <Col className={styles.sectionContainer}>
+                            <h2>講義管理</h2>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col className={`${styles.sectionContainer} text-center  d-flex justify-content-center align-items-center p-0`}>
+                            <Button
+                                className={`${styles.btnDetail}`}
+                                variant="primary"
+                                onClick={() => navigate('courselist')}
+                            >
+                                Go
+                            </Button>
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
-            <Row>
-                <Col className={`${styles.sectionContainer} text-center  d-flex justify-content-center align-items-center p-0`}>
-                    <Button
-                        className={`${styles.btnDetail}`}
-                        variant="primary"
-                        onClick={() => navigate('input')}
-                    >
-                        Go
-                    </Button>
-                </Col>
-            </Row>
-
             <Row>
                 <Col className={styles.sectionContainer}>
                     <h2>題目管理</h2>
@@ -54,6 +75,7 @@ const TCoursePage = () => {
                     </Button>
                 </Col>
             </Row>
+
 
 
         </Container>

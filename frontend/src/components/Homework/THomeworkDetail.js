@@ -13,6 +13,12 @@ const THomeworkDetail = () => {
     const location = useLocation();
     const homeworkTitle = location.state.homeworkTitle ? location.state.homeworkTitle : "Default";
 
+    const getDifficultyMessage = (score) => {
+        if (score <= 60) return '可能太難了!(60↓)';
+        if (score <= 80) return '可能稍難喔(60~80)';
+        return '難度剛剛好(80~100)';
+    }
+
     useEffect(() => {
         const fetchAverageScore = async () => {
             try {
@@ -75,19 +81,10 @@ const THomeworkDetail = () => {
             </Row>
             <Row>
                 <Col className={styles.sectionContainer}>
-                    <h2>可能太難了!(60↓)</h2>
+                    <h2>{getDifficultyMessage(score)}</h2>
                 </Col>
             </Row>
-            <Row>
-                <Col className={styles.sectionContainer}>
-                    <h2>可能稍難喔(60~80)</h2>
-                </Col>
-            </Row>
-            <Row>
-                <Col className={styles.sectionContainer}>
-                    <h2>難度剛剛好(80~100)</h2>
-                </Col>
-            </Row>
+
         </Container>
     );
 };

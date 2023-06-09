@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { AuthContext } from '../Auth/AuthContext';
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
 import styles from './ContestPage.module.css';
@@ -7,17 +8,54 @@ import ContestContainer from './ContestContainer';
 import api from '../../api/api';
 
 const ContestPage = () => {
-
+    const { id } = useContext(AuthContext);
     const [contests, setContests] = useState([]);
+
+    const formatDateTime = (date) => {
+        const year = date.getUTCFullYear();
+        const month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); // add 1 because months are 0-indexed
+        const day = date.getUTCDate().toString().padStart(2, '0');
+        const hour = date.getUTCHours().toString().padStart(2, '0');
+        const minute = date.getUTCMinutes().toString().padStart(2, '0');
+        return `${year}-${month}-${day} ${hour}:${minute}`;
+    };
 
     useEffect(() => {
         const fetchContests = async () => {
-            const contestData = await api.getContestData();
-            setContests(contestData);
-        }
+            const contestData = await api.getContestData(); // this should now include scores
+            const contestsWithScores = await Promise.all(
+                contestData.map(async (contest) => {
+                    // get the scores for each contest
+                    let contestScore = 0;
+                    if (contest.homeworks) {
+                        const homeworksWithScores = await Promise.all(
+                            contest.homeworks.map(async (homework) => {
+                                const scores = await api.getStudentScoreById(homework.homeworkName, id);
+                                const totalHomeworkScore = scores.reduce((a, b) => a + b, 0);
+                                console.log(totalHomeworkScore);
+                                contestScore += totalHomeworkScore;
+                                return {
+                                    ...homework,
+                                    totalscore: totalHomeworkScore,
+                                };
+                            })
+                        );
+                        return {
+                            ...contest,
+                            homeworks: homeworksWithScores,
+                            totalscore: contestScore,
+                        };
+                    }
+                    return contest;
+                })
+            );
+            setContests(contestsWithScores);
+        };
 
         fetchContests();
-    }, []); // empty array as dependency so this only runs on mount
+    }, []);
+
+
 
 
     // Separate contests into upcoming and past based on the current date
@@ -40,47 +78,75 @@ const ContestPage = () => {
             </Row>
             <Row className={`${styles.rowWidth70em} `}>
                 <Col lg={4} className="text-center">
-                    <h2>下次Contest</h2>
+                    <h2>未來的Contest</h2>
                 </Col>
             </Row>
 
             <Row className={`${styles.rowWidth70em} `}>
-                {upcomingContests.map(contest => (
-                    <Col>
-                        <ContestContainer
-                            contestTitle={contest.contestname}
-                            status={false}
-                            dueDate={new Date(contest.startTime).toLocaleDateString()}
-                            btnStatus={true}
-                        />
-                    </Col>
 
-                ))}
+                {upcomingContests.map(contest => {
+                    // create Date objects from the contest's startTime and endTime
+                    const startDate = new Date(contest.startTime);
+                    const endDate = new Date(contest.endTime);
+
+                    // format these Date objects into strings using your formatDateTime() function
+                    const formattedStartTime = formatDateTime(startDate);
+                    const formattedEndTime = formatDateTime(endDate);
+
+                    // create a string representation of the contest's duration
+                    const contestDuration = `${formattedStartTime} - ${formattedEndTime}`;
+
+                    return (
+                        <Row className={`${styles.rowWidth70em} `}>
+                            <Col>
+                                <ContestContainer
+                                    contestTitle={contest.contestname}
+                                    status={false}
+                                    dueDate={contestDuration} // pass the contestDuration string here
+                                    btnStatus={true}
+                                />
+                            </Col>
+                        </Row>
+                    );
+                })}
             </Row>
 
             <Row className={`${styles.rowWidth70em} mt-5`}>
                 <Col lg={4} className="text-center">
-                    <h2>進行中的Contest</h2>
+                    <h2>進行中Contest</h2>
                 </Col>
             </Row>
 
 
-            {curContests.map(contest => (
-                <Row className={`${styles.rowWidth70em} `}>
+            {curContests.map(contest => {
+                // create Date objects from the contest's startTime and endTime
+                const startDate = new Date(contest.startTime);
+                const endDate = new Date(contest.endTime);
 
-                    <Col>
-                        <ContestContainer
-                            contestTitle={contest.contestname}
-                            status={false}
-                            // dueDate={new Date(contest.endTime).toLocaleDateString()}
-                            btnStatus={true}
-                        />
-                    </Col>
-                </Row>
-            ))}
+                // format these Date objects into strings using your formatDateTime() function
+                const formattedStartTime = formatDateTime(startDate);
+                const formattedEndTime = formatDateTime(endDate);
+
+                // create a string representation of the contest's duration
+                const contestDuration = `${formattedStartTime} - ${formattedEndTime}`;
+
+                return (
+                    <Row className={`${styles.rowWidth70em} `}>
+                        <Col>
+                            <ContestContainer
+                                contestTitle={contest.contestname}
+                                status={false}
+                                dueDate={contestDuration} // pass the contestDuration string here
+                                btnStatus={true}
+                            />
+                        </Col>
+                    </Row>
+                );
+            })}
+
 
             <Row className={`${styles.rowWidth70em} mt-5`}>
-                <Col lg={4} className="text-center mx-4">
+                <Col lg={4} className="text-center">
                     <h2>先前的Contest</h2>
                 </Col>
             </Row>
@@ -92,7 +158,7 @@ const ContestPage = () => {
                         <ContestContainer
                             contestTitle={contest.contestname}
                             status={true}
-                            score={contest.totalscore}
+                            score={contest.totalscore} // 這裡要變成 contestScore
                             btnStatus={false}
                         />
                     </Col>
