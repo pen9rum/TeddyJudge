@@ -23,3 +23,11 @@
 .colContestResultContainer {
     margin-left: -100px;
 }
+
+.btnGoa {
+    color: white;
+}
+
+.btnGoa:hover {
+    color: white;
+}

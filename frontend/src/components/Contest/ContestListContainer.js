@@ -1,16 +1,20 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from './ContestListContainer.module.css';
 
 
-const ContestListContainer = ({ contestTitle, result, score, scoreTotal, isAnsOrNot }) => {
+const ContestListContainer = ({ homeworkTitle, result, score, scoreTotal, isAnsOrNot }) => {
+
+    const navigate = useNavigate();
+
+
     return (
         <Container className={styles.contestListContainer}>
             <Row>
                 <Col className={`text-start mx-3 align-self-center`}>
                     <header>
-                        <h4 className="">{contestTitle}</h4>
+                        <h4 className="">{homeworkTitle}</h4>
                     </header>
                 </Col>
                 <Col className={`text-end  align-self-center`}>
@@ -24,20 +28,19 @@ const ContestListContainer = ({ contestTitle, result, score, scoreTotal, isAnsOr
 
                 {isAnsOrNot ? (
                     <Col className={`text-center ${styles.colBtnAns} d-flex justify-content-end p-0`}>
-                        <Link to="/problem" >
-                            <Button className={`btn-go ${styles.btnAns}`} variant="primary">
-                                Ans
-                            </Button>
-                        </Link>
+                        <Button className={`btn-go ${styles.btnAns}`} variant="primary" onClick={() => navigate('/problem', { state: { homeworkTitle } })}>
+                            Ans
+                        </Button>
                     </Col>
-                ) : (<Col className={`text-center ${styles.colBtnAns} d-flex justify-content-end p-0`}>
-                    <Link to={`/contestResult/${contestTitle}`}  >
-                        <Button className={`btn-go ${styles.btnReview}`} variant="primary">
+                ) : (
+                    <Col className={`text-center ${styles.colBtnAns} d-flex justify-content-end p-0`}>
+                        <Button className={`btn-go ${styles.btnReview}`} variant="primary" onClick={() => navigate(`/contestResult/${homeworkTitle}`, { state: { homeworkTitle } })}>
                             Review
                         </Button>
-                    </Link>
-                </Col>)
-                }
+                    </Col>
+                )}
+
+
             </Row>
         </Container>
     );

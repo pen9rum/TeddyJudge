@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import { AuthContext } from '../Auth/AuthContext';
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
 import styles from './ContestListPage.module.css';
@@ -8,6 +9,7 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import api from '../../api/api';
 
 const ContestListPage = () => {
+    const { id } = useContext(AuthContext);
     const { param } = useParams();
     var isGoOrReview = param;
     const location = useLocation();
@@ -15,11 +17,8 @@ const ContestListPage = () => {
     console.log(contestTitle);
 
     const navigate = useNavigate();
-    const [data, setData] = useState([
-        { id: 1, title: "Sample title 1" },
-        { id: 2, title: "Sample title 2" },
-        { id: 3, title: "Sample title 3" }
-    ]);
+    const [data, setData] = useState(null);
+    const [contestScore, setContestScore] = useState(0);
 
     const handleBack = () => {
         navigate(-1);
@@ -27,11 +26,21 @@ const ContestListPage = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            let contestScore = 0;
             let contestData = await api.getContestByName(contestTitle);
             if (contestData && contestData.homeworks) {
-                const homeworkNames = contestData.homeworks.map(homework => homework.homeworkName);
-                contestData = { ...contestData, homeworkNames };
+                const homeworksWithScores = await Promise.all(
+                    contestData.homeworks.map(async (homework) => {
+                        const scores = await api.getStudentScoreById(homework.homeworkName, id);
+                        homework.totalScore = scores.reduce((a, b) => a + b, 0);
+                        contestScore += homework.totalScore;
+                        console.log(homework.totalScore);
+                        return homework;
+                    })
+                );
+                contestData = { ...contestData, homeworks: homeworksWithScores };
             }
+            setContestScore(contestScore);
             setData(contestData);
             console.log(contestData);
         };
@@ -51,40 +60,41 @@ const ContestListPage = () => {
             </Row>
             <Row className={`${styles.rowWidth70em} mt-2 mb-3`}>
                 <Col lg={4} className="text-center">
-                    <h2>Contest 3</h2>
+                    <h2>{contestTitle}</h2>
                 </Col>
                 <Col>
                     <h2>
-                        <span className={`${styles.textRed}`}>285</span>/400
+                        <span className={`${styles.textRed}`}>{contestScore}</span>/400
                     </h2>
                 </Col>
             </Row>
 
-            {data.homeworkNames && isGoOrReview === 'Go' ? (
-                <Row className={`${styles.rowWidth70em}`}>
-                    <Col className={`mb-5`}>
-                        {data.homeworkNames.map((homework, index) => (
-                            <ContestListContainer
-                                key={index}
-                                contestTitle={homework}
-                                score={"0"} // update these as necessary with your real data
-                                scoreTotal={"100"} // update these as necessary with your real data
-                                isAnsOrNot={true} // update these as necessary with your real data
-                            />
-                        ))}
-                    </Col>
-                </Row>
-            )
-                : (<Row className={`${styles.rowWidth70em}`}>
-                    <Col >
-                        < ContestListContainer contestTitle={"123"} result={"RE"} score={"70"} scoreTotal={"100"} isAnsOrNot={false} />
-                        < ContestListContainer contestTitle={"Paper"} score={"50"} scoreTotal={"100"} isAnsOrNot={false} />
-                        < ContestListContainer contestTitle={"Run"} score={"100"} scoreTotal={"100"} isAnsOrNot={false} />
-                        < ContestListContainer contestTitle={"Monster"} score={"65"} scoreTotal={"100"} isAnsOrNot={false} />
-                    </Col>
-                </Row>)
-
+            {
+                data && data.homeworks ? (
+                    <Row className={`${styles.rowWidth70em}`}>
+                        <Col className={`mb-5`}>
+                            {data.homeworks.map((homework, index) => (
+                                isGoOrReview === 'Go' ?
+                                    <ContestListContainer
+                                        key={index}
+                                        homeworkTitle={homework.homeworkName} // pass a specific property of the homework object
+                                        score={homework.totalScore} // update these as necessary with your real data
+                                        scoreTotal={"100"} // update these as necessary with your real data
+                                        isAnsOrNot={true} // update these as necessary with your real data
+                                    /> :
+                                    <ContestListContainer
+                                        key={index}
+                                        homeworkTitle={homework.homeworkName} // pass a specific property of the homework object
+                                        score={homework.totalScore} // update these as necessary with your real data
+                                        scoreTotal={"100"} // update these as necessary with your real data
+                                        isAnsOrNot={false} // update these as necessary with your real data
+                                    />
+                            ))}
+                        </Col>
+                    </Row>
+                ) : null
             }
+
 
             <Row className={`${styles.rowWidth70em}`}>
                 <Col lg={9} className="text-end mt-3">

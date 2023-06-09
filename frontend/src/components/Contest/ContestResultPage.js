@@ -1,20 +1,79 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../Auth/AuthContext';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
 import styles from './ContestResultPage.module.css';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import ContestResultContainer from './ContestResultContainer'
+import api from '../../api/api';
 
 const ContestResultPage = () => {
-    const { param } = useParams();
-    var questionTitle = param;
+
+    const [sourceCode, setSourceCode] = useState(null);
+    const [blobUrl, setBlobUrl] = useState(null);
+    const { id } = useContext(AuthContext);
 
     const navigate = useNavigate();
+    const location = useLocation();
+    const homeworkName = location.state.homeworkTitle;
 
     const handleBack = () => {
         navigate(-1);
     };
+
+    // State for the score
+    const [score, setScore] = useState(0);
+    // State for the result
+    const [result, setResult] = useState(null);
+
+    // Fetch the score and result when the component is rendered
+    useEffect(() => {
+        async function fetchData() {
+            console.log(homeworkName, id);
+            const scoreData = await api.getStudentScoreById(homeworkName, id);
+
+            if (scoreData && scoreData.length) {
+                const totalScore = scoreData.reduce((a, b) => a + b, 0);
+                setScore(totalScore);
+            } else {
+                console.log("what");
+            }
+
+            const resultData = await api.getStudentResultById(homeworkName, id);
+            console.log(resultData);
+            if (resultData) {
+                setResult(resultData);
+            }
+        }
+
+        fetchData();
+    }, [homeworkName, id]);
+
+    useEffect(() => {
+        const fetchSourceCode = async () => {
+            const sourceCode = await api.getStudentSourceCodeById(homeworkName, id); // replace id with the correct one
+            setSourceCode(sourceCode);
+            const blob = new Blob([sourceCode], { type: "text/plain;charset=utf-8" });
+            setBlobUrl(URL.createObjectURL(blob));
+        };
+        fetchSourceCode();
+    }, [homeworkName, id]); // replace id with the correct one
+
+    async function downloadPDF(hwTitle) {
+        try {
+            const response = await api.get(`/homework/${hwTitle}/pdf`, { responseType: 'blob' });
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `${hwTitle}.pdf`);
+            document.body.appendChild(link);
+            link.click();
+        } catch (error) {
+            console.error("Download failed:", error);
+        }
+    }
+
 
     return (
         <Container className={styles.contestResultContainer}>
@@ -28,49 +87,43 @@ const ContestResultPage = () => {
             </Row>
             <Row className={`${styles.rowWidth70em} `}>
                 <Col lg={4} className="text-start mx-5">
-                    <h2>{questionTitle}</h2>
+                    <h2>{homeworkName}</h2>
                 </Col>
 
                 <Col>
-                    <h2>70/100</h2>
+                    <h2>{score}/100</h2>
                 </Col>
             </Row>
 
             <Row className={`${styles.rowWidth70em} `}>
                 <Col lg={4} className="text-start mx-5">
-
-                    <a className="a-pdf" href="https://example.com" target="_blank" rel="noopener noreferrer">
-                        {questionTitle} -&gt; PDF
-                    </a>
+                    <Button onClick={() => downloadPDF(homeworkName)} >
+                        Download PDF
+                    </Button>
                 </Col>
 
                 <Col>
                     <Button className={`${styles.btnGo}`} variant="primary">
-                        Your code
+                        <a className={`${styles.btnGoa}`} href={blobUrl} download={`${homeworkName}.txt`}>
+                            Your code
+                        </a>
                     </Button>
-
                 </Col>
             </Row>
-            <Row className={`${styles.rowWidth70em} `}>
-                <Col lg={4} className="text-start mx-5">
-                    <h2>扣分 : </h2>
+            <Row className="row-width-70em">
+                <Col className="d-flex justify-content-start">
+                    <h3>
+                        結果
+                    </h3>
                 </Col>
             </Row>
-
-            <Row className={`${styles.rowWidth70em}`}>
-                <Col className={`${styles.colContestResultContainer}`}>
-                    < ContestResultContainer deductionReason={'Example TestCase'} score={'0'} />
-                </Col>
-            </Row>
-
-            <Row className={`${styles.rowWidth70em}`}>
-                <Col className={`${styles.colContestResultContainer}`}>
-                    < ContestResultContainer deductionReason={'Format'} score={'10'} />
-                </Col>
-            </Row>
-            <Row className={`${styles.rowWidth70em}`}>
-                <Col className={`${styles.colContestResultContainer}`}>
-                    < ContestResultContainer deductionReason={'Hidden TestCase'} score={'20'} />
+            <Row className="row-width-70em">
+                <Col className="label-deduct-points text-start">
+                    <label htmlFor="exampleInput">
+                        <ul className="mt-3">
+                            {result}
+                        </ul>
+                    </label>
                 </Col>
             </Row>
 

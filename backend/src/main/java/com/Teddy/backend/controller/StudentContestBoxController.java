@@ -24,16 +24,20 @@ public class StudentContestBoxController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/get_total_score")
+    @PostMapping("/get_total_score")
     public ResponseEntity<Double> getTotalScore(@RequestBody StudentContestBoxBO studentBo) {
         return  ResponseEntity.ok(studentContestBoxService.getTotalScore(studentBo));
 
     }
 
-    @GetMapping("/get_average_score")
+
+
+    @PostMapping("/get_average_score")
     public ResponseEntity<Double> getAverageScore(@RequestBody StudentContestBoxBO studentBo) {
         return  ResponseEntity.ok(studentContestBoxService.getAverageScore(studentBo));
 
     }
+
+
 
 }

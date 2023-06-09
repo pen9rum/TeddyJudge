@@ -38,6 +38,7 @@ public class CodeExecutionService {
             studentHomeworkBox.setHomeworkName(request.getHomeworkName());
             studentHomeworkBox.setScores(results);
             studentHomeworkBox.setResult(compilerOut);
+            studentHomeworkBox.setSourceCode(request.getSourceCode());
             studentHomeworkBoxDao.save(studentHomeworkBox);
 
         System.out.println(compilerOut);

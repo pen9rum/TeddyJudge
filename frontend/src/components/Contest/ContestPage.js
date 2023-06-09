@@ -64,8 +64,10 @@ const ContestPage = () => {
                 </Col>
             </Row>
 
-            <Row className={`${styles.rowWidth70em} `}>
-                {curContests.map(contest => (
+
+            {curContests.map(contest => (
+                <Row className={`${styles.rowWidth70em} `}>
+
                     <Col>
                         <ContestContainer
                             contestTitle={contest.contestname}
@@ -74,9 +76,8 @@ const ContestPage = () => {
                             btnStatus={true}
                         />
                     </Col>
-
-                ))}
-            </Row>
+                </Row>
+            ))}
 
             <Row className={`${styles.rowWidth70em} mt-5`}>
                 <Col lg={4} className="text-center mx-4">

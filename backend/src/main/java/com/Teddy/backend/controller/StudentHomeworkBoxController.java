@@ -41,6 +41,11 @@ public class StudentHomeworkBoxController {
         return ResponseEntity.ok(studentHomeworkBoxService.getHomeworkResultByID(studentBo));
     }
 
+    @PostMapping("/sourceCode")
+    public ResponseEntity<String> getSourceCodeById(@RequestBody StudentHomeworkBoxBO studentBo) {
+
+        return ResponseEntity.ok(studentHomeworkBoxService.getSoourceCodeByID(studentBo));
+    }
 
 
     @GetMapping("/average")

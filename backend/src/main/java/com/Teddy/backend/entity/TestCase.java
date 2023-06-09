@@ -16,7 +16,9 @@ public class TestCase {
     private Long id;
 
     private int testCaseIndex;
+    @Lob
     private String testCase;
+    @Lob
     private String testCaseAnswer;
 
     @ManyToOne

@@ -54,6 +54,17 @@ public class StudentHomeworkBoxService {
             return "";
     }
 
+    public String getSoourceCodeByID(StudentHomeworkBoxBO bo) {
+        Optional<StudentHomeworkBox> studenthomeworkbox = studenthomeworkboxDao.findByHomeworkNameAndId(bo.getHomeworkName(),bo.getId());
+
+        if(studenthomeworkbox.isPresent()) {
+            System.out.println(studenthomeworkbox.get().getSourceCode());
+            return studenthomeworkbox.get().getSourceCode();
+        }
+        else
+            return "";
+    }
+
     public Double getAverageScoreByHomeworkName(StudentHomeworkBoxBO bo) {
         List<StudentHomeworkBox> studentHomeworkBoxes = studenthomeworkboxDao.findByHomeworkName(bo.getHomeworkName());
 

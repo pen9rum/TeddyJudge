@@ -22,5 +22,9 @@ public class StudentHomeworkBox {
     @ElementCollection
     private List<Double> scores;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private String sourceCode;
+
     private String result;
 }
