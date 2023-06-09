@@ -88,6 +88,27 @@ api.addCourse = async function (courseName, pdfFile) {
     }
 };
 
+api.getAllCourses = async function () {
+    try {
+        const response = await this.get('/course/all', {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            console.error('Error fetching data: ', response);
+            return null;
+        }
+    } catch (error) {
+        console.error('Error fetching data: ', error);
+        return null;
+    }
+};
+
+
 api.addContest = async function (contestData, pdfFiles) {
     let formData = new FormData();
 

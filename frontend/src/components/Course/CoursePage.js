@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
 import styles from './CoursePage.module.css';
 import DownloadFileContainer from '../Download/DownloadFileContainer';
+import api from '../../api/api';
 
 const CoursePage = () => {
+    const [courses, setCourses] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            const data = await api.getAllCourses();
+            setCourses(data);
+        }
+
+        fetchData();
+    }, []);
+
     return (
         <Container className={styles.courseContainer}>
             <Row >
@@ -14,22 +26,6 @@ const CoursePage = () => {
             <Row className={`${styles.navigationRow} `} >
                 <Col className={styles.navigationContainer}>
                     <Navbar />
-                </Col>
-            </Row>
-            <Row className={`${styles.rowWidth70em} `}>
-                <Col lg={8}></Col>
-                <Col className={`text-end mt-1`}>
-                    <h3>
-                        學期
-                    </h3>
-                </Col>
-                <Col >
-                    <Form.Group controlId="exampleComboBox">
-                        <Form.Select className="select-customer">
-                            <option value="option1">112-1</option>
-                            <option value="option2">112-2</option>
-                        </Form.Select>
-                    </Form.Group>
                 </Col>
             </Row>
 
@@ -41,26 +37,15 @@ const CoursePage = () => {
 
             <Row className={`${styles.rowWidth70em} `}>
                 <Col>
-                    < DownloadFileContainer fileTitle={"HW1.pdf"} fileSize={"253.87kb"} />
-                    < DownloadFileContainer fileTitle={"HW2.pdf"} fileSize={"300.82kb"} />
-                    < DownloadFileContainer fileTitle={"Course1.pdf"} fileSize={"111.26kb"} />
+                    {courses.map((course, index) => (
+                        <DownloadFileContainer
+                            key={index}
+                            fileTitle={course.coursename + ".pdf"}
+
+                        />
+                    ))}
                 </Col>
             </Row>
-
-            <Row className={`${styles.rowWidth70em} mt-5`}>
-                <Col lg={4} className="text-center mx-4">
-                    <h2>考試回顧</h2>
-                </Col>
-            </Row>
-
-            <Row className={`${styles.rowWidth70em}`}>
-                <Col className={`mb-5`}>
-                    < DownloadFileContainer fileTitle={"Q1.Exam.pdf"} />
-                    < DownloadFileContainer fileTitle={"Q2.Exam.pdf"} />
-                </Col>
-            </Row>
-
-
         </Container>
     );
 };

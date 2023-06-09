@@ -30,9 +30,9 @@ const Dashboard = () => {
             const startTime = new Date(homework.startTime);
             const endTime = new Date(homework.endTime);
 
-            const score = await api.getStudentScoreById(homework.homeworkName, id);
+            const result = await api.getStudentResultById(homework.homeworkName, id);
 
-            if (score.length === 0) {
+            if (result === "") {
                 if (startTime <= now && now <= endTime) {
                     ongoingHomeworks.push(homework);
                 }
