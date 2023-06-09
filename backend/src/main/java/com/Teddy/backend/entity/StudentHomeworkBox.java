@@ -21,4 +21,6 @@ public class StudentHomeworkBox {
 
     @ElementCollection
     private List<Double> scores;
+
+    private String result;
 }

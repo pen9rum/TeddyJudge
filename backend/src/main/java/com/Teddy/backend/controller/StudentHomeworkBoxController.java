@@ -29,10 +29,19 @@ public class StudentHomeworkBoxController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/get_score_by_Id")
+    @PostMapping("/get_score_by_Id")
     public ResponseEntity<List<Double>> getScoreById(@RequestBody StudentHomeworkBoxBO studentBo) {
+
         return ResponseEntity.ok(studentHomeworkBoxService.getHomeworkScoreByID(studentBo));
     }
+
+    @PostMapping("/get_result_by_Id")
+    public ResponseEntity<String> getResultById(@RequestBody StudentHomeworkBoxBO studentBo) {
+
+        return ResponseEntity.ok(studentHomeworkBoxService.getHomeworkResultByID(studentBo));
+    }
+
+
 
     @GetMapping("/average")
     public ResponseEntity<Double> getAverageScoreByHomeworkName(@RequestBody StudentHomeworkBoxBO studentBo) {

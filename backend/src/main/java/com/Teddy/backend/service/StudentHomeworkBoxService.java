@@ -43,6 +43,17 @@ public class StudentHomeworkBoxService {
             return new ArrayList<>();
     }
 
+    public String getHomeworkResultByID(StudentHomeworkBoxBO bo) {
+        Optional<StudentHomeworkBox> studenthomeworkbox = studenthomeworkboxDao.findByHomeworkNameAndId(bo.getHomeworkName(),bo.getId());
+
+        if(studenthomeworkbox.isPresent()) {
+            System.out.println(studenthomeworkbox.get().getResult());
+            return studenthomeworkbox.get().getResult();
+        }
+        else
+            return "";
+    }
+
     public Double getAverageScoreByHomeworkName(StudentHomeworkBoxBO bo) {
         List<StudentHomeworkBox> studentHomeworkBoxes = studenthomeworkboxDao.findByHomeworkName(bo.getHomeworkName());
 

@@ -7,19 +7,49 @@ import HomeworkContainer from '../Homework/HomeworkContainer';
 import './Dashboard.css';
 import api from '../../api/api';
 
-
 const Dashboard = () => {
     const { id } = useContext(AuthContext);
     const [studentName, setStudentName] = useState('');
+    const [currentHomeworks, setCurrentHomeworks] = useState([]);
+
+    const formatDateTime = (date) => {
+        const year = date.getUTCFullYear();
+        const month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); // add 1 because months are 0-indexed
+        const day = date.getUTCDate().toString().padStart(2, '0');
+        const hour = date.getUTCHours().toString().padStart(2, '0');
+        const minute = date.getUTCMinutes().toString().padStart(2, '0');
+        return `${year}-${month}-${day} ${hour}:${minute}`;
+    };
+
+    const fetchHomework = async () => {
+        const allHomeworks = await api.getHomeworkData();
+        const now = new Date();
+        const ongoingHomeworks = [];
+
+        for (let homework of allHomeworks) {
+            const startTime = new Date(homework.startTime);
+            const endTime = new Date(homework.endTime);
+
+            const score = await api.getStudentScoreById(homework.homeworkName, id);
+
+            if (score.length === 0) {
+                if (startTime <= now && now <= endTime) {
+                    ongoingHomeworks.push(homework);
+                }
+            }
+        }
+
+        setCurrentHomeworks(ongoingHomeworks);
+    };
 
     useEffect(() => {
         const fetchStudentName = async () => {
             const name = await api.getStudentNameById(id);
             setStudentName(name);
-            console.log(name);
-            console.log(id);
         };
+
         fetchStudentName();
+        fetchHomework();
     }, [id]);
 
     return (
@@ -38,15 +68,22 @@ const Dashboard = () => {
                 </Col>
             </Row>
             <Row>
-
                 <Col className="section-container">
                     <h2>你還沒完成的作業</h2>
-                </Col>
-                <div className="section-content">
-                    <div className="mt-3 mb-3">
-                        <HomeworkContainer homeworkTitle="HW 2" dueDate="12/31/2023" />
+                    <div className="section-content">
+                        {currentHomeworks.map((homework) => {
+                            const formattedEndTime = formatDateTime(new Date(homework.endTime));
+                            return (
+                                <div className="mt-3 mb-3" key={homework.homeworkName}>
+                                    <HomeworkContainer
+                                        homeworkTitle={homework.homeworkName}
+                                        dueDate={formattedEndTime}
+                                    />
+                                </div>
+                            )
+                        })}
                     </div>
-                </div>
+                </Col>
             </Row>
         </Container>
     );

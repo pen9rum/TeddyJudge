@@ -16,7 +16,10 @@ public class CodeExecutionController {
 
     @PostMapping("/execute")
     public String executeCode(@RequestBody ExecuteCodeRequest request) {
-        System.out.println("Hello");
+        System.out.println("Submit code");
+        System.out.println(request.getId());
+        System.out.println(request.getHomeworkName());
+        System.out.println(request.getSourceCode());
         return codeExecutionService.compileAndRunJavaCode(request);
     }
 

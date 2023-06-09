@@ -13,4 +13,5 @@ public class StudentHomeworkBoxBO {
     private long id;
     private List<Double> score;
 
+    private String result;
 }

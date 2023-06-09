@@ -1,12 +1,52 @@
 // ProblemPage.js
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { AuthContext } from '../Auth/AuthContext';
 import { Container, Row, Col, Button, FormControl } from 'react-bootstrap';
 import './ProblemPage.css'
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
-import { Link } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import api from '../../api/api';
 
 const ProblemPage = () => {
+    const { id } = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const homeworkTitle = location.state.homeworkTitle;
+
+    // State for the user's code input
+    const [code, setCode] = useState('');
+
+    // State for the loading indicator
+    const [loading, setLoading] = useState(false);
+
+    // Function to call when the user submits their code
+    const submitCode = async () => {
+        setLoading(true); // Show the loading indicator
+        const result = await api.executeCode(id, homeworkTitle, code);
+        console.log(result);  // You can handle the result as you wish.
+
+        setLoading(false); // Hide the loading indicator
+        // Navigate to /result with state
+        navigate('/result', { state: { homeworkTitle } });
+    };
+
+    async function downloadPDF(hwTitle) {
+        try {
+            const response = await api.get(`/homework/${hwTitle}/pdf`, { responseType: 'blob' });
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `${hwTitle}.pdf`);
+            document.body.appendChild(link);
+            link.click();
+        } catch (error) {
+            console.error("Download failed:", error);
+        }
+    }
+
+
     return (
         <Container className="problem-page-container">
             <Row>
@@ -19,7 +59,7 @@ const ProblemPage = () => {
             </Row>
             <Row className="row-70em">
                 <Col>
-                    <h1>HW</h1>
+                    <h1>{homeworkTitle}</h1>
                 </Col>
                 <Col>
                     <h1>0/100</h1>
@@ -27,9 +67,7 @@ const ProblemPage = () => {
             </Row>
             <Row className="row-70em">
                 <Col className="d-flex justify-content-start">
-                    <a className="a-pdf" href="https://example.com" target="_blank" rel="noopener noreferrer">
-                        HW1-Math Operation -&gt; PDF
-                    </a>
+                    <h2><Button onClick={() => downloadPDF(homeworkTitle)}>PDF Download</Button></h2>
                 </Col>
             </Row>
             <Row className="row-70em mt-5">
@@ -39,16 +77,21 @@ const ProblemPage = () => {
             </Row>
             <Row className="row-70em">
                 <Col>
-                    <FormControl className='formControl-code' as="textarea" placeholder="輸入您的程式碼" />
+                    <FormControl
+                        className='formControl-code'
+                        as="textarea"
+                        placeholder="輸入您的程式碼"
+                        value={code}
+                        onChange={e => setCode(e.target.value)}
+                    />
                 </Col>
             </Row>
             <Row className="mt-3  row-70em">
-
                 <Col className="d-flex justify-content-end">
-                    <Link to="/result">
-                        <Button>Submit</Button>
-                    </Link>
-                </Col>
+                    {loading
+                        ? <Spinner animation="border" /> // Show a spinner when loading
+                        : <Button onClick={submitCode}>Submit</Button> // Show the submit button when not loading
+                    } </Col>
             </Row>
         </Container >
     );

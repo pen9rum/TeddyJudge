@@ -32,14 +32,15 @@ public class CodeExecutionService {
 
         var compilerOut = javaCodeExecutor.compileAndRunJavaCode(request.getSourceCode(), request.getId(), testCases, results);
 
-        if(results.size()>0) {
+
             StudentHomeworkBox studentHomeworkBox = new StudentHomeworkBox();
             studentHomeworkBox.setId(request.getId());
             studentHomeworkBox.setHomeworkName(request.getHomeworkName());
             studentHomeworkBox.setScores(results);
+            studentHomeworkBox.setResult(compilerOut);
             studentHomeworkBoxDao.save(studentHomeworkBox);
-        }
-        System.out.println("Hi");
+
+        System.out.println(compilerOut);
         return compilerOut;
     }
 

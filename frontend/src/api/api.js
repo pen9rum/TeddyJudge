@@ -354,4 +354,81 @@ api.updateStudent = async function (id, password, color, name) {
     }
 };
 
+api.getStudentScoreById = async function (homeworkName, id) {
+    console.log(homeworkName, id);
+    try {
+        const response = await this.post('/student_homework/get_score_by_Id', {
+            homeworkName: homeworkName,
+            id: id,
+            scores: []
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            console.error('Error fetching student score: ', response);
+            return null;
+        }
+    } catch (error) {
+        console.error('Error fetching student score: ', error);
+        return null;
+    }
+};
+
+api.getStudentResultById = async function (homeworkName, id) {
+    console.log(homeworkName, id);
+    try {
+        const response = await this.post('/student_homework/get_result_by_Id', {
+            homeworkName: homeworkName,
+            id: id,
+            scores: []
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            console.error('Error fetching student score: ', response);
+            return null;
+        }
+    } catch (error) {
+        console.error('Error fetching student score: ', error);
+        return null;
+    }
+};
+
+api.executeCode = async function (id, homeworkName, sourceCode) {
+    try {
+        const response = await this.post('/code/execute', {
+            id,
+            homeworkName,
+            sourceCode
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            console.error('Error executing code: ', response);
+            return null;
+        }
+    } catch (error) {
+        console.error('Error executing code: ', error);
+        return null;
+    }
+};
+
+
+
 export default api;
