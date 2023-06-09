@@ -476,6 +476,30 @@ api.executeCode = async function (id, homeworkName, sourceCode) {
     }
 };
 
+api.getAverageScoreByHomeworkName = async function (homeworkName) {
+    try {
+        const response = await this.post('/student_homework/average', {
+            homeworkName: homeworkName,
+            id: "",
+            scores: []
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+
+        });
+
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            console.error('Error fetching average score: ', response);
+            return null;
+        }
+    } catch (error) {
+        console.error('Error fetching average score: ', error);
+        return null;
+    }
+};
 
 
 export default api;

@@ -6,23 +6,28 @@ import styles from './THomeworkDetail.module.css';
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
 import { useLocation } from 'react-router-dom';
-import axios from 'axios';
 import api from '../../api/api';
 
 const THomeworkDetail = () => {
-    const [score, setScore] = useState(null);
+    const [score, setScore] = useState(0);
     const location = useLocation();
     const homeworkTitle = location.state.homeworkTitle ? location.state.homeworkTitle : "Default";
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/score/${homeworkTitle}`)
-            .then(response => {
-                setScore(response.data.score);
-            })
-            .catch(error => {
+        const fetchAverageScore = async () => {
+            try {
+                const data = await api.getAverageScoreByHomeworkName(homeworkTitle);
+                console.log(data);
+                setScore(data);
+            } catch (error) {
                 console.error("Error fetching data: ", error);
-            });
+            }
+        };
+
+        fetchAverageScore();
     }, [homeworkTitle]); // Only re-run the effect if homeworkTitle changes
+
+
 
     async function downloadPDF(hwTitle) {
         try {

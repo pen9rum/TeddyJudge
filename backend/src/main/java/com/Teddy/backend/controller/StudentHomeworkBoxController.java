@@ -48,7 +48,7 @@ public class StudentHomeworkBoxController {
     }
 
 
-    @GetMapping("/average")
+    @PostMapping("/average")
     public ResponseEntity<Double> getAverageScoreByHomeworkName(@RequestBody StudentHomeworkBoxBO studentBo) {
         return ResponseEntity.ok(studentHomeworkBoxService.getAverageScoreByHomeworkName(studentBo));
     }

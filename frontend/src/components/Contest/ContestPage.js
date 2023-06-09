@@ -85,8 +85,9 @@ const ContestPage = () => {
                 </Col>
             </Row>
 
-            <Row className={`${styles.rowWidth70em}`}>
-                {pastContests.map(contest => (
+            {pastContests.map(contest => (
+                <Row className={`${styles.rowWidth70em}`}>
+
                     <Col>
                         <ContestContainer
                             contestTitle={contest.contestname}
@@ -95,10 +96,8 @@ const ContestPage = () => {
                             btnStatus={false}
                         />
                     </Col>
-
-                ))}
-            </Row>
-
+                </Row>
+            ))}
 
 
         </Container>

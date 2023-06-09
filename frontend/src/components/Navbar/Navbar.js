@@ -1,15 +1,25 @@
 import React, { useContext } from 'react';
 import './Navbar.css';
 import { Nav } from 'react-bootstrap';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { RoleContext } from '../Auth/RoleContext';
 
 const Navbar = () => {
+    let navigate = useNavigate();
     const location = useLocation();
     const { role } = useContext(RoleContext);
 
     const isActive = (path) => {
         return location.pathname.startsWith(path) ? 'selected' : '';
+    };
+
+    const logout = () => {
+        // This is where you clear the user's login status.
+        // You might clear a token in local storage, or clear your app's user state.
+        // The specific code depends on how you've implemented user login in your app.
+
+        // After logging out, you might want to redirect the user to the login page.
+        navigate('/');
     };
 
 
@@ -58,6 +68,11 @@ const Navbar = () => {
                     Setting
                 </NavLink>
             </Nav.Item>
+
+            <Nav.Item className={isActive(prefix + 'logout')}>
+                <button onClick={logout} className="nav-link">Logout</button>
+            </Nav.Item>
+
         </Nav>
     );
 };
