@@ -1,6 +1,7 @@
 package com.Teddy.backend.service;
 import com.Teddy.backend.dao.ContestDao;
 import com.Teddy.backend.dao.HomeworkDao;
+import com.Teddy.backend.dao.TestCaseDao;
 import com.Teddy.backend.entity.Contest;
 import com.Teddy.backend.entity.Homework;
 import com.Teddy.backend.entity.TestCase;
@@ -23,6 +24,8 @@ public class ContestService {
     private ContestDao contestDao;
 
     @Autowired
+    private TestCaseDao testCaseDao;
+    @Autowired
     private HomeworkDao homeworkDao;
 
     public boolean add(ContestBO bo) {
@@ -36,6 +39,9 @@ public class ContestService {
 
         List<Homework> homeworks = new ArrayList<>();
         for (HomeworkBO homeworkBO : bo.getHomeworks()) {
+
+
+
             Homework homework = new Homework();
             homework.setHomeworkName(homeworkBO.getHomeworkName());
             homework.setPDF(homeworkBO.getPDF()); // PDF is now a byte[]
@@ -46,11 +52,22 @@ public class ContestService {
 
             List<TestCase> testCases = new ArrayList<>();
             for (int i = 0; i < homeworkBO.getTestCase().size(); i++) {
-                TestCase testCase = new TestCase();
-                testCase.setTestCase(homeworkBO.getTestCase().get(i));
-                testCase.setTestCaseAnswer(homeworkBO.getTestCaseAnswer().get(i));
-                testCase.setHomework(homework);
-                testCases.add(testCase);
+                String currentTestCase = homeworkBO.getTestCase().get(i);
+                String currentTestCaseAnswer = homeworkBO.getTestCaseAnswer().get(i);
+
+                Optional<TestCase> existingTestCase = testCaseDao.findByTestCaseAndTestCaseAnswer(currentTestCase, currentTestCaseAnswer);
+
+                if (existingTestCase.isPresent()) {
+                    // if test case already exists, use the existing one
+                    testCases.add(existingTestCase.get());
+                } else {
+                    // if test case does not exist, create a new one
+                    TestCase testCase = new TestCase();
+                    testCase.setTestCase(currentTestCase);
+                    testCase.setTestCaseAnswer(currentTestCaseAnswer);
+                    testCase.setHomework(homework);
+                    testCases.add(testCase);
+                }
             }
 
             homework.setTestCases(testCases);

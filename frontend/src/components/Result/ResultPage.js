@@ -26,7 +26,7 @@ const ResultPage = () => {
 
             if (scoreData && scoreData.length) {
                 let totalScore = scoreData.reduce((a, b) => a + b, 0);
-                if (totalScore == 99) {
+                if (totalScore == 99 || totalScore > 100) {
                     totalScore = 100;
                 }
                 setScore(totalScore);
