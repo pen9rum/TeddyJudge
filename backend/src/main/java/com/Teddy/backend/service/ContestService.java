@@ -35,7 +35,7 @@ public class ContestService {
 //        entity.setId(bo.getId());
         entity.setStartTime(bo.getStartTime());
         entity.setEndTime(bo.getEndTime());
-        contestDao.save(entity);
+
 
         List<Homework> homeworks = new ArrayList<>();
         for (HomeworkBO homeworkBO : bo.getHomeworks()) {
@@ -55,7 +55,7 @@ public class ContestService {
                 String currentTestCase = homeworkBO.getTestCase().get(i);
                 String currentTestCaseAnswer = homeworkBO.getTestCaseAnswer().get(i);
 
-                Optional<TestCase> existingTestCase = testCaseDao.findByTestCaseAndTestCaseAnswer(currentTestCase, currentTestCaseAnswer);
+                Optional<TestCase> existingTestCase = testCaseDao.findByTestCaseAndTestCaseAnswerAndHomeworkHomeworkName(currentTestCase, currentTestCaseAnswer, homeworkBO.getHomeworkName());
 
                 if (existingTestCase.isPresent()) {
                     // if test case already exists, use the existing one

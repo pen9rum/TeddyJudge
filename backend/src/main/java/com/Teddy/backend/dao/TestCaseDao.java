@@ -15,6 +15,6 @@ public interface TestCaseDao extends CrudRepository<TestCase, Long> {
 
     List<TestCase> findByHomeworkHomeworkName(String homeworkName);
 
-    Optional<TestCase> findByTestCaseAndTestCaseAnswer(String currentTestCase,String currentTestCaseAnswer);
+    Optional<TestCase> findByTestCaseAndTestCaseAnswerAndHomeworkHomeworkName(String currentTestCase,String currentTestCaseAnswer, String homeworkName);
     boolean existsByHomework(Homework homework);
 }
