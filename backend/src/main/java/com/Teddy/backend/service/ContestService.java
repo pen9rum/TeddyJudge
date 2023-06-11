@@ -54,19 +54,14 @@ public class ContestService {
 
 
 // 先保存homework
-            homework = homeworkDao.save(homework);  // 注意，这里重新接收了保存后的homework，因为save方法会返回持久化后的实例
+            homeworkDao.save(homework);  // 注意，这里重新接收了保存后的homework，因为save方法会返回持久化后的实例
 
             List<TestCase> testCases = new ArrayList<>();
             for (int i = 0; i < homeworkBO.getTestCase().size(); i++) {
                 String currentTestCase = homeworkBO.getTestCase().get(i);
                 String currentTestCaseAnswer = homeworkBO.getTestCaseAnswer().get(i);
 
-                Optional<TestCase> existingTestCase = testCaseDao.findByTestCaseAndTestCaseAnswerAndHomeworkHomeworkName(currentTestCase, currentTestCaseAnswer, homeworkBO.getHomeworkName());
 
-                if (existingTestCase.isPresent()) {
-                    // if test case already exists, use the existing one
-                    testCases.add(existingTestCase.get());
-                } else {
                     // if test case does not exist, create a new one
                     TestCase testCase = new TestCase();
                     testCase.setTestCase(currentTestCase);
@@ -77,7 +72,7 @@ public class ContestService {
                     testCaseDao.save(testCase);
 
                     testCases.add(testCase);
-                }
+
             }
 
             homework.setTestCases(testCases);
