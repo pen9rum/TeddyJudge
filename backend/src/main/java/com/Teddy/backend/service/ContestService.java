@@ -36,6 +36,7 @@ public class ContestService {
         entity.setStartTime(bo.getStartTime());
         entity.setEndTime(bo.getEndTime());
 
+        contestDao.save(entity);
 
         List<Homework> homeworks = new ArrayList<>();
         for (HomeworkBO homeworkBO : bo.getHomeworks()) {
