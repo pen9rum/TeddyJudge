@@ -27,6 +27,7 @@ const ContestPage = () => {
                 contestData.map(async (contest) => {
                     // get the scores for each contest
                     let contestScore = 0;
+                    let contestTotalScore = 0;
                     if (contest.homeworks) {
                         const homeworksWithScores = await Promise.all(
                             contest.homeworks.map(async (homework) => {
@@ -34,6 +35,8 @@ const ContestPage = () => {
                                 const totalHomeworkScore = scores.reduce((a, b) => a + b, 0);
                                 console.log(totalHomeworkScore);
                                 contestScore += totalHomeworkScore;
+                                contestTotalScore = (contest.homeworks.length * 100); // calculate ContestTotalScore
+                                console.log("題數" + contest.homeworks.length)
                                 return {
                                     ...homework,
                                     totalscore: totalHomeworkScore,
@@ -44,6 +47,7 @@ const ContestPage = () => {
                             ...contest,
                             homeworks: homeworksWithScores,
                             totalscore: contestScore,
+                            totalScoreMax: contestTotalScore
                         };
                     }
                     return contest;
@@ -76,94 +80,99 @@ const ContestPage = () => {
                     <Navbar />
                 </Col>
             </Row>
-            <Row className={`${styles.rowWidth70em} `}>
-                <Col lg={4} className="text-center">
+            <Row className={`${styles.rowWidth70em} mt-5`}>
+                <Col lg={4} className={`${styles.sectionContainer} `}>
                     <h2>未來的Contest</h2>
+                    <div className={`${styles.sectionContent}`}>
+                        {upcomingContests.map(contest => {
+                            // create Date objects from the contest's startTime and endTime
+                            const startDate = new Date(contest.startTime);
+                            const endDate = new Date(contest.endTime);
+
+                            // format these Date objects into strings using your formatDateTime() function
+                            const formattedStartTime = formatDateTime(startDate);
+                            const formattedEndTime = formatDateTime(endDate);
+
+                            // create a string representation of the contest's duration
+                            const contestDuration = `${formattedStartTime} - ${formattedEndTime}`;
+
+                            return (
+                                <Row className={`${styles.rowWidth70em} `}>
+                                    <Col>
+                                        <ContestContainer
+                                            contestTitle={contest.contestname}
+                                            status={false}
+                                            dueDate={contestDuration} // pass the contestDuration string here
+                                            btnStatus={true}
+                                        />
+                                    </Col>
+                                </Row>
+                            );
+                        })}
+                    </div>
                 </Col>
             </Row>
 
-            <Row className={`${styles.rowWidth70em} `}>
-
-                {upcomingContests.map(contest => {
-                    // create Date objects from the contest's startTime and endTime
-                    const startDate = new Date(contest.startTime);
-                    const endDate = new Date(contest.endTime);
-
-                    // format these Date objects into strings using your formatDateTime() function
-                    const formattedStartTime = formatDateTime(startDate);
-                    const formattedEndTime = formatDateTime(endDate);
-
-                    // create a string representation of the contest's duration
-                    const contestDuration = `${formattedStartTime} - ${formattedEndTime}`;
-
-                    return (
-                        <Row className={`${styles.rowWidth70em} `}>
-                            <Col>
-                                <ContestContainer
-                                    contestTitle={contest.contestname}
-                                    status={false}
-                                    dueDate={contestDuration} // pass the contestDuration string here
-                                    btnStatus={true}
-                                />
-                            </Col>
-                        </Row>
-                    );
-                })}
-            </Row>
 
             <Row className={`${styles.rowWidth70em} mt-5`}>
-                <Col lg={4} className="text-center">
+                <Col lg={4} className={`${styles.sectionContainer} `}>
                     <h2>進行中Contest</h2>
+                    <div className={`${styles.sectionContent}`}>
+                        {curContests.map(contest => {
+                            // create Date objects from the contest's startTime and endTime
+                            const startDate = new Date(contest.startTime);
+                            const endDate = new Date(contest.endTime);
+
+                            // format these Date objects into strings using your formatDateTime() function
+                            const formattedStartTime = formatDateTime(startDate);
+                            const formattedEndTime = formatDateTime(endDate);
+
+                            // create a string representation of the contest's duration
+                            const contestDuration = `${formattedStartTime} - ${formattedEndTime}`;
+
+                            return (
+                                <Row className={`${styles.rowWidth70em} `}>
+                                    <Col>
+                                        <ContestContainer
+                                            contestTitle={contest.contestname}
+                                            status={false}
+                                            dueDate={contestDuration} // pass the contestDuration string here
+                                            btnStatus={true}
+                                        />
+                                    </Col>
+                                </Row>
+                            );
+                        })}
+                    </div>
                 </Col>
             </Row>
 
 
-            {curContests.map(contest => {
-                // create Date objects from the contest's startTime and endTime
-                const startDate = new Date(contest.startTime);
-                const endDate = new Date(contest.endTime);
-
-                // format these Date objects into strings using your formatDateTime() function
-                const formattedStartTime = formatDateTime(startDate);
-                const formattedEndTime = formatDateTime(endDate);
-
-                // create a string representation of the contest's duration
-                const contestDuration = `${formattedStartTime} - ${formattedEndTime}`;
-
-                return (
-                    <Row className={`${styles.rowWidth70em} `}>
-                        <Col>
-                            <ContestContainer
-                                contestTitle={contest.contestname}
-                                status={false}
-                                dueDate={contestDuration} // pass the contestDuration string here
-                                btnStatus={true}
-                            />
-                        </Col>
-                    </Row>
-                );
-            })}
 
 
             <Row className={`${styles.rowWidth70em} mt-5`}>
-                <Col lg={4} className="text-center">
+                <Col lg={4} className={`${styles.sectionContainer} `}>
                     <h2>先前的Contest</h2>
+                    <div className={`${styles.sectionContent}`}>
+                        {pastContests.map(contest => (
+                            <Row className={`${styles.rowWidth70em}`}>
+
+                                <Col>
+                                    <ContestContainer
+                                        contestTitle={contest.contestname}
+                                        status={true}
+                                        score={contest.totalscore} // 這裡要變成 contestScore
+                                        contestTotalScore={contest.totalScoreMax}
+                                        btnStatus={false}
+                                    />
+                                </Col>
+                            </Row>
+                        ))}
+                    </div>
                 </Col>
             </Row>
 
-            {pastContests.map(contest => (
-                <Row className={`${styles.rowWidth70em}`}>
 
-                    <Col>
-                        <ContestContainer
-                            contestTitle={contest.contestname}
-                            status={true}
-                            score={contest.totalscore} // 這裡要變成 contestScore
-                            btnStatus={false}
-                        />
-                    </Col>
-                </Row>
-            ))}
 
 
         </Container>

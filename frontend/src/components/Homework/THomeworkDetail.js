@@ -14,6 +14,8 @@ const THomeworkDetail = () => {
     const homeworkTitle = location.state.homeworkTitle ? location.state.homeworkTitle : "Default";
 
     const getDifficultyMessage = (score) => {
+        console.log("成績是" + score);
+        if (score === "") return "";
         if (score <= 60) return '可能太難了!(60↓)';
         if (score <= 80) return '可能稍難喔(60~80)';
         return '難度剛剛好(80~100)';

@@ -3,7 +3,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import './ContestContainer.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 
-const ContestContainer = ({ contestTitle, status, score, dueDate, btnStatus }) => {
+const ContestContainer = ({ contestTitle, status, score, contestTotalScore, dueDate, btnStatus }) => {
     const GoStr = 'Go';
     const ReviewStr = 'Review';
     const navigate = useNavigate();
@@ -20,7 +20,7 @@ const ContestContainer = ({ contestTitle, status, score, dueDate, btnStatus }) =
                     <Row>
                         <Col className="text-center  due-date">
                             {status ? (
-                                <h4><span className="red-90">{score}</span>/400</h4>
+                                <h4><span className="red-90">{score}</span>/{contestTotalScore}</h4>
                             ) : (
                                 <h4> {dueDate}</h4>
                             )}
