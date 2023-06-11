@@ -43,7 +43,7 @@ const SettingPage = () => {
                     <input value={name} onChange={(e) => setName(e.target.value)} />
                 </Col>
             </Row>
-            <Row className={styles.rowWidth40em}>
+            {/* <Row className={styles.rowWidth40em}>
                 <Col className="text-start">
                     <h3>背景顏色 : </h3>
                 </Col>
@@ -55,7 +55,7 @@ const SettingPage = () => {
                         </Form.Select>
                     </Form.Group>
                 </Col>
-            </Row>
+            </Row> */}
 
 
             <Row className={styles.rowWidth40em}>
