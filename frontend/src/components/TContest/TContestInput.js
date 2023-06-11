@@ -287,7 +287,7 @@ const TContestInput = () => {
                             </Form.Group>
                         </>
                     ))}
-                    \
+
 
 
                     <Button onClick={() => setTestCases([...testCases, { testCase: "", testCaseAnswer: "" }])}>+</Button>
