@@ -13,4 +13,6 @@ public interface HomeworkDao extends CrudRepository<Homework, Long>{
 
     List<Homework> findAll();
 
+    boolean existsByHomeworkName(String homeworkName);
+
 }

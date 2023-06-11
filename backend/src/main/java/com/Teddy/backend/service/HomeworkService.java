@@ -26,6 +26,13 @@ public class HomeworkService {
     private TestCaseDao testCaseDao;
 
     public boolean add(HomeworkBO bo) {
+
+        // Check if the homework already exists in the database
+        if (homeworkDao.existsByHomeworkName(bo.getHomeworkName())) {
+            // Homework already exists, return false or throw an exception
+            return false;
+        }
+
         Homework entity = new Homework();
         entity.setHomeworkName(bo.getHomeworkName());
         entity.setPDF(bo.getPDF()); // PDF is now a byte[]
@@ -37,12 +44,14 @@ public class HomeworkService {
         if (!testCaseDao.existsByHomework(entity)) {
             List<TestCase> testCases = new ArrayList<>();
             for (int i = 0; i < bo.getTestCase().size(); i++) {
-                TestCase testCase = new TestCase();
-                testCase.setTestCase(bo.getTestCase().get(i));
-                testCase.setTestCaseAnswer(bo.getTestCaseAnswer().get(i));
-                testCase.setHomework(entity);
-                testCase.setTestCaseIndex(i);
-                testCases.add(testCase);
+                if(bo.getTestCase().get(i)!="" && bo.getTestCaseAnswer().get(i)!="") {
+                    TestCase testCase = new TestCase();
+                    testCase.setTestCase(bo.getTestCase().get(i));
+                    testCase.setTestCaseAnswer(bo.getTestCaseAnswer().get(i));
+                    testCase.setHomework(entity);
+                    testCase.setTestCaseIndex(i);
+                    testCases.add(testCase);
+                }
             }
             entity.setTestCases(testCases);
         }

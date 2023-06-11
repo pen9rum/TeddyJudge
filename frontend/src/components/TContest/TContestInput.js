@@ -136,6 +136,15 @@ const TContestInput = () => {
 
     const handleNextPage = () => {
 
+        // Check if files have been selected
+        if (!pdfFile) {
+            alert("請選擇PDF文件！");
+            return;
+        }
+
+
+
+
 
 
         const testCasesArray = testCases.map(item => item.testCase);

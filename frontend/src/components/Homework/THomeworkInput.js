@@ -59,10 +59,29 @@ const THomeworkInput = () => {
 
         e.preventDefault();
 
+
+        // Check if files have been selected
+        if (!startTime || !endTime) {
+            alert("請選擇時間");
+            return;
+        }
+
         // Check if the start time is later than the end time
         if (new Date(startTime) > new Date(endTime)) {
             alert("開始時間不能晚於結束時間！");
             return; // Stop execution
+        }
+
+        // Check if files have been selected
+        if (!pdfFile) {
+            alert("請選擇PDF文件！");
+            return;
+        }
+
+
+        if (!testCases[0].testCase || !testCases[0].testCaseAnswer) {
+            alert(`請為隱藏測資 ${1} 選擇文件！`);
+            return;
         }
 
         const allTestCases = testCases.map(tc => tc.testCase);

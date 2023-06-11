@@ -34,6 +34,8 @@ public class HomeworkController {
             @RequestPart("pdfFile") MultipartFile pdfFile,
             @RequestPart("homework") String homeworkJSON) {
 
+        System.out.println("Add Homework");
+
         ObjectMapper objectMapper = new ObjectMapper();
         HomeworkBO homeworkBo;
         try {

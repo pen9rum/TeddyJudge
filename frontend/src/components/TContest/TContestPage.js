@@ -24,11 +24,31 @@ const TContestPage = () => {
     };
 
     const handleNextClick = () => {
+
+        // Check if files have been selected
+        if (!startTime || !endTime) {
+            alert("請選擇時間");
+            return;
+        }
+
         // Check if the start time is later than the end time
         if (new Date(startTime) > new Date(endTime)) {
             alert("開始時間不能晚於結束時間！");
             return; // Stop execution
         }
+
+        // Check if files have been selected
+        if (!contestName) {
+            alert("請輸入Contest名稱");
+            return;
+        }
+
+        // Check if files have been selected
+        if (questionCount <= 0) {
+            alert("請輸入題數");
+            return;
+        }
+
         handleSetQuestionCount();
         navigate("input", { state: { contestName, startTime, endTime } });
     };
