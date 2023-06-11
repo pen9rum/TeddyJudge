@@ -67,7 +67,13 @@ const ContestListPage = () => {
                 </Col>
                 <Col>
                     <h2>
-                        <span className={`${styles.textRed}`}>{contestScore}</span>/{contestMaxScore}
+                        <span
+                            className={
+                                contestScore === contestMaxScore ? `${styles.textBlack}` : `${styles.textRed}`
+                            }
+                        >
+                            {contestScore}
+                        </span>/{contestMaxScore}
                     </h2>
                 </Col>
             </Row>
@@ -82,14 +88,14 @@ const ContestListPage = () => {
                                         key={index}
                                         homeworkTitle={homework.homeworkName} // pass a specific property of the homework object
                                         score={homework.totalScore} // update these as necessary with your real data
-                                        scoreTotal={"100"} // update these as necessary with your real data
+                                        scoreTotal={100} // update these as necessary with your real data
                                         isAnsOrNot={true} // update these as necessary with your real data
                                     /> :
                                     <ContestListContainer
                                         key={index}
                                         homeworkTitle={homework.homeworkName} // pass a specific property of the homework object
                                         score={homework.totalScore} // update these as necessary with your real data
-                                        scoreTotal={"100"} // update these as necessary with your real data
+                                        scoreTotal={100} // update these as necessary with your real data
                                         isAnsOrNot={false} // update these as necessary with your real data
                                     />
                             ))}

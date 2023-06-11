@@ -47,6 +47,14 @@ public class JavaCodeExecutor {
 
                 if (runExitCode == 0) {
                     String actualOutput = new String(runProcess.getInputStream().readAllBytes()).trim();
+
+                    System.out.println("UserOutput");
+                    System.out.println(actualOutput);
+
+                    System.out.println("Answer");
+                    System.out.println(expectedOutput);
+
+
                     if (actualOutput.equals(expectedOutput)) {
                         totalScore += scorePerCase;
                         results.add((double) scorePerCase);
@@ -58,6 +66,10 @@ public class JavaCodeExecutor {
                     return "運行時錯誤：" + new String(runProcess.getErrorStream().readAllBytes());
                 }
                 testCaseNumber++;
+            }
+
+            if(totalScore==99){
+                totalScore = 100;
             }
 
             resultOutput.append("最終得分：").append(totalScore);

@@ -25,7 +25,10 @@ const ResultPage = () => {
             const scoreData = await api.getStudentScoreById(homeworkTitle, id);
 
             if (scoreData && scoreData.length) {
-                const totalScore = scoreData.reduce((a, b) => a + b, 0);
+                let totalScore = scoreData.reduce((a, b) => a + b, 0);
+                if (totalScore == 99) {
+                    totalScore = 100;
+                }
                 setScore(totalScore);
             } else {
                 console.log("what");

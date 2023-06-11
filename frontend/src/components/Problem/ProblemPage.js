@@ -1,5 +1,5 @@
 // ProblemPage.js
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../Auth/AuthContext';
 import { Container, Row, Col, Button, FormControl } from 'react-bootstrap';
 import './ProblemPage.css'
@@ -20,6 +20,8 @@ const ProblemPage = () => {
 
     // State for the loading indicator
     const [loading, setLoading] = useState(false);
+
+    const [studentScore, setStudentScore] = useState(0);
 
     // Function to call when the user submits their code
     const submitCode = async () => {
@@ -47,6 +49,24 @@ const ProblemPage = () => {
     }
 
 
+    useEffect(() => {
+        async function fetchData() {
+            console.log(homeworkTitle, id);
+            const scoreData = await api.getStudentScoreById(homeworkTitle, id);
+
+            if (scoreData && scoreData.length) {
+                let totalScore = scoreData.reduce((a, b) => a + b, 0);
+                console.log(totalScore);
+                if (totalScore == 99) {
+                    totalScore = 100;
+                }
+                setStudentScore(totalScore);
+            }
+        }
+
+        fetchData();
+    }, [homeworkTitle, id]);
+
     return (
         <Container className="problem-page-container">
             <Row>
@@ -62,7 +82,7 @@ const ProblemPage = () => {
                     <h1>{homeworkTitle}</h1>
                 </Col>
                 <Col>
-                    <h1>0/100</h1>
+                    <h1>{studentScore}/100</h1>
                 </Col>
             </Row>
             <Row className="row-70em">

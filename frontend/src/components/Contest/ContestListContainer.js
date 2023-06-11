@@ -22,8 +22,17 @@ const ContestListContainer = ({ homeworkTitle, result, score, scoreTotal, isAnsO
                 </Col>
 
                 <Col className={`text-end  align-self-center`}>
-                    <h4 className=""> <span className={styles.scoreText}> {score} </span> / {scoreTotal}</h4>
+                    <h4 className="">
+                        <span
+                            className={
+                                (score === 100 && scoreTotal === 100) ? `${styles.textBlack}` : `${styles.scoreText}`
+                            }
+                        >
+                            {score}
+                        </span> / {scoreTotal}
+                    </h4>
                 </Col>
+
 
 
                 {isAnsOrNot ? (
