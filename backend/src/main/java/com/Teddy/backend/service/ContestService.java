@@ -52,6 +52,10 @@ public class ContestService {
             homework.setAverage(homeworkBO.getAverage());
             homework.setContest(entity);
 
+
+// 先保存homework
+            homework = homeworkDao.save(homework);  // 注意，这里重新接收了保存后的homework，因为save方法会返回持久化后的实例
+
             List<TestCase> testCases = new ArrayList<>();
             for (int i = 0; i < homeworkBO.getTestCase().size(); i++) {
                 String currentTestCase = homeworkBO.getTestCase().get(i);
