@@ -10,6 +10,7 @@ import api from '../../api/api';
 
 const ContestListPage = () => {
     const { id } = useContext(AuthContext);
+
     const { param } = useParams();
     var isGoOrReview = param;
     const location = useLocation();
@@ -19,6 +20,7 @@ const ContestListPage = () => {
     const navigate = useNavigate();
     const [data, setData] = useState(null);
     const [contestScore, setContestScore] = useState(0);
+    const [contestMaxScore, setContestMaxScore] = useState(0);
 
     const handleBack = () => {
         navigate(-1);
@@ -41,6 +43,7 @@ const ContestListPage = () => {
                 contestData = { ...contestData, homeworks: homeworksWithScores };
             }
             setContestScore(contestScore);
+            setContestMaxScore(contestData.homeworks.length * 100);
             setData(contestData);
             console.log(contestData);
         };
@@ -64,7 +67,7 @@ const ContestListPage = () => {
                 </Col>
                 <Col>
                     <h2>
-                        <span className={`${styles.textRed}`}>{contestScore}</span>/400
+                        <span className={`${styles.textRed}`}>{contestScore}</span>/{contestMaxScore}
                     </h2>
                 </Col>
             </Row>
