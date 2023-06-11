@@ -9,6 +9,7 @@ import com.Teddy.backend.model.ContestBO;
 import com.Teddy.backend.model.HomeworkBO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.Teddy.backend.dao.ContestDao;
 import com.Teddy.backend.entity.Contest;
@@ -28,6 +29,7 @@ public class ContestService {
     @Autowired
     private HomeworkDao homeworkDao;
 
+    @Transactional
     public boolean add(ContestBO bo) {
         System.out.println("GGG");
         Contest entity = new Contest();
