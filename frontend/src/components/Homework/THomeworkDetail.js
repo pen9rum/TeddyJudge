@@ -24,7 +24,10 @@ const THomeworkDetail = () => {
     useEffect(() => {
         const fetchAverageScore = async () => {
             try {
-                const data = await api.getAverageScoreByHomeworkName(homeworkTitle);
+                let data = await api.getAverageScoreByHomeworkName(homeworkTitle);
+                if (data == 99) {
+                    data = 100
+                }
                 console.log(data);
                 setScore(data);
             } catch (error) {

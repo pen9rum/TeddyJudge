@@ -49,6 +49,9 @@ const HomeworkPage = () => {
                     // This homework has result content, so it is in the "scoredHomeworks" category
                     const score = await api.getStudentScoreById(homework.homeworkName, id);
                     homework.totalScore = score.reduce((a, b) => a + b, 0);
+                    if (homework.totalScore == 99) {
+                        homework.totalScore = 100
+                    }
                     scoredHomeworks.push(homework);
 
                     if (homework.totalScore !== 100) {

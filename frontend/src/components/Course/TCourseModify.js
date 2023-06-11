@@ -60,12 +60,28 @@ const TCourseModify = () => {
 
 
     const handleStartTimeUpdate = () => {
+
+        // Check if the start time is later than the end time
+        if (new Date(startTime) > new Date(endTime)) {
+            alert("開始時間不能晚於結束時間！");
+            return; // Stop execution
+        }
+
+
         api.updateHomeworkStartTime(homeWork, startTime)
             .then(success => alert(success ? 'Start time update successful' : 'Start time update failed'))
             .catch(error => alert('Error updating start time: ' + error));
     };
 
     const handleEndTimeUpdate = () => {
+
+        // Check if the start time is later than the end time
+        if (new Date(startTime) > new Date(endTime)) {
+            alert("開始時間不能晚於結束時間！");
+            return; // Stop execution
+        }
+
+
         api.updateHomeworkEndTime(homeWork, endTime)
             .then(success => alert(success ? 'End time update successful' : 'End time update failed'))
             .catch(error => alert('Error updating end time: ' + error));
