@@ -32,16 +32,17 @@ const ContestContainer = ({ contestTitle, status, score, contestTotalScore, dueD
 
 
                 <Col className=" text-center col-btn-detail d-flex justify-content-end  p-0 ">
-                    {btnStatus ? (
+                    {btnStatus === 'go' ? (
                         <Button className="btn-detail" variant="primary" onClick={() => navigate(`/contestList/${GoStr}`, { state: { contestTitle } })}>
                             Go
                         </Button>
-                    ) : (
+                    ) : btnStatus === 'review' ? (
                         <Button className="btn-detail" variant="primary" onClick={() => navigate(`/contestList/${ReviewStr}`, { state: { contestTitle } })}>
                             Review
                         </Button>
-                    )}
+                    ) : null}
                 </Col>
+
 
 
 

@@ -103,7 +103,7 @@ const ContestPage = () => {
                                             contestTitle={contest.contestname}
                                             status={false}
                                             dueDate={contestDuration} // pass the contestDuration string here
-                                            btnStatus={true}
+
                                         />
                                     </Col>
                                 </Row>
@@ -137,7 +137,7 @@ const ContestPage = () => {
                                             contestTitle={contest.contestname}
                                             status={false}
                                             dueDate={contestDuration} // pass the contestDuration string here
-                                            btnStatus={true}
+                                            btnStatus={"go"}
                                         />
                                     </Col>
                                 </Row>
@@ -163,7 +163,7 @@ const ContestPage = () => {
                                         status={true}
                                         score={contest.totalscore} // 這裡要變成 contestScore
                                         contestTotalScore={contest.totalScoreMax}
-                                        btnStatus={false}
+                                        btnStatus={'review'}
                                     />
                                 </Col>
                             </Row>
