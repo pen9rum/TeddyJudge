@@ -32,7 +32,10 @@ const ContestPage = () => {
                         const homeworksWithScores = await Promise.all(
                             contest.homeworks.map(async (homework) => {
                                 const scores = await api.getStudentScoreById(homework.homeworkName, id);
-                                const totalHomeworkScore = scores.reduce((a, b) => a + b, 0);
+                                let totalHomeworkScore = scores.reduce((a, b) => a + b, 0);
+                                if (totalHomeworkScore == 99 || totalHomeworkScore > 100) {
+                                    totalHomeworkScore = 100;
+                                }
                                 console.log(totalHomeworkScore);
                                 contestScore += totalHomeworkScore;
                                 contestTotalScore = (contest.homeworks.length * 100); // calculate ContestTotalScore
