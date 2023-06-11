@@ -1,16 +1,17 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../Auth/AuthContext';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import './ResultPage.css'
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import api from '../../api/api';
 
 const ResultPage = () => {
     const { id } = useContext(AuthContext);
     const location = useLocation();
     const { homeworkTitle } = location.state;
+    const navigate = useNavigate();
 
     // State for the score
     const [score, setScore] = useState(0);
@@ -82,6 +83,13 @@ const ResultPage = () => {
                             {result && result.map((line, index) => <li key={index}>{line}</li>)}
                         </ul>
                     </label>
+                </Col>
+            </Row>
+
+            <Row className="row-width-70em">
+                <Col className="mt-5 d-flex justify-content-end">
+                    <Button onClick={() => navigate(-1)}>Back</Button>
+
                 </Col>
             </Row>
         </Container>

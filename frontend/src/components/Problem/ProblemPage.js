@@ -87,11 +87,15 @@ const ProblemPage = () => {
                 </Col>
             </Row>
             <Row className="mt-3  row-70em">
-                <Col className="d-flex justify-content-end">
+                <Col lg={6} className="d-flex justify-content-end">
                     {loading
                         ? <Spinner animation="border" /> // Show a spinner when loading
-                        : <Button onClick={submitCode}>Submit</Button> // Show the submit button when not loading
-                    } </Col>
+                        : <Button className="mt-5 mb-5" onClick={submitCode}>Submit</Button> // Show the submit button when not loading
+                    }
+                </Col>
+                <Col className="d-flex justify-content-end">
+                    <Button className="mt-5 mb-5 " onClick={() => navigate(-1)}>Back</Button>
+                </Col>
             </Row>
         </Container >
     );
