@@ -29,6 +29,7 @@ public class ContestService {
     private HomeworkDao homeworkDao;
 
     public boolean add(ContestBO bo) {
+        System.out.println("GGG");
         Contest entity = new Contest();
         entity.setContestname(bo.getContestname());
         entity.setTotalscore(bo.getTotalscore());
@@ -40,8 +41,6 @@ public class ContestService {
 
         List<Homework> homeworks = new ArrayList<>();
         for (HomeworkBO homeworkBO : bo.getHomeworks()) {
-
-
 
             Homework homework = new Homework();
             homework.setHomeworkName(homeworkBO.getHomeworkName());
@@ -67,6 +66,10 @@ public class ContestService {
                     testCase.setTestCase(currentTestCase);
                     testCase.setTestCaseAnswer(currentTestCaseAnswer);
                     testCase.setHomework(homework);
+
+                    // save the new test case
+                    testCaseDao.save(testCase);
+
                     testCases.add(testCase);
                 }
             }
