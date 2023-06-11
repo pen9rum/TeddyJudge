@@ -13,6 +13,11 @@ const TCourseModify = () => {
     const [pdfFile, setPdfFile] = useState(null);
     const [testCase, setTestCase] = useState("");
     const [testCaseAnswer, setTestCaseAnswer] = useState("");
+    const [testCases, setTestCases] = useState([]);
+    const [testCaseAnswers, setTestCaseAnswers] = useState([]);
+
+
+
 
     const handlePdfFileChange = async (e) => {
         const file = e.target.files[0];
@@ -29,17 +34,30 @@ const TCourseModify = () => {
     };
 
 
-    const handleTestCaseFileChange = async (e) => {
+    const handleTestCaseFileChange = async (index, e) => {
         const file = e.target.files[0];
         const content = await readFileContent(file);
-        setTestCase(content);
+        setTestCase({ index, content });
     };
 
-    const handleTestCaseAnsFileChange = async (e) => {
+    const handleTestCaseAnsFileChange = async (index, e) => {
         const file = e.target.files[0];
         const content = await readFileContent(file);
-        setTestCaseAnswer(content);
+        setTestCaseAnswer({ index, content });
     };
+
+    const handleTestCaseUpdate = (index) => {
+        api.updateTestCase(homeWork, testCase.content, testCase.index)
+            .then(success => alert(success ? 'Test case update successful' : 'Test case update failed'))
+            .catch(error => alert('Error updating Test case: ' + error));
+    };
+
+    const handleTestCaseAnswerUpdate = (index) => {
+        api.updateTestCaseAnswer(homeWork, testCaseAnswer.content, testCaseAnswer.index)
+            .then(success => alert(success ? 'Test case answer update successful' : 'Test case answer update failed'))
+            .catch(error => alert('Error updating Test case answer: ' + error));
+    };
+
 
     const handleStartTimeUpdate = () => {
         api.updateHomeworkStartTime(homeWork, startTime)
@@ -59,17 +77,6 @@ const TCourseModify = () => {
             .catch(error => alert('Error updating PDF: ' + error));
     }
 
-    const handleTestCaseUpdate = () => {
-        api.updateTestCase(homeWork, testCase)
-            .then(success => alert(success ? 'Test case update successful' : 'Test case update failed'))
-            .catch(error => alert('Error updating Test case: ' + error));
-    }
-
-    const handleTestCaseAnswerUpdate = () => {
-        api.updateTestCaseAnswer(homeWork, testCaseAnswer)
-            .then(success => alert(success ? 'Test case answer update successful' : 'Test case answer update failed'))
-            .catch(error => alert('Error updating Test case answer: ' + error));
-    }
 
 
     const navigate = useNavigate();
@@ -106,8 +113,8 @@ const TCourseModify = () => {
                         // Then in your api call
                         setStartTime(formatDate(data.startTime));
                         setEndTime(formatDate(data.endTime));
-
-
+                        setTestCases(data.testCase);
+                        setTestCaseAnswers(data.testCaseAnswer);
 
 
 
@@ -182,30 +189,35 @@ const TCourseModify = () => {
                             <Button variant="primary" type="button" onClick={handlePDFUpdate}>更改</Button>
                         </Col>
                     </Form.Group>
+                    {testCases.map((testCase, index) => (
+                        <>
+                            <Form.Group key={index} className="mb-3" controlId={`formTestDataUpload${index}`} as={Row}>
+                                <Form.Label column sm={5}>
+                                    隱藏測資 {index + 1}
+                                </Form.Label>
+                                <Col sm={3}>
+                                    <Form.Control type="file" accept=".txt" onChange={(e) => handleTestCaseFileChange(index, e)} />
+                                </Col>
+                                <Col sm={4}>
+                                    <Button variant="primary" type="button" onClick={() => handleTestCaseUpdate(index)}>更改</Button>
+                                </Col>
+                            </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formTestDataUpload" as={Row}>
-                        <Form.Label column sm={5}>
-                            隱藏測資
-                        </Form.Label>
-                        <Col sm={3}>
-                            <Form.Control type="file" accept=".txt" onChange={handleTestCaseFileChange} />
-                        </Col>
-                        <Col sm={4}>
-                            <Button variant="primary" type="button" onClick={handleTestCaseUpdate}>更改</Button>
-                        </Col>
-                    </Form.Group>
+                            <Form.Group key={index} className="mb-3" controlId={`formTestAnswerUpload${index}`} as={Row}>
+                                <Form.Label column sm={5}>
+                                    隱藏測資答案 {index + 1}
+                                </Form.Label>
+                                <Col sm={3}>
+                                    <Form.Control type="file" accept=".txt" onChange={(e) => handleTestCaseAnsFileChange(index, e)} />
+                                </Col>
+                                <Col sm={4}>
+                                    <Button variant="primary" type="button" onClick={() => handleTestCaseAnswerUpdate(index)}>更改</Button>
+                                </Col>
+                            </Form.Group>
+                        </>
+                    ))}
 
-                    <Form.Group className="mb-3" controlId="formTestAnswerUpload" as={Row}>
-                        <Form.Label column sm={5}>
-                            隱藏測資答案
-                        </Form.Label>
-                        <Col sm={3}>
-                            <Form.Control type="file" accept=".txt" onChange={handleTestCaseAnsFileChange} />
-                        </Col>
-                        <Col sm={4}>
-                            <Button variant="primary" type="button" onClick={handleTestCaseAnswerUpdate}>更改</Button>
-                        </Col>
-                    </Form.Group>
+
                 </Form>
             </Row>
 

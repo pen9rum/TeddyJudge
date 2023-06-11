@@ -191,9 +191,9 @@ api.updateHomeworkEndTime = async function (homeworkName, dateParam) {
     }
 };
 
-api.updateTestCase = async function (homeworkName, testCase) {
+api.updateTestCase = async function (homeworkName, testCase, index) {
     try {
-        const response = await this.put(`/homework/${homeworkName}/update/testcase`, testCase, {
+        const response = await this.put(`/homework/${homeworkName}/update/testcase/${index}`, testCase, {
             headers: {
                 'Content-Type': 'text/plain'
             }
@@ -206,9 +206,9 @@ api.updateTestCase = async function (homeworkName, testCase) {
     }
 };
 
-api.updateTestCaseAnswer = async function (homeworkName, testCaseAnswer) {
+api.updateTestCaseAnswer = async function (homeworkName, testCaseAnswer, index) {
     try {
-        const response = await this.put(`/homework/${homeworkName}/update/testcaseanswer`, testCaseAnswer, {
+        const response = await this.put(`/homework/${homeworkName}/update/testcaseanswer/${index}`, testCaseAnswer, {
             headers: {
                 'Content-Type': 'text/plain'
             }
