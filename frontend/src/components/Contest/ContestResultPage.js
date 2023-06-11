@@ -124,7 +124,7 @@ const ContestResultPage = () => {
                 <Col className="label-deduct-points text-start">
                     <label htmlFor="exampleInput">
                         <ul className="mt-3">
-                            {result.map((line, index) => <li key={index}>{line}</li>)}
+                            {result && result.map((line, index) => <li key={index}>{line}</li>)}
                         </ul>
                     </label>
                 </Col>
