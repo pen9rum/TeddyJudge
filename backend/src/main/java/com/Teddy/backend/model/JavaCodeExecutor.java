@@ -26,8 +26,8 @@ public class JavaCodeExecutor {
                 return "編譯錯誤：" + new String(compileProcess.getErrorStream().readAllBytes());
             }
 
-            int totalScore = 0;
-            int scorePerCase = 100 / testCases.size();
+            double totalScore = 0;
+            double scorePerCase = 100.0 / testCases.size();
             StringBuilder resultOutput = new StringBuilder();
 
             int testCaseNumber = 1;
@@ -57,7 +57,7 @@ public class JavaCodeExecutor {
 
                     if (actualOutput.equals(expectedOutput)) {
                         totalScore += scorePerCase;
-                        results.add((double) scorePerCase);
+                        results.add(scorePerCase);
                         resultOutput.append("Test case ").append(testCaseNumber).append(", AC\n");
                     } else {
                         resultOutput.append("Test case ").append(testCaseNumber).append(", WA\n");
@@ -68,11 +68,7 @@ public class JavaCodeExecutor {
                 testCaseNumber++;
             }
 
-            if(totalScore==99){
-                totalScore = 100;
-            }
-
-            resultOutput.append("最終得分：").append(totalScore);
+            resultOutput.append("最終得分：").append(String.format("%.2f", totalScore));
             return resultOutput.toString();
 
         } catch (IOException | InterruptedException e) {
@@ -84,4 +80,3 @@ public class JavaCodeExecutor {
     }
 
 }
-

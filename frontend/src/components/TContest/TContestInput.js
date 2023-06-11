@@ -143,10 +143,6 @@ const TContestInput = () => {
         }
 
 
-
-
-
-
         const testCasesArray = testCases.map(item => item.testCase);
         const testCasesAnswerArray = testCases.map(item => item.testCaseAnswer);
 
@@ -226,20 +222,7 @@ const TContestInput = () => {
     };
 
 
-    const handlePreviousPage = () => {
-        if (currentPage > 1) {
-            setCurrentPage(prevPage => {
-                // Reset UI-related states after the page number is changed
-                setHomeworkName("");
-                setPdfFile(null);
-                setTestCases([{ testCase: "", testCaseAnswer: "" }]);
-                return prevPage - 1;
-            });
-        }
-        else {
-            navigate("/tcontest"); // Go back to contest route from the first page
-        }
-    };
+
 
 
 
@@ -304,22 +287,16 @@ const TContestInput = () => {
                             </Form.Group>
                         </>
                     ))}
+                    \
+
+
                     <Button onClick={() => setTestCases([...testCases, { testCase: "", testCaseAnswer: "" }])}>+</Button>
-
-                </Form>
-            </Row>
-
-            <Row >
-                <Col className={styles.sectionContainer}>
-                    <Button className="mx-5" onClick={handlePreviousPage}>Previous</Button>
                     {currentPage === questionCount ?
                         <Button onClick={() => navigate("")}>End</Button> :
                         <Button className="mx-5" onClick={handleNextPage}>Next</Button>
                     }
-                </Col>
+                </Form>
             </Row>
-
-
 
         </Container >
     );
