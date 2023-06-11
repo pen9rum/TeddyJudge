@@ -76,6 +76,53 @@ const TCourseModify = () => {
     const location = useLocation();
     const homeWork = location.state?.fileTitle;
 
+    useEffect(() => {
+        if (homeWork) {
+            // Call the function to get homework data
+            api.getHomeworkByHomeworkName(homeWork)
+                .then(data => {
+                    if (data) {
+                        console.log(data);
+                        const formatDate = (date) => {
+                            let d = new Date(date);
+                            let month = '' + (d.getMonth() + 1);
+                            let day = '' + d.getDate();
+                            let year = d.getFullYear();
+                            let hour = d.getHours();
+                            let minute = d.getMinutes();
+
+                            if (month.length < 2)
+                                month = '0' + month;
+                            if (day.length < 2)
+                                day = '0' + day;
+                            if (hour < 10)
+                                hour = '0' + hour;
+                            if (minute < 10)
+                                minute = '0' + minute;
+
+                            return [year, month, day].join('-') + 'T' + [hour, minute].join(':');
+                        }
+
+                        // Then in your api call
+                        setStartTime(formatDate(data.startTime));
+                        setEndTime(formatDate(data.endTime));
+
+
+
+
+
+                        console.log("Hello start time" + startTime);
+                    } else {
+                        console.log("Failed to fetch homework data for: ", homeWork);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching homework data: ", error);
+                });
+        }
+    }, [homeWork]);
+
+
     return (
         <Container className={styles.courseContainer}>
             <Row >
@@ -91,9 +138,7 @@ const TCourseModify = () => {
                 <Col className={styles.sectionContainer}>
                     <h2>{homeWork}</h2>
                 </Col>
-                <Col>
-                    <h2>/</h2>
-                </Col>
+
                 <Col>
                     <h2>{homeWorkTitle}</h2>
                 </Col>

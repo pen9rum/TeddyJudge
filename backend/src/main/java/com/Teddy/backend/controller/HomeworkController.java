@@ -77,6 +77,17 @@ public class HomeworkController {
             return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
         }
     }
+
+    @GetMapping("/{homeworkName}")
+    public ResponseEntity<HomeworkBO> getHomeworkByHomeworkName(@PathVariable String homeworkName) {
+        HomeworkBO homeworkBo = homeworkService.getHomeworkByHomeworkName(homeworkName);
+        if (homeworkBo == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(homeworkBo, HttpStatus.OK);
+    }
+
+
     @PutMapping("/{homeworkName}/update/starttime")
     public ResponseEntity<Void> updateStartTime( @RequestParam("dateParam") @DateTimeFormat(pattern="yyyy-MM-dd") Date StartTime,@PathVariable String homeworkName) {
 

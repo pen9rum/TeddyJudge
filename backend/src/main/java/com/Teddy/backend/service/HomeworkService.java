@@ -211,7 +211,36 @@ public class HomeworkService {
         }
     }
 
+    public HomeworkBO getHomeworkByHomeworkName(String homeworkName){
+        var homeworkOptional =  homeworkDao.findByHomeworkName(homeworkName);
+        if(!homeworkOptional.isPresent()){return null;}
+        var homework = homeworkOptional.get();
 
+        HomeworkBO bo = new HomeworkBO();
+        bo.setHomeworkName(homework.getHomeworkName());
+
+        // Get test cases from homework entity
+        List<TestCase> testCases = homework.getTestCases();
+
+        // Transform the test cases and their answers to lists
+        List<String> testCaseList = new ArrayList<>();
+        List<String> testCaseAnswerList = new ArrayList<>();
+        for (TestCase testCase : testCases) {
+            testCaseList.add(testCase.getTestCase());
+            testCaseAnswerList.add(testCase.getTestCaseAnswer());
+        }
+        bo.setTestCase(testCaseList);
+        bo.setTestCaseAnswer(testCaseAnswerList);
+
+        bo.setStartTime(homework.getStartTime());
+        bo.setEndTime(homework.getEndTime());
+        bo.setAverage(homework.getAverage());
+
+        // Add the URL for the PDF file
+        bo.setPdfUrl("/homework/" + homework.getHomeworkName() + "/pdf");
+
+        return bo;
+    }
 
 
 

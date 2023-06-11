@@ -33,7 +33,8 @@ const ResultPage = () => {
             const resultData = await api.getStudentResultById(homeworkTitle, id);
             console.log(resultData);
             if (resultData) {
-                setResult(resultData);
+                const resultArray = resultData.split('\n');  // 新增這一行
+                setResult(resultArray);  // 修改這一行
             }
         }
 
@@ -78,7 +79,7 @@ const ResultPage = () => {
                 <Col className="label-deduct-points text-start">
                     <label htmlFor="exampleInput">
                         <ul className="mt-3">
-                            {result}
+                            {result && result.map((line, index) => <li key={index}>{line}</li>)}
                         </ul>
                     </label>
                 </Col>

@@ -501,5 +501,27 @@ api.getAverageScoreByHomeworkName = async function (homeworkName) {
     }
 };
 
+api.getHomeworkByHomeworkName = async function (homeworkName) {
+    try {
+        const response = await this.get(`/homework/${homeworkName}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Basic ${btoa(process.env.REACT_APP_API_USERNAME + ":" + process.env.REACT_APP_API_PASSWORD)}`
+            }
+        });
+
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            console.error('Error fetching homework by name: ', response);
+            return null;
+        }
+    } catch (error) {
+        console.error('Error fetching homework by name: ', error);
+        return null;
+    }
+};
+
+
 
 export default api;
