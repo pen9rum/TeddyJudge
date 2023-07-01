@@ -28,4 +28,10 @@ public class Homework {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id", nullable = true)
     private Contest contest;
+
+    @OneToMany(mappedBy = "homework", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    private List<StyleCheck> styleChecks;
+
+    @OneToMany(mappedBy = "homework", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = false)
+    private List<StyleCheckResult> styleCheckResult;
 }

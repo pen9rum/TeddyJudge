@@ -20,6 +20,5 @@ public class Contest {
     private Date endTime;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "contest")
-
     private List<Homework> homeworks;
 }

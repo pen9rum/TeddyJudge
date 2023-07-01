@@ -69,9 +69,24 @@ const Navbar = () => {
                 </NavLink>
             </Nav.Item>
 
+            {
+                role === 'teacher' ?
+                    (<Nav.Item className={isActive(prefix + 'style-checker')}>
+                        <NavLink
+                            to={prefix + "style-checker"}
+                            className="nav-link"
+                        >
+                            Style-Checker
+                        </NavLink>
+                    </Nav.Item>) : null
+
+            }
+
             <Nav.Item className={isActive(prefix + 'logout')}>
                 <button onClick={logout} className="nav-link">Logout</button>
             </Nav.Item>
+
+
 
         </Nav>
     );

@@ -426,6 +426,32 @@ api.getStudentResultById = async function (homeworkName, id) {
     }
 };
 
+api.getStudentStyleCheckResultById = async function (homeworkName, id) {
+    console.log(homeworkName, id);
+    try {
+        const response = await this.post('/style-check/result', {
+            homeworkName: homeworkName,
+            studentId: id,
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            console.error('Error fetching style check: ', response);
+            return null;
+        }
+    } catch (error) {
+        console.error('Error fetching style check: ', error);
+        return null;
+    }
+};
+
+
 api.getStudentSourceCodeById = async function (homeworkName, id) {
     console.log(homeworkName, id);
     try {
@@ -522,6 +548,28 @@ api.getHomeworkByHomeworkName = async function (homeworkName) {
     }
 };
 
+api.addStyleCheck = async function (homeworkName, styleCheckData) {
+    try {
+        const response = await this.post('/style-check/add', {
+            homeworkName: homeworkName,
+            functionName: styleCheckData.functionName,
+            functionType: styleCheckData.functionType
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
 
+        if (response.status === 201) {
+            return true;
+        } else {
+            console.error('Error submitting style check: ', response);
+            return false;
+        }
+    } catch (error) {
+        console.error('Error submitting style check: ', error);
+        return false;
+    }
+};
 
 export default api;

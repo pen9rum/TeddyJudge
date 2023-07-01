@@ -30,6 +30,9 @@ import SettingPage from './components/Setting/SettingPage';
 import TSettingPage from './components/Setting/TSettingPage';
 
 import ProtectedRoute from './components/Auth/ProtectedRoute';
+import TStyleChecker from './components/TStyleChecker/TStyleChecker';
+import TStyleInput from './components/TStyleChecker/TStyleInput';
+import StyleCheckResultPage from './components/Result/StyleCheckResultPage';
 
 export const routes = (
     <>
@@ -54,6 +57,9 @@ export const routes = (
         </Route>
         <Route path="/result" element={<ProtectedRoute />}>
             <Route index element={<ResultPage />} />
+        </Route>
+        <Route path="/style-check-result" element={<ProtectedRoute />}>
+            <Route index element={<StyleCheckResultPage />} />
         </Route>
         <Route path="/setting" element={<ProtectedRoute />}>
             <Route index element={<SettingPage />} />
@@ -80,7 +86,10 @@ export const routes = (
             <Route path="input" element={<TContestInput />} />
         </Route>
 
-
+        <Route path="/tstyle-checker" element={<ProtectedRoute />}>
+            <Route index element={<TStyleChecker />} />
+            <Route path="input" element={<TStyleInput />} />
+        </Route>
 
         <Route path="/contestList/:param" element={<ProtectedRoute />}>
             <Route index element={<ContestListPage />} />

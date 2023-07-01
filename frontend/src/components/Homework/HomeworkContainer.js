@@ -29,7 +29,7 @@ const HomeworkContainer = ({ homeworkTitle, dueDate }) => {
                     </Row>
                 </Col>
 
-                <Col className={`text-center ${styles.colBtnGo} d-flex justify-content-end p-0`}>
+                <Col lg={1} className={`text-center ${styles.colBtnGo} d-flex justify-content-end p-0`}>
                     <Button
                         className={`btn-go ${styles.btnGo}`}
                         variant="primary"
@@ -39,9 +39,20 @@ const HomeworkContainer = ({ homeworkTitle, dueDate }) => {
                     </Button>
                 </Col>
 
-
+                <Col lg={1} className={`text-center ${styles.colBtnStyleCheck} d-flex justify-content-end p-0 `}>
+                    <Button
+                        className={`btn-go ${styles.btnStyleCheck}`}
+                        variant="primary"
+                        onClick={() => navigate('/style-check-result', { state: { homeworkTitle } })}
+                    >
+                        Check
+                    </Button>
+                </Col>
             </Row>
-        </Container>
+
+
+
+        </Container >
     );
 };
 

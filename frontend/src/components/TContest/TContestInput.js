@@ -13,9 +13,6 @@ const TContestInput = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [homeworkName, setHomeworkName] = useState("");
     const [pdfFile, setPdfFile] = useState(null);
-    // const [testCase, setTestCase] = useState("");
-    // const [testCaseAnswer, setTestCaseAnswer] = useState("");
-
     const [testCases, setTestCases] = useState([{ testCase: "", testCaseAnswer: "" }]);
 
     const [homeworks, setHomeworks] = useState(
@@ -28,14 +25,11 @@ const TContestInput = () => {
 
     const [pdfFiles, setPdfFiles] = useState([]);
 
-
     const location = useLocation();
     const contestName = location.state?.contestName;
     const startTime = location.state?.startTime;
     const endTime = location.state?.endTime;
     const navigate = useNavigate();
-
-
 
     useEffect(() => {
         const initialHomeworks = new Array(questionCount).fill({
@@ -98,10 +92,6 @@ const TContestInput = () => {
             updatedHomeworks[currentPage - 1].testCases = newTestCases;
             return updatedHomeworks;
         });
-
-
-
-
     };
 
     const handleTestCaseAnsFileChange = async (e, index) => {
@@ -220,10 +210,6 @@ const TContestInput = () => {
         setTestCases([{ testCase: "", testCaseAnswer: "" }]);
 
     };
-
-
-
-
 
 
     return (

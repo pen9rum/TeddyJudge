@@ -49,6 +49,11 @@ const ContestListContainer = ({ homeworkTitle, result, score, scoreTotal, isAnsO
                     </Col>
                 )}
 
+                <Col className={`text-center ${styles.colBtnAns} d-flex justify-content-end p-0`}>
+                    <Button className={`btn-go ${styles.btnReview}`} variant="primary" onClick={() => navigate(`/style-check-result`, { state: { homeworkTitle } })}>
+                        Check
+                    </Button>
+                </Col>
 
             </Row>
         </Container>

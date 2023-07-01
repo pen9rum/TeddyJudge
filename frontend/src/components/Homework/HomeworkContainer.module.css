@@ -13,7 +13,8 @@
 .colBtnGo {
     width: 100px;
     height: 100px;
-    align-self: center;
+    align-self: flex-end;
+    margin-left: -7px;
 }
 
 /* Set dimensions and font size for the button */
@@ -22,4 +23,18 @@
     height: 100%;
     font-size: 2rem;
     border-radius: 0px;
+}
+
+.colBtnStyleCheck {
+    width: 100px;
+    height: 100px;
+    margin-left: 6px;
+}
+
+.btnStyleCheck {
+    width: 100px;
+    height: 100%;
+    font-size: 1.5rem;
+    border-radius: 0px;
+
 }

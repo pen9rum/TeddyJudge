@@ -37,7 +37,6 @@ const ContestResultPage = () => {
                 const totalScore = scoreData.reduce((a, b) => a + b, 0);
                 setScore(totalScore);
             } else {
-                console.log("what");
             }
 
             const resultData = await api.getStudentResultById(homeworkName, id);

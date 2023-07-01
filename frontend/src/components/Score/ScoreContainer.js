@@ -50,6 +50,16 @@ const ScoreContainer = ({ homeworkTitle, score }) => {
                     </Button>
                 </Col>
 
+                <Col className="text-center col-btn-detail d-flex justify-content-end p-0 ">
+                    <Button
+                        className={`btn-submit`}
+                        variant="primary"
+                        onClick={() => navigate('/style-check-result', { state: { homeworkTitle } })}
+                    >
+                        Check
+                    </Button>
+                </Col>
+
 
 
 

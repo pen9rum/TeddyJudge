@@ -17,8 +17,10 @@ public class TestCase {
 
     private int testCaseIndex;
     @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private String testCase;
     @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private String testCaseAnswer;
 
     @ManyToOne

@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
+import java.util.List;
+
 
 @Entity
 @Data
@@ -18,4 +20,6 @@ public class Student {
     private String name;
     private String color;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "student")
+    private List<StyleCheckResult> styleCheckResults;
 }
