@@ -30,27 +30,36 @@ public class StyleCheckService {
 
     @Autowired
     private StudentDao studentDao;
-
-
-
+    
     public void addStyleCheck(StyleCheckBO bo){
         System.out.println(bo.getHomeworkName());
         // Find the homework by its name
         Optional<Homework> homework = homeworkDao.findByHomeworkName(bo.getHomeworkName());
-        if (homework == null) {
+        if (!homework.isPresent()) {
             throw new RuntimeException("Homework not found");
         }
 
-        // Create StyleChecks
+        // Create or update StyleChecks
         for (int i = 0; i < bo.getFunctionName().size(); i++) {
-            StyleCheck styleCheck = new StyleCheck();
-            styleCheck.setHomework(homework.get());
+            Long id = Long.valueOf(i+1);
+            Optional<StyleCheck> optionalStyleCheck = styleCheckDao.findByIdAndHomework(id, homework.get());
+            StyleCheck styleCheck;
+            if (optionalStyleCheck.isPresent()) {
+                // If the StyleCheck already exists, update it
+                styleCheck = optionalStyleCheck.get();
+            } else {
+                // If the StyleCheck does not exist, create a new one
+                styleCheck = new StyleCheck();
+                styleCheck.setId(id);
+                styleCheck.setHomework(homework.get());
+            }
             styleCheck.setFunctionName(bo.getFunctionName().get(i));
             styleCheck.setFunctionType(bo.getFunctionType().get(i));
             // Save it to the database
             styleCheckDao.save(styleCheck);
         }
     }
+
 
     public List<String> getStyleCheck(Long student_id, String homeworkName){
         Optional<Student> studentOptional = studentDao.findById(student_id);
