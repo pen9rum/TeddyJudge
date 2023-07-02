@@ -30,7 +30,7 @@ public class StyleCheckService {
 
     @Autowired
     private StudentDao studentDao;
-    
+
     public void addStyleCheck(StyleCheckBO bo){
         System.out.println(bo.getHomeworkName());
         // Find the homework by its name

@@ -19,8 +19,6 @@ const TCourseListContainer = ({ fileTitle, nextRouter }) => {
                     <Button className={`btn-go ${styles.btnGo}`} variant="primary" onClick={() => navigate(nextRouter, { state: { fileTitle } })}>
                         Go
                     </Button>
-
-
                 </Col>
             </Row >
         </Container >

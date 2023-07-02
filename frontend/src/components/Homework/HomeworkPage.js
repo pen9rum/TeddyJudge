@@ -70,9 +70,6 @@ const HomeworkPage = () => {
     }, []);
 
 
-
-
-
     return (
         <Container className="homework-page-container">
             <Row>
