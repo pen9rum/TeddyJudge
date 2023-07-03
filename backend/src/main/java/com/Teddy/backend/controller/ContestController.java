@@ -6,6 +6,7 @@ import com.Teddy.backend.service. ContestService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")  // Replace with your frontend origin
@@ -73,6 +75,31 @@ public class ContestController {
         return new ResponseEntity<>(contestBo, HttpStatus.OK);
     }
 
+
+    @PutMapping("/{contestName}/update/starttime")
+    public ResponseEntity<Void> updateStartTime(@RequestParam("dateParam") @DateTimeFormat(pattern="yyyy-MM-dd") Date StartTime, @PathVariable String contestName) {
+        System.out.println("Hello contest");
+        Boolean date = contestService.updateStartTime(StartTime,contestName);
+        if (date == false) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        else
+        {
+            return new ResponseEntity<>( HttpStatus.OK);
+        }
+    }
+
+    @PutMapping("/{contestName}/update/endtime")
+    public ResponseEntity<Void> updateEndTime( @RequestParam("dateParam") @DateTimeFormat(pattern="yyyy-MM-dd") Date EndTime,@PathVariable String contestName) {
+        Boolean date = contestService.updateEndTime(EndTime,contestName);
+        if (date == false) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        else
+        {
+            return new ResponseEntity<>( HttpStatus.OK);
+        }
+    }
 
 
 

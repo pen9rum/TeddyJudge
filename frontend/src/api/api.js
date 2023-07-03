@@ -572,4 +572,40 @@ api.addStyleCheck = async function (homeworkName, styleCheckData) {
     }
 };
 
+api.updateContestEndTime = async function (contestName, dateParam) {
+    try {
+        const response = await this.put(`/contest/${contestName}/update/endtime`, null, {
+            params: {
+                dateParam: dateParam
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        return response.status === 200;
+    } catch (error) {
+        console.error("Error updating end time:", error);
+        return false;
+    }
+};
+
+api.updateContestStartTime = async function (contestName, dateParam) {
+    try {
+        const response = await this.put(`/contest/${contestName}/update/starttime`, null, {
+            params: {
+                dateParam: dateParam
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        return response.status === 200;
+    } catch (error) {
+        console.error("Error updating end time:", error);
+        return false;
+    }
+};
+
 export default api;

@@ -16,6 +16,7 @@ import com.Teddy.backend.entity.Contest;
 import com.Teddy.backend.model.ContestBO;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 @Service
@@ -177,5 +178,30 @@ public class ContestService {
         return contestBo;
     }
 
+    public boolean updateStartTime(Date StartTime, String contestName) {
+        Optional<Contest> contest = contestDao.findByContestname(contestName);
+        if (contest.isPresent()) {
+            contest.get().setStartTime(StartTime);
+            contestDao.save(contest.get());
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public boolean updateEndTime(Date EndTime,String contestName) {
+        Optional<Contest> contest = contestDao.findByContestname(contestName);
+        if (contest.isPresent()) {
+            contest.get().setEndTime(EndTime);
+            contestDao.save(contest.get());
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 }
