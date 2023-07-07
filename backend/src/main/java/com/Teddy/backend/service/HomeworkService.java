@@ -235,6 +235,12 @@ public class HomeworkService {
         bo.setStartTime(homework.getStartTime());
         bo.setEndTime(homework.getEndTime());
         bo.setAverage(homework.getAverage());
+        if(homework.getContest()==null){
+            bo.setContestOrNot(false);
+        }else{
+            bo.setContestOrNot(true);
+        }
+
 
         // Add the URL for the PDF file
         bo.setPdfUrl("/homework/" + homework.getHomeworkName() + "/pdf");

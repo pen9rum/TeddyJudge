@@ -15,6 +15,7 @@ const TCourseModify = () => {
     const [testCaseAnswer, setTestCaseAnswer] = useState("");
     const [testCases, setTestCases] = useState([]);
     const [testCaseAnswers, setTestCaseAnswers] = useState([]);
+    const [isContext, setIsContext] = useState(true);
 
 
 
@@ -131,8 +132,10 @@ const TCourseModify = () => {
                         setEndTime(formatDate(data.endTime));
                         setTestCases(data.testCase);
                         setTestCaseAnswers(data.testCaseAnswer);
+                        setIsContext(data.contestOrNot);
 
-
+                        console.log("Hi" + data.contestOrNot)
+                        console.log("Hiii" + isContext)
 
                         console.log("Hello start time" + startTime);
                     } else {
@@ -143,7 +146,7 @@ const TCourseModify = () => {
                     console.error("Error fetching homework data: ", error);
                 });
         }
-    }, [homeWork]);
+    }, [homeWork, isContext]);
 
 
     return (
@@ -169,30 +172,34 @@ const TCourseModify = () => {
 
             <Row>
                 <Form className={styles.sectionContainer}>
-                    <Form.Group className="mb-3" controlId="formStartTime" as={Row}>
-                        <Form.Label column sm={5} >
-                            開始時間
-                        </Form.Label>
-                        <Col sm={3}>
-                            <Form.Control type="datetime-local" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
-                        </Col>
-                        <Col sm={4}>
-                            <Button variant="primary" type="button" onClick={handleStartTimeUpdate}>更改</Button>
-                        </Col>
-                    </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formEndTime" as={Row}>
-                        <Form.Label column sm={5}>
-                            結束時間
-                        </Form.Label>
-                        <Col sm={3}>
-                            <Form.Control type="datetime-local" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
-                        </Col>
-                        <Col sm={4}>
-                            <Button variant="primary" type="button" onClick={handleEndTimeUpdate}>更改</Button>
-                        </Col>
-                    </Form.Group>
+                    {isContext === false && (
+                        <>
+                            <Form.Group className="mb-3" controlId="formStartTime" as={Row}>
+                                <Form.Label column sm={5} >
+                                    開始時間
+                                </Form.Label>
+                                <Col sm={3}>
+                                    <Form.Control type="datetime-local" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
+                                </Col>
+                                <Col sm={4}>
+                                    <Button variant="primary" type="button" onClick={handleStartTimeUpdate}>更改</Button>
+                                </Col>
+                            </Form.Group>
 
+                            <Form.Group className="mb-3" controlId="formEndTime" as={Row}>
+                                <Form.Label column sm={5}>
+                                    結束時間
+                                </Form.Label>
+                                <Col sm={3}>
+                                    <Form.Control type="datetime-local" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
+                                </Col>
+                                <Col sm={4}>
+                                    <Button variant="primary" type="button" onClick={handleEndTimeUpdate}>更改</Button>
+                                </Col>
+                            </Form.Group>
+                        </>
+                    )}
 
                     <Form.Group className="mb-3" controlId="formPDFUpload" as={Row}>
                         <Form.Label column sm={5}>
