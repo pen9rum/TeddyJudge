@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
@@ -14,11 +15,15 @@ import java.util.List;
 @Component
 public class JavaCodeExecutor {
 
+    private static final String PROJECT_PATH = System.getProperty("user.dir");
+    private static final String MAIN_JAVA_FILE_PATH = Paths.get(PROJECT_PATH, "src", "main", "resources", "Main.java").toString();
+    private static final String MAIN_CLASS_FILE_PATH = Paths.get(PROJECT_PATH, "src", "main", "resources", "Main.class").toString();
+
     public String compileAndRunJavaCode(String sourceCode, Long id, List<TestCase> testCases, List<Double> results) {
         try {
-            Files.write(Paths.get("Main.java"), sourceCode.getBytes());
+            Files.write(Paths.get(MAIN_JAVA_FILE_PATH), sourceCode.getBytes());
 
-            ProcessBuilder compileProcessBuilder = new ProcessBuilder("javac", "Main.java");
+            ProcessBuilder compileProcessBuilder = new ProcessBuilder("javac", MAIN_JAVA_FILE_PATH);
             Process compileProcess = compileProcessBuilder.start();
             int compileExitCode = compileProcess.waitFor();
 
@@ -35,7 +40,7 @@ public class JavaCodeExecutor {
                 String input = testCase.getTestCase();
                 String expectedOutput = testCase.getTestCaseAnswer();
 
-                ProcessBuilder runProcessBuilder = new ProcessBuilder("java", "Main");
+                ProcessBuilder runProcessBuilder = new ProcessBuilder("java", "-cp", Paths.get(PROJECT_PATH, "src", "main", "resources").toString(), "Main");
                 Process runProcess = runProcessBuilder.start();
 
                 try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(runProcess.getOutputStream(), StandardCharsets.UTF_8))) {
@@ -53,7 +58,6 @@ public class JavaCodeExecutor {
 
                     System.out.println("Answer");
                     System.out.println(expectedOutput);
-
 
                     if (actualOutput.equals(expectedOutput)) {
                         totalScore += scorePerCase;
@@ -74,9 +78,8 @@ public class JavaCodeExecutor {
         } catch (IOException | InterruptedException e) {
             return "錯誤：" + e.getMessage();
         } finally {
-            new File("Main.java").delete();
-            new File("Main.class").delete();
+            new File(MAIN_JAVA_FILE_PATH).delete();
+            new File(MAIN_CLASS_FILE_PATH).delete();
         }
     }
-
 }

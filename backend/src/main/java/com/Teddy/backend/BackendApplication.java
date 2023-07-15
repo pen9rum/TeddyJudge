@@ -14,7 +14,7 @@ public class BackendApplication {
 				SpringApplication.run(BackendApplication.class, args); // 取得Spring Context
 
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String rawPassword = "Admin2";
+		String rawPassword = "yourPassword";
 		String encodedPassword = passwordEncoder.encode(rawPassword);
 
 		System.out.println(encodedPassword);
