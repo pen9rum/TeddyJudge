@@ -23,7 +23,7 @@ public class ContestRankItem {
     @Column(name = "`rank`")
     private int rank;
     private Long sId;
-    private int score;
-
-    private List<Double> eachScore;
+    private int totalScore;
+    @ElementCollection
+    private List<Double> eachQuestionScore;
 }

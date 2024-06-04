@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 
 
+
 /**
  * Author: Your Name
  *
@@ -19,7 +20,7 @@ import jakarta.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-class HomeworkRankItem {
+public class HomeworkRankItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,5 +33,5 @@ class HomeworkRankItem {
     @Column(name = "`rank`")
     private int rank;
     private Long sId;
-    private int score;
+    private Double score;
 }
