@@ -14,8 +14,10 @@ public class LeaderBoardHomeworkController {
     @Autowired
     private LeaderBoardHomeworkService leaderBoardHomeworkService;
 
-    @GetMapping("/getRank")
-    public ResponseEntity<LeaderBoardHomeworkBO> getRank(@RequestParam String homeworkName) {
+    @GetMapping("/getRank/{homeworkName}")
+    public ResponseEntity<LeaderBoardHomeworkBO> getRank(@PathVariable("homeworkName") String homeworkName) {
+
+        System.out.println(homeworkName);
         LeaderBoardHomeworkBO leaderBoardHomeworkBO = leaderBoardHomeworkService.getLeaderBoardHomeworkByHomeworkName(homeworkName);
         if (leaderBoardHomeworkBO != null) {
             return ResponseEntity.ok(leaderBoardHomeworkBO);

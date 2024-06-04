@@ -11,7 +11,7 @@ const HomeworkContainer = ({ homeworkTitle, dueDate }) => {
     return (
         <Container className={styles.homeworkContainer}>
             <Row>
-                <Col lg={9}>
+                <Col lg={8}>
                     <Row className="mt-3">
                         <Col className={`text-start ${styles.homeworkTitle}`}>
                             <header>
@@ -46,6 +46,15 @@ const HomeworkContainer = ({ homeworkTitle, dueDate }) => {
                         onClick={() => navigate('/style-check-result', { state: { homeworkTitle } })}
                     >
                         Check
+                    </Button>
+                </Col>
+                <Col lg={1} className={`text-center ${styles.colBtnStyleCheck} d-flex justify-content-end p-0 `}>
+                    <Button
+                        className={`btn-go ${styles.btnStyleCheck}`}
+                        variant="primary"
+                        onClick={() => navigate('/leaderBoardHomework', { state: { homeworkTitle } })}
+                    >
+                        LeaderBoard
                     </Button>
                 </Col>
             </Row>
