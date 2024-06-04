@@ -50,6 +50,9 @@ public class CodeExecutionService {
 
         var compilerOut = javaCodeExecutor.compileAndRunJavaCode(request.getSourceCode(), request.getId(), testCases, results);
 
+        while(results.size() < testCases.size()){
+            results.add(0.0);
+        }
 
         // Update Student homework box
         StudentHomeworkBox studentHomeworkBox = new StudentHomeworkBox();
@@ -65,11 +68,11 @@ public class CodeExecutionService {
 
 
 
+
         System.out.println(request.getHomeworkName());
         // Get all style checks for the given homework
         List<StyleCheck> styleChecks = styleCheckDao.findByHomework(homework);
 
-        System.out.println("Why");
         System.out.println(styleChecks.size());
 
         // Prepare the parameters for checkStyle()
