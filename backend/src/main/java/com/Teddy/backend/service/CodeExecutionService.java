@@ -38,6 +38,9 @@ public class CodeExecutionService {
     @Autowired
     private StudentDao studentDao;
 
+    @Autowired
+    private LeaderBoardHomeworkService leaderBoardHomeworkService;
+
     public String compileAndRunJavaCode(ExecuteCodeRequest request) {
 
         var homeWorkOptional = homeworkDao.findByHomeworkName(request.getHomeworkName());
@@ -48,13 +51,17 @@ public class CodeExecutionService {
         var compilerOut = javaCodeExecutor.compileAndRunJavaCode(request.getSourceCode(), request.getId(), testCases, results);
 
 
-            StudentHomeworkBox studentHomeworkBox = new StudentHomeworkBox();
-            studentHomeworkBox.setId(request.getId());
-            studentHomeworkBox.setHomeworkName(request.getHomeworkName());
-            studentHomeworkBox.setScores(results);
-            studentHomeworkBox.setResult(compilerOut);
-            studentHomeworkBox.setSourceCode(request.getSourceCode());
-            studentHomeworkBoxDao.save(studentHomeworkBox);
+        // Update Student homework box
+        StudentHomeworkBox studentHomeworkBox = new StudentHomeworkBox();
+        studentHomeworkBox.setId(request.getId());
+        studentHomeworkBox.setHomeworkName(request.getHomeworkName());
+        studentHomeworkBox.setScores(results);
+        studentHomeworkBox.setResult(compilerOut);
+        studentHomeworkBox.setSourceCode(request.getSourceCode());
+        studentHomeworkBoxDao.save(studentHomeworkBox);
+
+        // Update Student leaderboard for homework
+        leaderBoardHomeworkService.update(request.getHomeworkName());
 
 
 

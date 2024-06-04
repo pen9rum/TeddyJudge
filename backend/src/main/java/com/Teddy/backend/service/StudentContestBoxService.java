@@ -14,7 +14,7 @@ public class StudentContestBoxService {
     public boolean add(StudentContestBoxBO bo) {
         StudentContestBox entity = new StudentContestBox();
         entity.setContestname(bo.getContestname());
-        entity.setId(bo.getId()); // PDF is now a byte[]
+        entity.setId(bo.getId());
         studentcontestboxDao.save(entity);
         return true;
     }

@@ -3,7 +3,6 @@ package com.Teddy.backend.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.Date;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -17,9 +16,8 @@ public class LeaderBoardHomework {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "homeworkName", nullable = false)
-    private Homework homework;
+
+    private String homeworkName;
 
     @OneToMany(mappedBy = "leaderBoardHomework", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HomeworkRankItem> rankItems;

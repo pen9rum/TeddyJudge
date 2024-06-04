@@ -29,7 +29,7 @@ public class StudentHomeworkBoxService {
     public boolean add(StudentHomeworkBoxBO bo) {
         StudentHomeworkBox entity = new StudentHomeworkBox();
         entity.setHomeworkName(bo.getHomeworkName());
-        entity.setId(bo.getId()); // PDF is now a byte[]
+        entity.setId(bo.getId()); 
         studenthomeworkboxDao.save(entity);
         return true;
     }
