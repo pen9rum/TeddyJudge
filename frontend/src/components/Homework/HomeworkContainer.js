@@ -54,7 +54,7 @@ const HomeworkContainer = ({ homeworkTitle, dueDate }) => {
                         variant="primary"
                         onClick={() => navigate('/leaderBoardHomework', { state: { homeworkTitle } })}
                     >
-                        LeaderBoard
+                        Rank
                     </Button>
                 </Col>
             </Row>

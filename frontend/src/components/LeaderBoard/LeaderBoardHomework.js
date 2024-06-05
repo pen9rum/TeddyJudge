@@ -1,33 +1,25 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { AuthContext } from '../Auth/AuthContext';
-import { Container, Row, Col } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Table } from 'react-bootstrap';
 import './LeaderBoardHomework.css';
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
-import HomeworkContainer from '../Homework/HomeworkContainer';
-import ScoreContainer from '../Score/ScoreContainer';
 import api from '../../api/api';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-
-const LeaderBoardHomework = () => {
-    const navigate = useNavigate();
+const LeaderBoardHomework = () => { 
     const location = useLocation();
     const { homeworkTitle } = location.state;
-    const {leaderBoardHomeworkData, setLeaderBoardHomeworkData} = useState(null);
-    const { id } = useContext(AuthContext);
-
+    const [leaderBoardHomeworkData, setLeaderBoardHomeworkData] = useState(null);
+    
     useEffect(() =>{
             async function fetchLeaderBoardData(){
-                console.log(homeworkTitle);
                 const data = await api.getLeaderBoardHomework(homeworkTitle);
-                console.log(data);
-                // setLeaderBoardHomeworkData(data);                          
+                if(data){
+                    setLeaderBoardHomeworkData(data);     
+                }
             };
 
             fetchLeaderBoardData();
-            // console.log(leaderBoardHomeworkData);
-
         }, [homeworkTitle]);
 
 
@@ -41,6 +33,30 @@ const LeaderBoardHomework = () => {
                     <Navbar />
                 </Col>
             </Row>
+
+            <Row className="leaderboard-row">
+    <Col>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Student ID</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          {leaderBoardHomeworkData ?  leaderBoardHomeworkData.rankItems.map((item, index) => (
+            <tr key={item.id}>
+              <td>{item.rank}</td>
+              <td>{item.sid}</td>
+              <td>{item.score}</td>
+            </tr>
+          )) : null
+        }
+        </tbody>
+      </Table>
+    </Col>
+  </Row>
 
         </Container>
     );

@@ -609,9 +609,7 @@ api.updateContestStartTime = async function (contestName, dateParam) {
 };
 
 api.getLeaderBoardHomework = async function (homeworkName) {
-    try {
-        console.log(`/leaderboardhomework/getRank/${homeworkName}`);
-        
+    try {        
       const response = await this.get(`/leaderboardhomework/getRank/${homeworkName}`);
       if (response.status === 200) {
         return response.data;
