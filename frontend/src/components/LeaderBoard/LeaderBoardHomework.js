@@ -9,6 +9,8 @@ import { useLocation } from 'react-router-dom';
 const LeaderBoardHomework = () => { 
     const location = useLocation();
     const { homeworkTitle } = location.state;
+    console.log(homeworkTitle);
+    
     const [leaderBoardHomeworkData, setLeaderBoardHomeworkData] = useState(null);
     
     useEffect(() =>{

@@ -6,6 +6,7 @@ import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
 import './TDashboard.css';
 import api from '../../api/api';
+import MyCalendar from '../Calendar/MyCalendar';
 
 
 const TDashboard = () => {
@@ -46,8 +47,6 @@ const TDashboard = () => {
                 <Col className="section-container">
                     <h2>想做甚麼呢?</h2>
                 </Col>
-
-
             </Row>
 
             <Row>
@@ -61,6 +60,8 @@ const TDashboard = () => {
                     <Button onClick={() => navigate("/tcourse")}>Course</Button>
                 </Col>
             </Row>
+            
+            <MyCalendar/>
 
         </Container>
     );
