@@ -97,7 +97,8 @@ const THomeworkInput = () => {
             testCaseAnswer: allTestCaseAnswers,
             average: 0.0, // assuming this is a static value
             pdfUrl: "", // assuming this is a static value
-            pdf: null
+            pdf: null,
+            contestOrNot: false
         }));
 
         try {
