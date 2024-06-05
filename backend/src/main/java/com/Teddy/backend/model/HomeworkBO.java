@@ -69,4 +69,6 @@ public class HomeworkBO {
      * Boolean flag indicating whether the homework is a part of a contest.
      */
     private boolean contestOrNot;
+
+    private boolean isHomework;
 }
