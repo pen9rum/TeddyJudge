@@ -35,7 +35,7 @@ const ContestListPage = () => {
                     contestData.homeworks.map(async (homework) => {
                         let scores = await api.getStudentScoreById(homework.homeworkName, id);
                         homework.totalScore = scores.reduce((a, b) => a + b, 0);
-                        if (homework.totalScore == 99 || homework.totalScore > 100) {
+                        if (homework.totalScore === 99 || homework.totalScore > 100) {
                             homework.totalScore = 100;
                         }
                         contestScore += homework.totalScore;

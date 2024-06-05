@@ -8,6 +8,7 @@ import com.Teddy.backend.entity.HomeworkRankItem;
 import com.Teddy.backend.entity.LeaderBoardHomework;
 import com.Teddy.backend.model.LeaderBoardHomeworkBO;
 import com.Teddy.backend.model.HomeworkRankItemBO;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -24,8 +25,11 @@ public class LeaderBoardHomeworkService {
 
     @Autowired
     private LeaderBoardHomeworkDao leaderBoardHomeworkDao;
+    @Transactional
 
     public void update(String homeworkName) {
+        System.out.println("update leaderboardhomework");
+
         // Step 1: Get all StudentHomeworkBox records by homeworkName
         List<StudentHomeworkBox> studentHomeworkBoxes = studentHomeworkBoxDao.findByHomeworkName(homeworkName);
 
@@ -36,6 +40,10 @@ public class LeaderBoardHomeworkService {
                         a.getScores().stream().mapToDouble(Double::doubleValue).sum()
                 ))
                 .collect(Collectors.toList());
+
+        for(int i=0; i<sortedHomeworkBoxes.size(); i++){
+            System.out.println(sortedHomeworkBoxes.get(i).getScores());
+        }
 
         // Step 3: Get or create the LeaderBoardHomework by homeworkName
         LeaderBoardHomework leaderBoardHomework = leaderBoardHomeworkDao.findByHomeworkName(homeworkName).orElse(null);
@@ -68,6 +76,7 @@ public class LeaderBoardHomeworkService {
             rankItem.setRank(rank);
             rankItem.setSId(box.getId());
             rankItem.setScore(totalScore);
+            System.out.println(rankItem.getId());
             homeworkRankItemDao.save(rankItem);
         }
     }

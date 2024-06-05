@@ -33,6 +33,7 @@ import ProtectedRoute from './components/Auth/ProtectedRoute';
 import TStyleChecker from './components/TStyleChecker/TStyleChecker';
 import TStyleInput from './components/TStyleChecker/TStyleInput';
 import StyleCheckResultPage from './components/Result/StyleCheckResultPage';
+import LeaderBoardHomework from './components/LeaderBoard/LeaderBoardHomework';
 
 export const routes = (
     <>
@@ -97,5 +98,10 @@ export const routes = (
         <Route path="/contestResult/:param" element={<ProtectedRoute />}>
             <Route index element={<ContestResultPage />} />
         </Route>
+
+        <Route path="/leaderBoardHomework" element={<ProtectedRoute />}>
+            <Route index element={<LeaderBoardHomework />} />
+        </Route>
+
     </>
 );

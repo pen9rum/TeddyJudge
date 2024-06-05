@@ -608,4 +608,19 @@ api.updateContestStartTime = async function (contestName, dateParam) {
     }
 };
 
+api.getLeaderBoardHomework = async function (homeworkName) {
+    try {        
+      const response = await this.get(`/leaderboardhomework/getRank/${homeworkName}`);
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        console.error('Error fetching leader board homework: ', response);
+        return null;
+      }
+    } catch (error) {
+      console.error('Error fetching leader board homework: ', error);
+      return null;
+    }
+  };
+
 export default api;
