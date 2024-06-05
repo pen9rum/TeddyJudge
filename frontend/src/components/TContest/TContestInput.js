@@ -144,7 +144,8 @@ const TContestInput = () => {
             endTime: endTime,
             average: 0,
             pdfUrl: null,
-            pdf: null
+            pdf: null,
+            contestOrNot: true
         };
 
 

@@ -10,7 +10,7 @@ const THomeworkContainer = ({ homeworkTitle, dueDate }) => {
     return (
         <Container className={styles.homeworkContainer}>
             <Row>
-                <Col>
+                <Col lg={9}>
                     <Row className="mt-3">
                         <Col className={`text-start ${styles.homeworkTitle}`}>
                             <header>
@@ -30,7 +30,7 @@ const THomeworkContainer = ({ homeworkTitle, dueDate }) => {
 
 
 
-                <Col className={`text-center ${styles.colBtnGo} d-flex justify-content-end p-0`}>
+                <Col lg={1} className={`text-center ${styles.colBtnGo} d-flex justify-content-end p-0`}>
                     <Button
                         className={`btn-go ${styles.btnGo}`}
                         variant="primary"
@@ -39,6 +39,17 @@ const THomeworkContainer = ({ homeworkTitle, dueDate }) => {
                         Go
                     </Button>
                 </Col>
+
+                <Col lg={1} className={`text-center ${styles.colBtnGo} d-flex justify-content-end p-0`}>
+                    <Button
+                        className={`btn-go ${styles.btnGo}`}
+                        variant="primary"
+                        onClick={() => navigate('/leaderBoardHomework', { state: { homeworkTitle } })}
+                    >
+                        Rank
+                    </Button>
+                </Col>
+
             </Row>
         </Container>
     );

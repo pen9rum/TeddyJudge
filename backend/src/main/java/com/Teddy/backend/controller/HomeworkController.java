@@ -35,6 +35,7 @@ public class HomeworkController {
             @RequestPart("homework") String homeworkJSON) {
 
         System.out.println("Add Homework");
+        System.out.println(homeworkJSON);
 
         ObjectMapper objectMapper = new ObjectMapper();
         HomeworkBO homeworkBo;

@@ -51,6 +51,8 @@ public class Homework {
      */
     private float average;
 
+    private boolean isHomework;
+
     /**
      * This represents a one-to-many association with the TestCase entity.
      */

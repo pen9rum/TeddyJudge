@@ -40,6 +40,7 @@ public class HomeworkService {
         entity.setEndTime(bo.getEndTime());
         entity.setAverage(bo.getAverage());
         entity.setContest(null);
+        entity.setHomework(!bo.isContestOrNot());
 
         if (!testCaseDao.existsByHomework(entity)) {
             List<TestCase> testCases = new ArrayList<>();

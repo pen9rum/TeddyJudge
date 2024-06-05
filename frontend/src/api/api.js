@@ -623,4 +623,19 @@ api.getLeaderBoardHomework = async function (homeworkName) {
     }
   };
 
+api.getCalendar = async function(){
+    try {        
+        const response = await this.get(`/calendar/getCalendar`);
+        if (response.status === 200) {
+          return response.data;
+        } else {
+          console.error('Error fetching leader board homework: ', response);
+          return null;
+        }
+      } catch (error) {
+        console.error('Error fetching leader board homework: ', error);
+        return null;
+      }
+}
+
 export default api;

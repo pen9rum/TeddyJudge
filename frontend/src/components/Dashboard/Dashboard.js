@@ -4,6 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Navbar from '../Navbar/Navbar';
 import NavbarLogo from '../Navbar/NavbarLogo';
 import HomeworkContainer from '../Homework/HomeworkContainer';
+import MyCalendar from '../Calendar/MyCalendar';
 import './Dashboard.css';
 import api from '../../api/api';
 
@@ -85,6 +86,8 @@ const Dashboard = () => {
                     </div>
                 </Col>
             </Row>
+
+            <MyCalendar/>
         </Container>
     );
 };
