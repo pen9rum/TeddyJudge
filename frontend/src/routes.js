@@ -34,6 +34,7 @@ import TStyleChecker from './components/TStyleChecker/TStyleChecker';
 import TStyleInput from './components/TStyleChecker/TStyleInput';
 import StyleCheckResultPage from './components/Result/StyleCheckResultPage';
 import LeaderBoardHomework from './components/LeaderBoard/LeaderBoardHomework';
+import LeaderBoardContest from './components/LeaderBoard/LeaderBoardContest';
 
 export const routes = (
     <>
@@ -101,6 +102,10 @@ export const routes = (
 
         <Route path="/leaderBoardHomework" element={<ProtectedRoute />}>
             <Route index element={<LeaderBoardHomework />} />
+        </Route>
+
+        <Route path="/leaderBoardContest" element={<ProtectedRoute />}>
+            <Route index element={<LeaderBoardContest />} />
         </Route>
 
     </>
